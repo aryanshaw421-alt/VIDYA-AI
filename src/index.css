@@ -28,24 +28,64 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 
   body {
-    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    letter-spacing: -0.015em;
+    /* Avenir / Avenir Next — Silky, modern humanistic body font */
+    font-family: 'Avenir Next', 'Avenir', 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    letter-spacing: -0.012em;
     overflow-x: hidden;
     transition: background-color 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  h1, h2, h3, h4, .font-display {
-    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
-    letter-spacing: -0.035em;
+  /* Playfair Display for all prestigious academic, editorial & showcase headings */
+  h1, h2, h3, h4, .font-display, .font-serif, .font-editorial, .font-playfair {
+    font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    letter-spacing: -0.022em;
+    font-feature-settings: "liga", "clig", "kern";
+  }
+
+  /* Montserrat for precision UI: navigation, buttons, chips, badges, labels, inputs */
+  h5, h6, nav, button, input, select, textarea, label, th, .font-montserrat, .font-ui {
+    font-family: 'Montserrat', 'Avenir Next', 'Avenir', sans-serif;
+    letter-spacing: -0.005em;
+  }
+
+  /* Code / monospace stays JetBrains Mono */
+  code, pre, kbd, .font-mono {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
   }
 
   /* GPU Hardware Acceleration on Animated Layers */
   button, a, input, select, textarea {
     transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
   }
+}
+
+/* Professional Typography Utility Classes */
+.font-playfair {
+  font-family: 'Playfair Display', Georgia, serif !important;
+}
+
+.font-montserrat {
+  font-family: 'Montserrat', 'Avenir Next', 'Avenir', sans-serif !important;
+}
+
+.font-avenir {
+  font-family: 'Avenir Next', 'Avenir', 'Montserrat', sans-serif !important;
+}
+
+.font-editorial {
+  font-family: 'Playfair Display', Georgia, serif !important;
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.editorial-quote {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
 }
 
 /* Fluid Full-Width Container */

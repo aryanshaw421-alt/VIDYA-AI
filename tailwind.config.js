@@ -28,11 +28,14 @@ export default {
         }
       },
       fontFamily: {
-        sans: ['Montserrat', 'Avenir', 'Helvetica Neue', 'system-ui', 'sans-serif'],
-        display: ['Playfair Display', 'Georgia', 'serif'],
-        editorial: ['Playfair Display', 'Georgia', 'serif'],
-        montserrat: ['Montserrat', 'sans-serif'],
-        mono: ['JetBrains Mono', 'Fira Code', 'monospace']
+        sans: ['"Avenir Next"', 'Avenir', 'Montserrat', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
+        avenir: ['"Avenir Next"', 'Avenir', 'Montserrat', '-apple-system', 'sans-serif'],
+        montserrat: ['Montserrat', '"Avenir Next"', 'Avenir', 'sans-serif'],
+        display: ['"Playfair Display"', 'Georgia', 'serif'],
+        editorial: ['"Playfair Display"', 'Georgia', 'serif'],
+        serif: ['"Playfair Display"', 'Georgia', 'serif'],
+        playfair: ['"Playfair Display"', 'Georgia', 'serif'],
+        mono: ['"JetBrains Mono"', 'Fira Code', 'monospace']
       },
       boxShadow: {
         'soft': '0 2px 20px -3px rgba(0, 85, 254, 0.06), 0 4px 6px -2px rgba(0, 0, 0, 0.02)',
