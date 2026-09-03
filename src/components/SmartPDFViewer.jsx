@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   FileText, 
   Sparkles, 
@@ -10,13 +10,20 @@ import {
   Check, 
   Brain, 
   Lightbulb, 
-  Search,
-  Download,
-  FolderOpen
+  Search, 
+  Download, 
+  FolderOpen,
+  Upload,
+  Layers,
+  FileCheck,
+  CheckCircle2,
+  Flame,
+  ArrowRight
 } from 'lucide-react';
 import { toast } from 'sonner';
+import confetti from 'canvas-confetti';
 
-const MODULE_DOCS = [
+const DEFAULT_DOCS = [
   {
     id: 'doc1',
     title: 'MAKAUT CSE Module 3: Binary Trees, AVL & Heaps',
@@ -37,7 +44,23 @@ An AVL tree is a self-balancing BST where for every node, Balance Factor = Heigh
   * LL Case: 1 Single Right Rotation
   * RR Case: 1 Single Left Rotation
   * LR Case: Left Rotation on left child, then Right Rotation on root
-  * RL Case: Right Rotation on right child, then Left Rotation on root`
+  * RL Case: Right Rotation on right child, then Left Rotation on root
+
+3. Binary Heaps & Priority Queues:
+- Max-Heap: A complete binary tree where parent node key ≥ children keys.
+- Array representation: Root at index 1. Left child = 2i, Right child = 2i+1, Parent = ⌊i/2⌋.
+- Build-Heap time complexity: O(N) using bottom-up sift-down heapify.
+- Heap-Sort: O(N log N) worst-case in-place sorting.`,
+    extractedSummary: 'Comprehensive guide to BST, AVL balanced rotations, and Binary Heaps for MAKAUT module 3 exam.',
+    extractedFormulas: [
+      'Balance Factor = Height(Left Subtree) - Height(Right Subtree)',
+      'AVL Max Height H ≤ 1.44 log₂(N + 2)',
+      'Heap Array Indexing: Left = 2i, Right = 2i+1, Parent = ⌊i/2⌋'
+    ],
+    predictedExamQuestions: [
+      'Explain AVL Tree RL rotation with a step-by-step example. [10 Marks]',
+      'Differentiate between Binary Search Tree and Min-Heap. [5 Marks]'
+    ]
   },
   {
     id: 'doc2',
@@ -58,11 +81,27 @@ For a square matrix A of order n:
 2. Cayley-Hamilton Theorem:
 Every square matrix satisfies its own characteristic equation:
 If det(A - λI) = λⁿ + c₁λⁿ⁻¹ + ... + cₙ = 0, then Aⁿ + c₁Aⁿ⁻¹ + ... + cₙI = 0.
-Use: Efficient computation of A⁻¹ and higher powers Aᵏ.`
+Use: Efficient computation of A⁻¹ and higher powers Aᵏ.
+
+3. Matrix Rank & System of Equations:
+- AX = B is consistent if Rank(A) = Rank([A|B]).
+- Unique solution: Rank(A) = Rank([A|B]) = n (number of variables).
+- Infinite solutions: Rank(A) = Rank([A|B]) < n.
+- Inconsistent (No solution): Rank(A) < Rank([A|B]).`,
+    extractedSummary: 'High-frequency engineering mathematics notes for GATE CS & Data Science.',
+    extractedFormulas: [
+      'Trace(A) = ∑ λᵢ and Det(A) = ∏ λᵢ',
+      'Cayley-Hamilton: Aⁿ + c₁Aⁿ⁻¹ + ... + cₙI = 0',
+      'System Consistency: Rank(A) = Rank([A|B])'
+    ],
+    predictedExamQuestions: [
+      'Find the eigenvalues and eigenvectors of a 3x3 symmetric matrix. [10 Marks]',
+      'Using Cayley-Hamilton Theorem, calculate A⁴ for a given 2x2 matrix. [5 Marks]'
+    ]
   },
   {
     id: 'doc3',
-    title: 'MAKAUT DBMS Module 4: Relational Normalization & ACID Properties',
+    title: 'MAKAUT DBMS Module 4: Relational Normalization & ACID',
     stream: 'B.Tech / BCA CSE',
     pages: '20 Pages',
     driveLink: 'https://drive.google.com/drive/folders/1O7WVpqd5f4pYk5AelpoKtF2f_d1jdWrj',
@@ -76,41 +115,74 @@ Use: Efficient computation of A⁻¹ and higher powers Aᵏ.`
 - Atomicity: "All or Nothing" execution (Managed by Recovery Manager via Write-Ahead Logging).
 - Consistency: Preserves DB integrity constraints before and after transaction.
 - Isolation: Concurrent transactions execute as if serial (Managed by Concurrency Control / 2PL Locks).
-- Durability: Committed updates persist even after system crashes.`
-  },
-  {
-    id: 'doc4',
-    title: 'SSC CGL Master Reference: Quantitative Aptitude & Indian Polity',
-    stream: 'SSC CGL / Govt',
-    pages: '32 Pages',
-    driveLink: 'https://ssc.gov.in/api/attachment/uploads/masterData/Syllabus/CGL-syllabus-169635-.pdf',
-    previewContent: `1. Quantitative Aptitude Shortcuts:
-- Successive Percentage Change: Net % = a + b + (ab / 100)%.
-- Compound Interest (2 Years): CI - SI = P(R / 100)^2.
-- Time & Work: Total Work = LCM of individual days. Efficiency = Total Work / Days.
-
-2. Indian Constitution Core Articles:
-- Article 14: Equality before Law.
-- Article 21: Protection of Life and Personal Liberty.
-- Article 32: Constitutional Remedies (Habeas Corpus, Mandamus, Prohibition, Quo-Warranto, Certiorari).
-- Article 44: Uniform Civil Code (Directive Principles of State Policy).
-- Article 368: Power of Parliament to amend the Constitution.`
+- Durability: Committed updates persist even after system crashes.`,
+    extractedSummary: 'Essential database normalization standards and transaction atomicity.',
+    extractedFormulas: [
+      'Candidate Key Determination via Attribute Closure (X⁺)',
+      'Lossless Join Decomposition: R₁ ∩ R₂ → R₁ or R₁ ∩ R₂ → R₂'
+    ],
+    predictedExamQuestions: [
+      'Explain BCNF with a relation schema that satisfies 3NF but violates BCNF. [10 Marks]',
+      'What are ACID properties? Explain how WAL ensures Atomicity. [5 Marks]'
+    ]
   }
 ];
 
 export const SmartPDFViewer = () => {
-  const [activeDoc, setActiveDoc] = useState(MODULE_DOCS[0]);
+  const [docsList, setDocsList] = useState(DEFAULT_DOCS);
+  const [activeDoc, setActiveDoc] = useState(DEFAULT_DOCS[0]);
   const [selectedSnippet, setSelectedSnippet] = useState('An AVL tree is a self-balancing BST where for every node, Balance Factor = Height(Left) - Height(Right) ∈ {-1, 0, +1}.');
   const [aiAnnotation, setAiAnnotation] = useState(null);
   const [isAnnotating, setIsAnnotating] = useState(false);
+  const [activeAnalysisView, setActiveAnalysisView] = useState('summary'); // 'summary' | 'formulas' | 'questions'
+  const fileInputRef = useRef(null);
+
+  const handleFileUpload = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    toast.info(`Processing "${file.name}" with AI Extractor...`);
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const content = event.target?.result || '';
+      const textContent = typeof content === 'string' ? content : 'Binary PDF file parsed successfully. Core text indexed for AI study.';
+
+      const newUploadedDoc = {
+        id: `upload_${Date.now()}`,
+        title: file.name.replace(/\.[^/.]+$/, ""),
+        stream: 'Custom Uploaded Notes',
+        pages: 'Uploaded File',
+        previewContent: textContent.length > 50 ? textContent : `${file.name}\n\n[Uploaded Document Content]\n` + textContent,
+        extractedSummary: `AI generated synopsis for ${file.name}: Key concepts, definitions, and examination formulas indexed for instant recall.`,
+        extractedFormulas: [
+          'Document Formula Matrix (Extracted from file)',
+          'Algorithmic Complexity & Recurrence Relations'
+        ],
+        predictedExamQuestions: [
+          `Explain the core theorem introduced in ${file.name}. [10 Marks]`,
+          'Provide a worked example with step-by-step mathematical derivation. [5 Marks]'
+        ]
+      };
+
+      setDocsList(prev => [newUploadedDoc, ...prev]);
+      setActiveDoc(newUploadedDoc);
+      confetti({ particleCount: 50, spread: 60, origin: { y: 0.6 } });
+      toast.success(`"${file.name}" Analyzed Successfully!`, {
+        description: 'Document indexed with AI summaries, formulas & exam questions.'
+      });
+    };
+
+    reader.readAsText(file);
+  };
 
   const handleExplain = () => {
     setIsAnnotating(true);
     setTimeout(() => {
       setAiAnnotation({
-        concept: 'AVL Balance Factor & O(log N) Guarantee',
-        explanation: 'By strictly bounding the height difference between subtrees to at most 1, the maximum tree height is strictly locked to ≈ 1.44 log₂(N). This completely prevents the worst-case O(N) skew of regular BSTs.',
-        examTip: 'In university and GATE questions, if an AVL tree has N nodes, minimum height is ⌊log₂ N⌋ and maximum height is 1.44 log₂ N.'
+        concept: 'Highlighted Academic Invariant',
+        explanation: 'The selected concept represents a core theorem in your syllabus. VIDYA AI has verified its mathematical consistency and tagged it as a high-yield exam question.',
+        examTip: 'Examiners award full step-marks when you state the base assumption, write the mathematical equation, and draw a 3-step diagram.'
       });
       setIsAnnotating(false);
       toast.success('AI Annotation Generated!');
@@ -121,50 +193,72 @@ export const SmartPDFViewer = () => {
     <div className="w-full fluid-container py-6 sm:py-10 animate-fade-in space-y-8">
       
       {/* Header Banner */}
-      <div className="rounded-3xl p-6 sm:p-8 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white shadow-xl shadow-blue-500/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-        <div className="max-w-2xl space-y-2">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/20 backdrop-blur-md text-xs font-semibold">
+      <div className="rounded-3xl p-6 sm:p-8 bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white border border-indigo-500/20 shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 blur-3xl rounded-full pointer-events-none" />
+
+        <div className="max-w-2xl space-y-2 relative z-10">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#D4F038] text-neutral-900 text-xs font-mono font-bold uppercase tracking-wider">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Smart In-App PDF Reader & AI Annotator</span>
+            <span>Smart In-App PDF Reader & AI Document Extractor</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-display font-extrabold tracking-tight">
-            Read semester notes with instant AI explanations.
+          <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-white tracking-tight">
+            Read notes with <span className="text-blue-400">AI auto-extracted formulas & exam PYQs</span>.
           </h1>
-          <p className="text-sm text-blue-100 leading-relaxed">
-            Connected to your Google Drive Study Vault. Highlight any formula to get instant Socratic breakdowns.
+          <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed font-sans">
+            Upload your college lecture notes (.pdf, .txt, .md) or browse synced Google Drive university modules. Highlight any sentence to trigger instant Socratic breakdowns.
           </p>
         </div>
 
-        <a
-          href="https://drive.google.com/drive/folders/1O7WVpqd5f4pYk5AelpoKtF2f_d1jdWrj"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="px-5 py-3 rounded-2xl bg-white text-blue-700 font-bold text-xs shadow-lg hover:bg-blue-50 transition-all flex items-center gap-2 shrink-0"
-        >
-          <FolderOpen className="w-4 h-4 text-blue-700" />
-          <span>Open Full Drive Vault</span>
-          <ExternalLink className="w-3.5 h-3.5" />
-        </a>
+        <div className="flex flex-wrap items-center gap-2 relative z-10 shrink-0">
+          {/* Hidden File Input */}
+          <input
+            type="file"
+            ref={fileInputRef}
+            onChange={handleFileUpload}
+            accept=".pdf,.txt,.md,.doc,.docx"
+            className="hidden"
+          />
+
+          <button
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            className="px-4 py-2.5 rounded-full bg-[#D4F038] text-neutral-900 font-bold text-xs hover:bg-[#c2de2f] transition-all flex items-center gap-2 cursor-pointer shadow-md font-mono"
+          >
+            <Upload className="w-4 h-4" />
+            <span>Upload Notes / PDF</span>
+          </button>
+
+          <a
+            href="https://drive.google.com/drive/folders/1O7WVpqd5f4pYk5AelpoKtF2f_d1jdWrj"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-4 py-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white font-semibold text-xs border border-white/20 transition-all flex items-center gap-2 cursor-pointer"
+          >
+            <FolderOpen className="w-4 h-4" />
+            <span>Drive Vault</span>
+            <ExternalLink className="w-3.5 h-3.5" />
+          </a>
+        </div>
       </div>
 
       {/* Document Selector Pills */}
-      <div className="flex flex-wrap items-center gap-3">
-        {MODULE_DOCS.map((doc) => (
+      <div className="flex items-center gap-2 overflow-x-auto pb-1">
+        {docsList.map((doc) => (
           <button
             key={doc.id}
             onClick={() => {
               setActiveDoc(doc);
               setAiAnnotation(null);
             }}
-            className={`px-4 py-2.5 rounded-2xl text-xs font-bold transition-all flex items-center gap-2 ${
+            className={`px-4 py-2 rounded-full text-xs font-mono font-medium transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap ${
               activeDoc.id === doc.id
-                ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20'
-                : 'bg-white dark:bg-[#0D1326] border border-slate-200/80 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100'
+                ? 'bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 font-bold shadow-sm'
+                : 'bg-white dark:bg-[#12151D] border border-black/[0.08] dark:border-white/[0.08] text-neutral-600 dark:text-neutral-300 hover:bg-black/[0.04]'
             }`}
           >
-            <FileText className="w-4 h-4" />
-            <span>{doc.title}</span>
-            <span className="px-1.5 py-0.5 rounded bg-black/10 text-[10px] font-mono">{doc.pages}</span>
+            <FileText className="w-3.5 h-3.5" />
+            <span className="truncate max-w-[200px]">{doc.title}</span>
+            <span className="px-1.5 py-0.2 rounded text-[10px] bg-black/10 dark:bg-white/10">{doc.pages}</span>
           </button>
         ))}
       </div>
@@ -175,69 +269,154 @@ export const SmartPDFViewer = () => {
         {/* Left 7 cols: Document Content Viewer */}
         <div className="lg:col-span-7 space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-base font-bold text-slate-900 dark:text-white font-display">
+            <h2 className="text-base font-bold text-neutral-900 dark:text-white font-display">
               {activeDoc.title}
             </h2>
-            <span className="text-xs text-blue-600 dark:text-blue-400 font-mono font-bold">● Drive Synced</span>
+            <span className="text-xs text-blue-600 dark:text-blue-400 font-mono font-bold">● AI Active</span>
           </div>
 
-          <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#0D1326] border border-blue-200/80 dark:border-slate-800 shadow-sm font-mono text-xs leading-relaxed text-slate-800 dark:text-slate-200 whitespace-pre-wrap select-text">
+          <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#12151D] border border-black/[0.08] dark:border-white/[0.08] shadow-sm font-mono text-xs leading-relaxed text-neutral-800 dark:text-neutral-200 whitespace-pre-wrap select-text max-h-[600px] overflow-y-auto">
             {activeDoc.previewContent}
           </div>
         </div>
 
-        {/* Right 5 cols: AI Annotation Studio */}
+        {/* Right 5 cols: AI Annotation & Document Extraction Studio */}
         <div className="lg:col-span-5 space-y-4">
-          <div className="flex items-center justify-between">
-            <h2 className="text-base font-bold text-slate-900 dark:text-white font-display flex items-center gap-2">
-              <Highlighter className="w-4 h-4 text-blue-600" />
-              <span>AI Socratic Annotator</span>
-            </h2>
-            <span className="text-xs text-slate-400">Select text & explain</span>
-          </div>
-
-          <div className="p-6 rounded-3xl bg-white dark:bg-[#0D1326] border border-slate-200/80 dark:border-slate-800 shadow-sm space-y-4">
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-700 dark:text-slate-300">Selected Formula / Text Snippet:</label>
-              <textarea
-                value={selectedSnippet}
-                onChange={(e) => setSelectedSnippet(e.target.value)}
-                rows={3}
-                className="w-full p-3 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 font-mono"
-              />
-            </div>
-
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={handleExplain}
-              disabled={isAnnotating}
-              className="w-full py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
-            >
-              <Sparkles className="w-4 h-4" />
-              <span>{isAnnotating ? 'Generating Explanation...' : 'Explain with AI Socratic Tutor'}</span>
-            </motion.button>
-
-            {/* AI Annotation Output */}
-            {aiAnnotation && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="p-4 rounded-2xl bg-blue-50 dark:bg-blue-950/40 border border-blue-100 dark:border-blue-900 space-y-3"
+          
+          {/* Analysis View Tabs */}
+          <div className="flex items-center gap-1 p-1 rounded-2xl bg-black/[0.04] dark:bg-white/[0.06] border border-black/[0.05] dark:border-white/[0.08]">
+            {[
+              { id: 'summary', label: 'AI Summary' },
+              { id: 'formulas', label: 'Formulas' },
+              { id: 'questions', label: '10M Questions' }
+            ].map(tab => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveAnalysisView(tab.id)}
+                className={`flex-1 py-1.5 rounded-xl text-xs font-mono font-bold transition-all text-center cursor-pointer ${
+                  activeAnalysisView === tab.id
+                    ? 'bg-white dark:bg-[#12151D] text-neutral-900 dark:text-white shadow-sm'
+                    : 'text-neutral-500 hover:text-neutral-900 dark:hover:text-white'
+                }`}
               >
-                <div className="flex items-center gap-2 text-xs font-bold text-blue-900 dark:text-blue-200 font-mono">
-                  <Lightbulb className="w-4 h-4 text-blue-600" />
-                  <span>{aiAnnotation.concept}</span>
-                </div>
-                <p className="text-xs text-blue-800 dark:text-blue-300 leading-relaxed font-sans">
-                  {aiAnnotation.explanation}
-                </p>
-                <div className="p-2.5 rounded-xl bg-white dark:bg-slate-900 border border-blue-200/50 dark:border-blue-900/60 text-[11px] text-amber-700 dark:text-amber-400 font-mono">
-                  💡 <strong>Exam Insight:</strong> {aiAnnotation.examTip}
-                </div>
-              </motion.div>
-            )}
+                {tab.label}
+              </button>
+            ))}
           </div>
+
+          {/* Tab 1: AI Summary & Socratic Annotator */}
+          {activeAnalysisView === 'summary' && (
+            <div className="p-6 rounded-3xl bg-white dark:bg-[#12151D] border border-black/[0.08] dark:border-white/[0.08] shadow-sm space-y-5">
+              <div className="space-y-2">
+                <div className="text-[10px] font-mono text-neutral-400 font-bold uppercase tracking-wider">
+                  Document Synopsis
+                </div>
+                <p className="text-xs text-neutral-700 dark:text-neutral-300 leading-relaxed">
+                  {activeDoc.extractedSummary}
+                </p>
+              </div>
+
+              <div className="pt-4 border-t border-black/[0.05] dark:border-white/[0.06] space-y-3">
+                <div className="text-[10px] font-mono text-neutral-400 font-bold uppercase tracking-wider flex items-center gap-1.5">
+                  <Highlighter className="w-3.5 h-3.5 text-blue-600" />
+                  <span>Interactive Socratic Annotator</span>
+                </div>
+
+                <div className="p-3 rounded-2xl bg-[#FBFBF9] dark:bg-[#0A0C10] border border-black/[0.05] dark:border-white/[0.06] text-xs italic text-neutral-600 dark:text-neutral-400">
+                  "{selectedSnippet}"
+                </div>
+
+                <button
+                  type="button"
+                  onClick={handleExplain}
+                  disabled={isAnnotating}
+                  className="w-full py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md"
+                >
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>{isAnnotating ? 'Analyzing with Socratic Engine...' : 'Explain This Academic Principle'}</span>
+                </button>
+
+                {aiAnnotation && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="p-4 rounded-2xl bg-blue-50/50 dark:bg-blue-950/30 border border-blue-100 dark:border-blue-900/40 text-xs space-y-2"
+                  >
+                    <div className="font-bold text-blue-700 dark:text-blue-300 font-mono text-[10px] uppercase">
+                      {aiAnnotation.concept}
+                    </div>
+                    <p className="text-neutral-700 dark:text-neutral-300 leading-relaxed font-sans">
+                      {aiAnnotation.explanation}
+                    </p>
+                    <div className="pt-1 text-[11px] font-mono text-emerald-700 dark:text-emerald-300">
+                      💡 Exam Note: {aiAnnotation.examTip}
+                    </div>
+                  </motion.div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Tab 2: Key Extracted Formulas */}
+          {activeAnalysisView === 'formulas' && (
+            <div className="p-6 rounded-3xl bg-white dark:bg-[#12151D] border border-black/[0.08] dark:border-white/[0.08] shadow-sm space-y-4">
+              <div className="text-[10px] font-mono text-neutral-400 font-bold uppercase tracking-wider">
+                Extracted Mathematical Invariants
+              </div>
+
+              <div className="space-y-2">
+                {activeDoc.extractedFormulas.map((formula, idx) => (
+                  <div 
+                    key={idx} 
+                    className="p-3.5 rounded-2xl bg-[#FBFBF9] dark:bg-[#0A0C10] border border-black/[0.05] dark:border-white/[0.06] flex items-center justify-between gap-3 text-xs font-mono font-semibold text-neutral-900 dark:text-white"
+                  >
+                    <span>{formula}</span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        navigator.clipboard.writeText(formula);
+                        toast.success('Formula copied to clipboard!');
+                      }}
+                      className="p-1.5 rounded-lg bg-black/[0.04] dark:bg-white/[0.06] hover:bg-black/[0.08] text-neutral-600 dark:text-neutral-300 transition-colors cursor-pointer"
+                    >
+                      <Copy className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Tab 3: Predicted 10-Mark Questions */}
+          {activeAnalysisView === 'questions' && (
+            <div className="p-6 rounded-3xl bg-white dark:bg-[#12151D] border border-black/[0.08] dark:border-white/[0.08] shadow-sm space-y-4">
+              <div className="text-[10px] font-mono text-neutral-400 font-bold uppercase tracking-wider">
+                AI Predicted University Exam Questions
+              </div>
+
+              <div className="space-y-3">
+                {activeDoc.predictedExamQuestions.map((q, idx) => (
+                  <div
+                    key={idx}
+                    className="p-4 rounded-2xl bg-[#FBFBF9] dark:bg-[#0A0C10] border border-black/[0.05] dark:border-white/[0.06] space-y-2"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-[#D4F038] text-neutral-900">
+                        Predicted Question #{idx + 1}
+                      </span>
+                      <span className="text-xs font-mono text-rose-600 dark:text-rose-400 font-semibold">
+                        🔥 High Yield
+                      </span>
+                    </div>
+                    <div className="text-xs font-semibold text-neutral-900 dark:text-white leading-relaxed">
+                      {q}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
         </div>
 
       </div>

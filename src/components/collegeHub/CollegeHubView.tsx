@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useStudy } from '../../context/StudyContext';
 import { LAB_VIVA_QUESTIONS, PYQ_HEATMAPS, EMERGENCY_CRAM_ITEMS } from '../../data/collegeHubData';
+import { BtechStudyMaterialView } from './BtechStudyMaterialView';
+import { TopicDeepDiveSection } from './TopicDeepDiveSection';
+import { BtechSemesterAnalyzer } from './BtechSemesterAnalyzer';
 import { LabVivaItem, PyqHeatmapItem, EmergencyCramItem } from '../../types';
 import { 
   GraduationCap, 
@@ -13,15 +16,35 @@ import {
   EyeOff, 
   Volume2, 
   BookOpen, 
-  Clock,
+  Clock, 
   ArrowRight,
-  TrendingUp
+  TrendingUp,
+  Library,
+  Search
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
-export const CollegeHubView: React.FC = () => {
-  const { goal, setActiveTab } = useStudy();
-  const [activeTab, setActiveTabLocal] = useState<'viva' | 'pyq' | 'cram'>('viva');
+interface CollegeHubViewProps {
+  setActiveTab?: (tab: any) => void;
+  onOpenMockTest?: (subject: string, streamId?: string) => void;
+  initialSemester?: number;
+}
+
+export const CollegeHubView: React.FC<CollegeHubViewProps> = ({ 
+  setActiveTab: propSetActiveTab,
+  onOpenMockTest,
+  initialSemester = 3
+}) => {
+  let contextSetActiveTab: any = null;
+  try {
+    const study = useStudy();
+    contextSetActiveTab = study?.setActiveTab;
+  } catch (e) {
+    // Safe fallback when not inside StudyProvider
+  }
+
+  const setActiveTab = propSetActiveTab || contextSetActiveTab || (() => {});
+  const [activeTab, setActiveTabLocal] = useState<'semesterAnalyzer' | 'deepDive' | 'materials' | 'viva' | 'pyq' | 'cram'>('semesterAnalyzer');
   const [revealedAnswers, setRevealedAnswers] = useState<{ [id: string]: boolean }>({});
 
   const toggleReveal = (id: string) => {
@@ -50,17 +73,49 @@ export const CollegeHubView: React.FC = () => {
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30 text-xs font-bold mb-2">
               <GraduationCap className="w-3.5 h-3.5 text-purple-400" />
-              <span>University & Higher-Ed Specialized Tools</span>
+              <span>University & Higher-Ed Specialized Hub</span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-white">
-              College & Engineering Hub
+              B.Tech & College Academic Hub
             </h1>
             <p className="text-xs sm:text-sm text-slate-400 mt-1">
-              Engineered specifically for B.Tech/BCA semester exams, lab vivas, and recurring university question patterns.
+              AI Instant Topic Master, full chapter notes, lab vivas, YouTube lectures, and 10-mark recurring university questions.
             </p>
           </div>
 
-          <div className="flex items-center gap-2 bg-slate-900/90 p-1.5 rounded-xl border border-slate-800">
+          <div className="flex flex-wrap items-center gap-2 bg-slate-900/90 p-1.5 rounded-xl border border-slate-800">
+            <button
+              onClick={() => setActiveTabLocal('semesterAnalyzer')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
+                activeTab === 'semesterAnalyzer'
+                  ? 'bg-blue-600 text-white shadow-glow-cyan'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              <GraduationCap className="w-3.5 h-3.5 text-blue-300" />
+              <span>🎯 Sem 1-8 Analyzer</span>
+            </button>
+            <button
+              onClick={() => setActiveTabLocal('deepDive')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
+                activeTab === 'deepDive'
+                  ? 'bg-brand-600 text-white shadow-glow-cyan'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+              <span>🔍 AI Topic Search</span>
+            </button>
+            <button
+              onClick={() => setActiveTabLocal('materials')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                activeTab === 'materials'
+                  ? 'bg-brand-600 text-white shadow-glow-cyan'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              📚 Subject Materials
+            </button>
             <button
               onClick={() => setActiveTabLocal('viva')}
               className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
@@ -94,6 +149,21 @@ export const CollegeHubView: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Tab 0: B.Tech Semester Cognitive Engine */}
+      {activeTab === 'semesterAnalyzer' && (
+        <BtechSemesterAnalyzer 
+          initialSemester={initialSemester}
+          setActiveTab={setActiveTab} 
+          onOpenMockTest={onOpenMockTest} 
+        />
+      )}
+
+      {/* Tab 0: AI Topic Deep Dive Master */}
+      {activeTab === 'deepDive' && <TopicDeepDiveSection />}
+
+      {/* Tab 1: Subject Materials */}
+      {activeTab === 'materials' && <BtechStudyMaterialView />}
 
       {/* Tab 1: Lab Viva Trainer */}
       {activeTab === 'viva' && (

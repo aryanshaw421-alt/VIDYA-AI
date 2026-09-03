@@ -3,9 +3,11 @@ import { StudyProvider, useStudy } from './context/StudyContext';
 import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
 import { Hero } from './components/landing/Hero';
+import { EnterpriseTrustSection } from './components/landing/EnterpriseTrustSection';
 import { ProblemSolver } from './components/landing/ProblemSolver';
 import { CoreLoopSection } from './components/landing/CoreLoopSection';
 import { InteractiveDemoPreview } from './components/landing/InteractiveDemoPreview';
+import { EnterpriseTestimonials } from './components/landing/EnterpriseTestimonials';
 import { RoadmapView } from './components/roadmap/RoadmapView';
 import { ExamSimulator } from './components/testEngine/ExamSimulator';
 import { SnapSolveStudio } from './components/doubtSolver/SnapSolveStudio';
@@ -23,9 +25,11 @@ const MainAppContent: React.FC = () => {
         {activeTab === 'landing' && (
           <>
             <Hero />
+            <EnterpriseTrustSection />
             <ProblemSolver />
             <CoreLoopSection />
             <InteractiveDemoPreview />
+            <EnterpriseTestimonials />
           </>
         )}
 

@@ -20,7 +20,6 @@ const TAB_TITLES = {
   home: { title: 'Home', subtitle: 'Universal Educational Architecture' },
   dashboard: { title: 'Student Dashboard', subtitle: 'Cognitive Learning Intelligence' },
   doubtSolver: { title: 'AI Instant Doubt Solver', subtitle: '24/7 Question Photo OCR & Derivations' },
-  liveTests: { title: 'All-India Test Series (AITS)', subtitle: 'National Live Ranking & Leaderboard' },
   mockTests: { title: 'Mock Test Engine', subtitle: 'Official University & Board Patterns' },
   flashcards: { title: 'Flashcard Decks', subtitle: 'Anki-Style SM-2 Spaced Repetition' },
   smartPdf: { title: 'Smart Notes & PDF Reader', subtitle: 'Google Drive Study Vault Synced' },

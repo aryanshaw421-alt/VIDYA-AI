@@ -29,9 +29,9 @@ import { examStreams, sampleMockPapers } from '../data/examPatterns';
 import { toast } from 'sonner';
 import confetti from 'canvas-confetti';
 
-export const MockTestEngine = () => {
+export const MockTestEngine = ({ user, initialSubject }) => {
   const [selectedStreamId, setSelectedStreamId] = useState('btech_makaut');
-  const [selectedSubject, setSelectedSubject] = useState('Data Structures & Algorithms');
+  const [selectedSubject, setSelectedSubject] = useState(initialSubject || 'Data Structures & Algorithms');
   const [activeTestPaper, setActiveTestPaper] = useState(null);
   const [activeGroupIndex, setActiveGroupIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState({});
@@ -40,6 +40,16 @@ export const MockTestEngine = () => {
   const [isEvaluating, setIsEvaluating] = useState(false);
   const [scoreResult, setScoreResult] = useState(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+
+  useEffect(() => {
+    if (initialSubject) {
+      setSelectedSubject(initialSubject);
+      const papers = sampleMockPapers[selectedStreamId] || sampleMockPapers.btech_makaut;
+      if (papers && papers.length > 0) {
+        setActiveTestPaper(papers[0]);
+      }
+    }
+  }, [initialSubject, selectedStreamId]);
 
   const currentStream = examStreams.find(s => s.id === selectedStreamId) || examStreams[0];
 

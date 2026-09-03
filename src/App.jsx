@@ -1,95 +1,168 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, lazy, Suspense } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Toaster } from 'sonner';
 import { Navbar } from './components/Navbar';
 import { HomePage } from './components/HomePage';
 import { Dashboard } from './components/Dashboard';
-import { DoubtSolver } from './components/DoubtSolver';
-import { LiveTestSeries } from './components/LiveTestSeries';
-import { FlashcardStudio } from './components/FlashcardStudio';
-import { SmartPDFViewer } from './components/SmartPDFViewer';
-import { WeaknessHeatmap } from './components/WeaknessHeatmap';
-import { DigitalTwin } from './components/DigitalTwin';
-import { ConceptGraph } from './components/ConceptGraph';
-import { AgentSwarm } from './components/AgentSwarm';
-import { EducatorRadar } from './components/EducatorRadar';
-import { PublicApiHub } from './components/PublicApiHub';
-import { DeckStudio } from './components/DeckStudio';
-import { MockTestEngine } from './components/MockTestEngine';
-import { VivaExaminer } from './components/VivaExaminer';
-import { CheatSheetGenerator } from './components/CheatSheetGenerator';
-import { FocusRoom } from './components/FocusRoom';
+import { StudyRoomView } from './components/StudyRoomView';
+import { CommandPalette } from './components/CommandPalette';
 import { AiAssistant } from './components/AiAssistant';
+import { Footer } from './components/Footer';
+import { DashboardSkeleton } from './components/dashboard/DashboardSkeleton';
+
+// Code-split heavy secondary views for maximum performance & fast initial paint:
+const MockTestEngine = lazy(() => import('./components/MockTestEngine').then(m => ({ default: m.MockTestEngine })));
+const DoubtSolver = lazy(() => import('./components/DoubtSolver').then(m => ({ default: m.DoubtSolver })));
+const FlashcardStudio = lazy(() => import('./components/FlashcardStudio').then(m => ({ default: m.FlashcardStudio })));
+const SmartPDFViewer = lazy(() => import('./components/SmartPDFViewer').then(m => ({ default: m.SmartPDFViewer })));
+const WeaknessHeatmap = lazy(() => import('./components/WeaknessHeatmap').then(m => ({ default: m.WeaknessHeatmap })));
+const VivaExaminer = lazy(() => import('./components/VivaExaminer').then(m => ({ default: m.VivaExaminer })));
+const CheatSheetGenerator = lazy(() => import('./components/CheatSheetGenerator').then(m => ({ default: m.CheatSheetGenerator })));
+const FocusRoom = lazy(() => import('./components/FocusRoom').then(m => ({ default: m.FocusRoom })));
+const DigitalTwin = lazy(() => import('./components/DigitalTwin').then(m => ({ default: m.DigitalTwin })));
+const ConceptGraph = lazy(() => import('./components/ConceptGraph').then(m => ({ default: m.ConceptGraph })));
+const AgentSwarm = lazy(() => import('./components/AgentSwarm').then(m => ({ default: m.AgentSwarm })));
+const EducatorRadar = lazy(() => import('./components/EducatorRadar').then(m => ({ default: m.EducatorRadar })));
+const PublicApiHub = lazy(() => import('./components/PublicApiHub').then(m => ({ default: m.PublicApiHub })));
+const DeckStudio = lazy(() => import('./components/DeckStudio').then(m => ({ default: m.DeckStudio })));
+const CollegeHubView = lazy(() => import('./components/collegeHub/CollegeHubView').then(m => ({ default: m.CollegeHubView })));
+
+const VALID_TABS = [
+  'home',
+  'dashboard',
+  'studyHub',
+  'mockTests',
+  'doubtSolver',
+  'flashcards',
+  'smartPdf',
+  'weaknessHeatmap',
+  'vivaExaminer',
+  'cheatSheets',
+  'focusRoom',
+  'digitalTwin',
+  'conceptGraph',
+  'agentSwarm',
+  'educatorRadar',
+  'publicApiHub',
+  'deckStudio',
+  'collegeHub'
+];
+
+const getInitialTabFromUrl = () => {
+  if (typeof window === 'undefined') return 'home';
+
+  // 1. Check pathname (e.g. /dashboard)
+  const path = window.location.pathname.replace(/^\/+|\/+$/g, '').trim();
+  if (path && VALID_TABS.includes(path)) {
+    return path;
+  }
+
+  // 2. Check hash (e.g. #dashboard)
+  const hash = window.location.hash.replace(/^#+/, '').trim();
+  if (hash && VALID_TABS.includes(hash)) {
+    return hash;
+  }
+
+  return 'home';
+};
 
 export const App = () => {
-  const [activeTab, setActiveTab] = useState('home');
-  const [isDark, setIsDark] = useState(() => {
-    return localStorage.getItem('vidya_theme') === 'dark';
-  });
-
+  const [activeTab, setActiveTabState] = useState(getInitialTabFromUrl);
+  const [isDark, setIsDark] = useState(true);
+  const [studyTopic, setStudyTopic] = useState('Data Structures & Algorithms (DSA)');
+  const [selectedMockSubject, setSelectedMockSubject] = useState(null);
+  const [selectedSemester, setSelectedSemester] = useState(3);
+  const [searchModalOpen, setSearchModalOpen] = useState(false);
   const [user, setUser] = useState(() => {
     const saved = localStorage.getItem('vidya_user');
-    if (saved) {
-      try {
-        return JSON.parse(saved);
-      } catch (e) {
-        return null;
-      }
-    }
-    // Default initial authenticated user
-    return {
-      name: 'Aryan Shaw',
+    return saved ? JSON.parse(saved) : {
+      name: 'Aryan Kumar Shaw',
       email: 'aryan@vidya.ai',
-      examTarget: 'B.Tech 3rd Year CSE & GATE',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80',
-      isLoggedIn: true
+      plan: 'Pro Scholar',
+      currentStreak: 14,
+      targetExam: 'B.Tech CSE (MAKAUT)'
     };
   });
 
+  // Synchronize Tab with browser URL & history
+  const setActiveTab = useCallback((tab, options = {}) => {
+    if (!VALID_TABS.includes(tab)) return;
+    
+    setActiveTabState(tab);
+
+    if (options.subject) {
+      setSelectedMockSubject(options.subject);
+    }
+    if (options.semester) {
+      setSelectedSemester(options.semester);
+    }
+
+    const targetPath = tab === 'home' ? '/' : `/${tab}`;
+    if (window.location.pathname !== targetPath) {
+      window.history.pushState({ tab }, '', targetPath);
+    }
+  }, []);
+
+  // Listen to browser Back/Forward buttons
   useEffect(() => {
+    const handlePopState = (event) => {
+      if (event.state && event.state.tab && VALID_TABS.includes(event.state.tab)) {
+        setActiveTabState(event.state.tab);
+      } else {
+        setActiveTabState(getInitialTabFromUrl());
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  // Dark mode effect on <html> root element
+  useEffect(() => {
+    const root = document.documentElement;
     if (isDark) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('vidya_theme', 'dark');
+      root.classList.add('dark');
     } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('vidya_theme', 'light');
+      root.classList.remove('dark');
     }
   }, [isDark]);
 
+  const handleOpenTopic = (topic) => {
+    setStudyTopic(topic);
+    setActiveTab('studyHub');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleOpenSemester = (semNum, targetTab = 'studyHub') => {
+    setSelectedSemester(semNum);
+    setActiveTab(targetTab, { semester: semNum });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleOpenMockTest = (subject, streamId) => {
+    setSelectedMockSubject(subject);
+    setActiveTab('mockTests');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Page motion transition
   const pageVariants = {
-    initial: { opacity: 0, y: 10, scale: 0.992 },
-    animate: { 
-      opacity: 1, 
-      y: 0, 
-      scale: 1, 
-      transition: { 
-        duration: 0.36, 
-        ease: [0.16, 1, 0.3, 1] 
-      } 
-    },
-    exit: { 
-      opacity: 0, 
-      y: -6, 
-      scale: 0.995, 
-      transition: { 
-        duration: 0.18, 
-        ease: [0.16, 1, 0.3, 1] 
-      } 
-    }
+    initial: { opacity: 0, y: 8 },
+    animate: { opacity: 1, y: 0, transition: { duration: 0.2, ease: 'easeOut' } },
+    exit: { opacity: 0, y: -8, transition: { duration: 0.15, ease: 'easeIn' } }
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FFFFFF] dark:bg-[#050A18] text-[#0A1128] dark:text-[#F8FAFC] transition-colors duration-200 selection:bg-blue-600/20 selection:text-blue-600">
+    <div className="min-h-screen bg-[#FBFBF9] dark:bg-[#0A0C10] text-neutral-900 dark:text-white flex flex-col font-sans transition-colors duration-200 selection:bg-blue-600 selection:text-white">
       
-      {/* Toast Provider */}
+      {/* Toast Notifications */}
       <Toaster 
-        position="top-right" 
+        position="bottom-right" 
         richColors 
-        closeButton 
-        theme={isDark ? 'dark' : 'light'}
+        theme={isDark ? 'dark' : 'light'} 
       />
 
-      {/* Clean 5-Tab Top Navbar */}
+      {/* Top Navbar */}
       <Navbar 
         activeTab={activeTab} 
         setActiveTab={setActiveTab} 
@@ -97,54 +170,90 @@ export const App = () => {
         setIsDark={setIsDark} 
         user={user}
         setUser={setUser}
+        onOpenSearch={() => setSearchModalOpen(true)}
       />
 
-      {/* Main View Router */}
+      {/* Main View Container */}
       <main className="flex-grow w-full">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeTab}
-            variants={pageVariants}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            className="w-full"
-          >
-            {activeTab === 'home' && <HomePage setActiveTab={setActiveTab} user={user} />}
-            {activeTab === 'dashboard' && <Dashboard setActiveTab={setActiveTab} user={user} />}
-            {activeTab === 'mockTests' && <MockTestEngine user={user} />}
-            {activeTab === 'doubtSolver' && <DoubtSolver />}
-            {activeTab === 'liveTests' && <LiveTestSeries setActiveTab={setActiveTab} />}
-            {activeTab === 'flashcards' && <FlashcardStudio />}
-            {activeTab === 'smartPdf' && <SmartPDFViewer />}
-            {activeTab === 'weaknessHeatmap' && <WeaknessHeatmap setActiveTab={setActiveTab} />}
-            {activeTab === 'vivaExaminer' && <VivaExaminer user={user} />}
-            {activeTab === 'cheatSheets' && <CheatSheetGenerator user={user} />}
-            {activeTab === 'focusRoom' && <FocusRoom user={user} />}
-            {activeTab === 'digitalTwin' && <DigitalTwin user={user} />}
-            {activeTab === 'conceptGraph' && <ConceptGraph user={user} />}
-            {activeTab === 'agentSwarm' && <AgentSwarm user={user} />}
-            {activeTab === 'educatorRadar' && <EducatorRadar user={user} />}
-            {activeTab === 'publicApiHub' && <PublicApiHub user={user} />}
-            {activeTab === 'deckStudio' && <DeckStudio user={user} />}
-          </motion.div>
-        </AnimatePresence>
+        <Suspense fallback={
+          <div className="fluid-container py-12">
+            <DashboardSkeleton />
+          </div>
+        }>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeTab}
+              variants={pageVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              className="w-full"
+            >
+              {activeTab === 'home' && (
+                <HomePage 
+                  setActiveTab={setActiveTab} 
+                  onOpenTopic={handleOpenTopic} 
+                  onOpenSemester={handleOpenSemester} 
+                  user={user} 
+                />
+              )}
+              {activeTab === 'studyHub' && (
+                <StudyRoomView 
+                  initialTopic={studyTopic} 
+                  onSelectTopic={setStudyTopic} 
+                  setActiveTab={setActiveTab}
+                  onOpenMockTest={handleOpenMockTest}
+                  initialSemester={selectedSemester}
+                  onSelectSemester={setSelectedSemester}
+                />
+              )}
+              {activeTab === 'dashboard' && <Dashboard setActiveTab={setActiveTab} user={user} />}
+              {activeTab === 'mockTests' && (
+                <MockTestEngine 
+                  user={user} 
+                  initialSubject={selectedMockSubject} 
+                />
+              )}
+              {activeTab === 'doubtSolver' && <DoubtSolver />}
+              {activeTab === 'flashcards' && <FlashcardStudio />}
+              {activeTab === 'smartPdf' && <SmartPDFViewer />}
+              {activeTab === 'weaknessHeatmap' && <WeaknessHeatmap setActiveTab={setActiveTab} />}
+              {activeTab === 'vivaExaminer' && <VivaExaminer user={user} />}
+              {activeTab === 'cheatSheets' && <CheatSheetGenerator user={user} />}
+              {activeTab === 'focusRoom' && <FocusRoom user={user} />}
+              {activeTab === 'digitalTwin' && <DigitalTwin user={user} />}
+              {activeTab === 'conceptGraph' && <ConceptGraph user={user} />}
+              {activeTab === 'agentSwarm' && <AgentSwarm user={user} />}
+              {activeTab === 'educatorRadar' && <EducatorRadar user={user} />}
+              {activeTab === 'publicApiHub' && <PublicApiHub user={user} />}
+              {activeTab === 'deckStudio' && <DeckStudio user={user} />}
+              {activeTab === 'collegeHub' && (
+                <CollegeHubView 
+                  setActiveTab={setActiveTab} 
+                  onOpenMockTest={handleOpenMockTest}
+                  initialSemester={selectedSemester}
+                />
+              )}
+            </motion.div>
+          </AnimatePresence>
+        </Suspense>
       </main>
+
+      {/* Universal Cmd+K Command Palette */}
+      <CommandPalette
+        isOpen={searchModalOpen}
+        setIsOpen={setSearchModalOpen}
+        setActiveTab={setActiveTab}
+        onSelectTopic={handleOpenTopic}
+        isDark={isDark}
+        setIsDark={setIsDark}
+      />
 
       {/* Persistent Floating AI Assistant */}
       <AiAssistant setActiveTab={setActiveTab} />
 
-      {/* Footer */}
-      <footer className="border-t border-slate-200/80 dark:border-slate-800/80 bg-white/50 dark:bg-[#050814]/50 py-8 text-xs text-slate-500 font-mono transition-colors">
-        <div className="w-full fluid-container flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div>
-            <strong>VIDYA AI</strong> • Cognitive Learning Operating System
-          </div>
-          <div>
-            "AI doesn't just teach the student. It understands the student's knowledge state and adapts around them."
-          </div>
-        </div>
-      </footer>
+      {/* Modern SaaS Footer */}
+      <Footer setActiveTab={setActiveTab} />
 
     </div>
   );

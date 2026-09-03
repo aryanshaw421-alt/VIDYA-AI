@@ -6,7 +6,6 @@ import {
   LayoutDashboard,
   FileCheck,
   HelpCircle,
-  Trophy,
   MoreHorizontal,
   ChevronDown,
   Layers,
@@ -28,28 +27,38 @@ import {
   Sparkles,
   Menu,
   X,
-  CheckCircle2
+  CheckCircle2,
+  Search
 } from 'lucide-react';
 import { AuthModal } from './AuthModal';
 import { examStreams } from '../data/examPatterns';
 import { toast } from 'sonner';
 
-export const Navbar = ({ activeTab, setActiveTab, isDark, setIsDark, user, setUser }) => {
+export const Navbar = ({ 
+  activeTab, 
+  setActiveTab, 
+  user, 
+  setUser, 
+  isDark, 
+  setIsDark,
+  onOpenSearch
+}) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [selectedExamId, setSelectedExamId] = useState('btech_makaut');
 
-  // ONLY the 5 Main Essential Tabs on the Top Navbar
+  // Main Essential Tabs on the Top Navbar
   const mainNavLinks = [
     { id: 'home', label: 'Home', icon: Home },
+    { id: 'studyHub', label: 'Study Room', icon: BookOpen, badge: 'Notes & YT' },
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { id: 'mockTests', label: 'Mock Tests', icon: FileCheck },
     { id: 'doubtSolver', label: 'AI Doubt Solver', icon: HelpCircle },
-    { id: 'liveTests', label: 'All-India AITS', icon: Trophy, badge: 'Live' },
   ];
 
   // Secondary Tools under "More Tools ▾"
   const secondaryTools = [
+    { id: 'collegeHub', label: '🎓 B.Tech Hub & Topic Search', icon: BookOpen, desc: 'Subject-wise modules, notes, PYQs & YouTube lectures' },
     { id: 'flashcards', label: 'Flashcard Decks', icon: Layers, desc: 'Anki-style SM-2 spaced repetition' },
     { id: 'smartPdf', label: 'Smart Notes & PDF', icon: BookOpen, desc: 'Drive synced notes & AI annotator' },
     { id: 'weaknessHeatmap', label: 'Weakness Radar', icon: Target, desc: 'Chapter-level diagnostic gap heatmap' },
@@ -88,7 +97,7 @@ export const Navbar = ({ activeTab, setActiveTab, isDark, setIsDark, user, setUs
 
   return (
     <>
-      <header className="sticky top-0 z-40 w-full border-b border-slate-200/80 dark:border-slate-800/80 bg-white/90 dark:bg-[#060B18]/90 backdrop-blur-md transition-colors duration-200">
+      <header className="sticky top-0 z-40 w-full border-b border-black/[0.06] dark:border-white/[0.08] bg-[#FBFBF9]/90 dark:bg-[#0A0C10]/90 backdrop-blur-md transition-colors duration-200">
         <div className="w-full fluid-container">
           <div className="flex items-center justify-between h-16 sm:h-18">
             
@@ -99,21 +108,25 @@ export const Navbar = ({ activeTab, setActiveTab, isDark, setIsDark, user, setUs
               onClick={() => setActiveTab('home')} 
               className="flex items-center gap-2.5 text-left group cursor-pointer shrink-0"
             >
-              <div className="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center shadow-md shadow-blue-500/20">
-                <Brain className="w-5 h-5" />
+              <div className="w-9 h-9 rounded-xl overflow-hidden shadow-sm border border-black/[0.08] dark:border-white/[0.1] transition-transform group-hover:scale-105 bg-white p-0.5 flex items-center justify-center">
+                <img 
+                  src="/images/logos/vidya_ai_logo.jpg" 
+                  alt="VIDYA AI Logo" 
+                  className="w-full h-full object-contain"
+                />
               </div>
               <div className="flex items-center gap-1.5">
-                <span className="font-display font-extrabold text-lg sm:text-xl text-slate-900 dark:text-white tracking-tight">
-                  VIDYA
+                <span className="font-display font-extrabold text-lg tracking-tight text-neutral-900 dark:text-white">
+                  VIDYA AI
                 </span>
-                <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-700 dark:bg-blue-900/60 dark:text-blue-300">
-                  AI
+                <span className="px-1.5 py-0.5 rounded-full text-[9px] font-mono font-bold bg-[#D4F038] text-neutral-900">
+                  v2.4
                 </span>
               </div>
             </motion.button>
 
-            {/* 2. Center: ONLY 5 Main Tabs with Spring layoutId Pill + "More" Dropdown */}
-            <nav className="hidden lg:flex items-center gap-1.5 bg-slate-100/80 dark:bg-slate-900/80 p-1.5 rounded-2xl border border-slate-200/60 dark:border-slate-800/60 relative">
+            {/* 2. Center: Clean Pill Nav matching Figma Template */}
+            <nav className="hidden lg:flex items-center gap-1 bg-black/[0.04] dark:bg-white/[0.06] p-1 rounded-full border border-black/[0.04] dark:border-white/[0.06] relative">
               {mainNavLinks.map((link) => {
                 const Icon = link.icon;
                 const isActive = activeTab === link.id;
@@ -121,28 +134,31 @@ export const Navbar = ({ activeTab, setActiveTab, isDark, setIsDark, user, setUs
                 return (
                   <motion.button
                     key={link.id}
-                    whileHover={{ y: -1, transition: { duration: 0.15 } }}
                     whileTap={{ scale: 0.97 }}
                     onClick={() => setActiveTab(link.id)}
-                    className={`relative flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-colors duration-200 z-10 cursor-pointer ${
+                    className={`relative flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium transition-colors duration-200 z-10 cursor-pointer ${
                       isActive
-                        ? 'text-white'
-                        : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+                        ? 'text-white dark:text-[#0E1015] font-semibold'
+                        : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
                     }`}
                   >
                     {/* Active Sliding Highlight Pill */}
                     {isActive && (
                       <motion.div
                         layoutId="activeNavHighlight"
-                        transition={{ type: "spring", stiffness: 380, damping: 28, mass: 0.8 }}
-                        className="absolute inset-0 bg-blue-600 rounded-xl shadow-lg shadow-blue-500/30 -z-10"
+                        transition={{ type: "spring", stiffness: 420, damping: 32 }}
+                        className="absolute inset-0 bg-[#0E1015] dark:bg-white rounded-full shadow-sm -z-10"
                       />
                     )}
 
                     <Icon className="w-3.5 h-3.5" />
                     <span>{link.label}</span>
                     {link.badge && (
-                      <span className="px-1.5 py-0.2 rounded text-[9px] font-mono bg-rose-500 text-white font-bold animate-pulse">
+                      <span className={`px-1.5 py-0.2 rounded-full text-[9px] font-mono font-bold ${
+                        isActive
+                          ? 'bg-[#D4F038] text-neutral-900'
+                          : 'bg-black/10 dark:bg-white/15 text-neutral-700 dark:text-neutral-300'
+                      }`}>
                         {link.badge}
                       </span>
                     )}
@@ -210,10 +226,10 @@ export const Navbar = ({ activeTab, setActiveTab, isDark, setIsDark, user, setUs
               {/* 1-Click Exam Target Switcher Pill */}
               <DropdownMenu.Root>
                 <DropdownMenu.Trigger asChild>
-                  <button className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-850 hover:bg-slate-200/80 dark:hover:bg-slate-800 text-xs font-bold text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition-all cursor-pointer">
+                  <button className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/[0.04] dark:bg-white/[0.06] hover:bg-black/[0.08] dark:hover:bg-white/[0.1] text-xs font-medium text-neutral-800 dark:text-neutral-200 border border-black/[0.06] dark:border-white/[0.08] transition-all cursor-pointer">
                     <span>{currentStream.boardLogo}</span>
                     <span className="truncate max-w-[110px]">{currentStream.name.split('(')[0]}</span>
-                    <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
+                    <ChevronDown className="w-3.5 h-3.5 text-neutral-400" />
                   </button>
                 </DropdownMenu.Trigger>
 
@@ -221,9 +237,9 @@ export const Navbar = ({ activeTab, setActiveTab, isDark, setIsDark, user, setUs
                   <DropdownMenu.Content
                     side="bottom"
                     align="end"
-                    className="z-50 min-w-[240px] p-1.5 rounded-2xl bg-white dark:bg-[#0D1326] border border-slate-200 dark:border-slate-800 shadow-xl text-xs space-y-1 animate-scale-in"
+                    className="z-50 min-w-[240px] p-1.5 rounded-2xl bg-white dark:bg-[#12151D] border border-black/[0.08] dark:border-white/[0.08] shadow-xl text-xs space-y-1 animate-scale-in"
                   >
-                    <div className="px-3 py-2 border-b border-slate-100 dark:border-slate-800 text-[10px] font-mono text-slate-400 font-bold uppercase">
+                    <div className="px-3 py-2 border-b border-black/[0.04] dark:border-white/[0.06] text-[10px] font-mono text-neutral-400 font-bold uppercase">
                       Switch Exam Pattern
                     </div>
                     {examStreams.map((stream) => (
@@ -232,32 +248,55 @@ export const Navbar = ({ activeTab, setActiveTab, isDark, setIsDark, user, setUs
                         onClick={() => handleSelectStream(stream)}
                         className={`px-3 py-2 rounded-xl flex items-center justify-between cursor-pointer ${
                           selectedExamId === stream.id
-                            ? 'bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-300 font-bold'
-                            : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+                            ? 'bg-black/5 dark:bg-white/10 text-neutral-900 dark:text-white font-bold'
+                            : 'text-neutral-700 dark:text-neutral-300 hover:bg-black/5 dark:hover:bg-white/5'
                         }`}
                       >
                         <div className="flex items-center gap-2">
                           <span>{stream.boardLogo}</span>
                           <span>{stream.name}</span>
                         </div>
-                        {selectedExamId === stream.id && <CheckCircle2 className="w-3.5 h-3.5 text-blue-600" />}
+                        {selectedExamId === stream.id && <CheckCircle2 className="w-3.5 h-3.5 text-neutral-900 dark:text-white" />}
                       </DropdownMenu.Item>
                     ))}
                   </DropdownMenu.Content>
                 </DropdownMenu.Portal>
               </DropdownMenu.Root>
 
+              {/* Universal Spotlight Search Button (Cmd+K) */}
+              <button
+                type="button"
+                onClick={onOpenSearch}
+                className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full bg-black/[0.04] dark:bg-white/[0.06] hover:bg-black/[0.08] dark:hover:bg-white/[0.1] text-xs font-mono text-neutral-600 dark:text-neutral-300 border border-black/[0.06] dark:border-white/[0.08] transition-all cursor-pointer"
+                title="Search everything (Cmd+K)"
+              >
+                <Search className="w-3.5 h-3.5 text-neutral-400" />
+                <span className="hidden sm:inline">Search</span>
+                <kbd className="hidden md:inline-flex items-center text-[10px] px-1.5 py-0.2 rounded bg-black/[0.06] dark:bg-white/[0.08] text-neutral-500 font-mono">
+                  ⌘K
+                </kbd>
+              </button>
+
               {/* Animated Dark / Light Mode Switch */}
               <button
                 onClick={() => setIsDark(!isDark)}
                 title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
-                className="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+                className="p-2 rounded-full text-neutral-600 dark:text-neutral-300 hover:bg-black/5 dark:hover:bg-white/10 transition-colors cursor-pointer"
               >
                 {isDark ? (
                   <Sun className="w-4 h-4 text-amber-400" />
                 ) : (
-                  <Moon className="w-4 h-4 text-slate-600" />
+                  <Moon className="w-4 h-4 text-neutral-700" />
                 )}
+              </button>
+
+              {/* Signature SaaS CTA Button */}
+              <button
+                onClick={() => setActiveTab('studyHub')}
+                className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#0E1015] dark:bg-white text-white dark:text-[#0E1015] text-xs font-semibold hover:opacity-90 transition-all cursor-pointer shadow-sm"
+              >
+                <span>Start Learning</span>
+                <ChevronDown className="w-3 h-3 -rotate-90" />
               </button>
 
               {/* User Profile Dropdown / Sign In Button */}
