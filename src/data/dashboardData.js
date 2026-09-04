@@ -63,12 +63,12 @@ export const defaultDashboardData = {
     category: 'AI RECOMMENDATION',
     badge: 'High-Impact Fix',
     title: 'Your highest-impact improvement: Boolean Algebra',
-    topic: 'Boolean Algebra & Logic Minimization',
+    topic: 'Boolean Algebra',
     subject: 'Digital Electronics',
     currentMastery: 58,
     estimatedGain: '+8.4%',
     actionLabel: 'Launch 10-Q Fix Drill',
-    targetTab: 'conceptGraph',
+    targetTab: 'mockTests',
     description: 'Resolving prerequisite Node #c4 (Boolean Simplification) immediately unblocks Combinational Circuits and Karnaugh Map derivations.'
   },
   weakTopics: [
@@ -180,7 +180,8 @@ export const defaultDashboardData = {
     {
       id: 'act-1',
       type: 'mock',
-      title: 'Mock Test Completed: MAKAUT 70-Mark Paper',
+      title: 'Mock Test Completed',
+      subtitle: 'MAKAUT 70-Mark End Semester Paper',
       score: '88/100',
       time: '2 hours ago',
       status: 'Passed'
@@ -188,7 +189,8 @@ export const defaultDashboardData = {
     {
       id: 'act-2',
       type: 'flashcards',
-      title: 'Flashcards Reviewed: Discrete Math SM-2',
+      title: 'Flashcards Reviewed',
+      subtitle: 'Digital Electronics & Discrete Math SM-2',
       score: '96% Recall',
       time: '4 hours ago',
       status: 'Synced'
@@ -196,7 +198,8 @@ export const defaultDashboardData = {
     {
       id: 'act-3',
       type: 'doubt',
-      title: 'Doubt Solved: Eigenvalue Matrix Diagonalization',
+      title: 'Doubt Solved',
+      subtitle: '5-Variable K-Map Minimization via OCR',
       score: 'Step Verified',
       time: 'Yesterday',
       status: 'Resolved'
@@ -204,7 +207,8 @@ export const defaultDashboardData = {
     {
       id: 'act-4',
       type: 'focus',
-      title: 'Focus Session Completed: 25-Min Alpha Waves',
+      title: 'Focus Session Completed',
+      subtitle: '25-Min Alpha Waves (100% On-Task)',
       score: '100% Focus',
       time: 'Yesterday',
       status: 'Logged'

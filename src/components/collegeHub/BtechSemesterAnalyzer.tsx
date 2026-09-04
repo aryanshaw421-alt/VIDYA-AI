@@ -10,6 +10,8 @@ import {
   CheckCircle2, 
   Flame, 
   ArrowRight, 
+  ArrowLeft,
+  ChevronRight,
   Copy, 
   Calendar, 
   Award, 
@@ -22,7 +24,9 @@ import {
   BookMarked,
   BarChart3,
   X,
-  Check
+  Check,
+  ListTree,
+  Play
 } from 'lucide-react';
 import { toast } from 'sonner';
 import confetti from 'canvas-confetti';
@@ -58,6 +62,9 @@ export const BtechSemesterAnalyzer: React.FC<BtechSemesterAnalyzerProps> = ({
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const [activeAnalysisTab, setActiveAnalysisTab] = useState<'subjects' | 'labs' | 'textbooks' | 'pyqs' | 'formulas' | 'strategy' | 'credits'>('subjects');
   const [selectedTopic, setSelectedTopic] = useState<{ topicName: string; subjectCode: string; subjectName: string; semesterNum: number } | null>(null);
+  const [selectedSubjectCode, setSelectedSubjectCode] = useState<string | null>(null);
+  const [selectedModuleNumber, setSelectedModuleNumber] = useState<string | number | null>(null);
+  const [viewMode, setViewMode] = useState<'hierarchy' | 'all'>('hierarchy');
 
   const handleTopicClick = useCallback((topicName: string, subjectCode: string, subjectName: string, semesterNum: number) => {
     setSelectedTopic({ topicName, subjectCode, subjectName, semesterNum });
@@ -66,6 +73,8 @@ export const BtechSemesterAnalyzer: React.FC<BtechSemesterAnalyzerProps> = ({
   useEffect(() => {
     if (initialSemester && initialSemester >= 1 && initialSemester <= 8) {
       setSelectedSem(initialSemester);
+      setSelectedSubjectCode(null);
+      setSelectedModuleNumber(null);
     }
   }, [initialSemester]);
 
@@ -79,6 +88,16 @@ export const BtechSemesterAnalyzer: React.FC<BtechSemesterAnalyzerProps> = ({
   const semesterTheoryCourses = useMemo(() => {
     return semesterR25Courses.filter(c => c.type === 'Theory');
   }, [semesterR25Courses]);
+
+  const selectedCourse = useMemo(() => {
+    if (!selectedSubjectCode) return null;
+    return semesterTheoryCourses.find(c => c.code === selectedSubjectCode) || null;
+  }, [selectedSubjectCode, semesterTheoryCourses]);
+
+  const selectedModule = useMemo(() => {
+    if (!selectedCourse || selectedModuleNumber === null) return null;
+    return selectedCourse.modules?.find(m => m.moduleNumber === selectedModuleNumber) || null;
+  }, [selectedCourse, selectedModuleNumber]);
 
   const semesterPracticalCourses = useMemo(() => {
     return semesterR25Courses.filter(c => c.type === 'Practical');
@@ -114,6 +133,8 @@ export const BtechSemesterAnalyzer: React.FC<BtechSemesterAnalyzerProps> = ({
 
   const handleSemClick = (semNum: number) => {
     setSelectedSem(semNum);
+    setSelectedSubjectCode(null);
+    setSelectedModuleNumber(null);
     confetti({ particleCount: 30, spread: 50, origin: { y: 0.7 } });
     toast.info(`Switched to Semester ${semNum} Syllabus Matrix`);
   };
@@ -207,6 +228,8 @@ export const BtechSemesterAnalyzer: React.FC<BtechSemesterAnalyzerProps> = ({
                       key={c.code}
                       onClick={() => {
                         setSelectedSem(c.semester);
+                        setSelectedSubjectCode(c.code);
+                        setSelectedModuleNumber(null);
                         setIsSearching(false);
                         toast.success(`Loaded ${c.code}: ${c.name} (Semester ${c.semester})`);
                       }}
@@ -257,7 +280,7 @@ export const BtechSemesterAnalyzer: React.FC<BtechSemesterAnalyzerProps> = ({
             </span>
           </div>
 
-          <div className="grid grid-cols-4 sm:grid-cols-8 gap-2">
+          <div className="grid grid-cols-4 sm:grid-cols-8 gap-1.5 sm:gap-2">
             {[1, 2, 3, 4, 5, 6, 7, 8].map((sem) => {
               const isSelected = selectedSem === sem;
               const semCredits = R25_CREDIT_DISTRIBUTION.semesterCredits.find(s => s.sem === sem)?.credits || 20;
@@ -266,7 +289,7 @@ export const BtechSemesterAnalyzer: React.FC<BtechSemesterAnalyzerProps> = ({
                   key={sem}
                   type="button"
                   onClick={() => handleSemClick(sem)}
-                  className={`p-3 rounded-2xl flex flex-col items-center justify-center gap-1 transition-all cursor-pointer select-none ${
+                  className={`p-2 sm:p-3 rounded-xl sm:rounded-2xl flex flex-col items-center justify-center gap-0.5 sm:gap-1 transition-all cursor-pointer select-none ${
                     isSelected
                       ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/25 scale-[1.03] border border-blue-400'
                       : 'bg-[#FBFBF9] dark:bg-[#0A0C10] border border-black/[0.06] dark:border-white/[0.08] hover:bg-black/[0.03] dark:hover:bg-white/[0.05] text-neutral-700 dark:text-neutral-300'
@@ -325,20 +348,20 @@ export const BtechSemesterAnalyzer: React.FC<BtechSemesterAnalyzerProps> = ({
                 type="button"
                 onClick={() => {
                   const firstSubj = semesterData.subjects[0]?.name || 'Data Structures';
-                  toast.success(`Launching 70-Mark University Mock Test for Semester ${selectedSem}!`);
                   onOpenMockTest(firstSubj, 'btech_makaut');
+                  toast.success(`Launching Semester ${selectedSem} Mock Test!`);
                 }}
-                className="px-5 py-3 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-mono font-bold shadow-md flex items-center gap-1.5 cursor-pointer transition-all shrink-0"
+                className="p-3 rounded-2xl bg-blue-600 text-white font-mono text-xs font-bold hover:bg-blue-500 transition-all cursor-pointer flex items-center gap-2 shadow-sm"
               >
                 <FileCheck className="w-4 h-4" />
-                <span>Semester Mock Test</span>
+                <span>Test Paper ↗</span>
               </button>
             )}
           </div>
         </div>
 
         {/* 7 Tab Navigation */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-black/[0.05] dark:border-white/[0.06]">
+        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-2 border-b border-black/[0.05] dark:border-white/[0.06]">
           {[
             { id: 'subjects' as const, label: `Core Theory (${semesterTheoryCourses.length})`, icon: BookOpen },
             { id: 'labs' as const, label: `Lab Practicals (${semesterPracticalCourses.length})`, icon: FlaskConical },
@@ -355,7 +378,7 @@ export const BtechSemesterAnalyzer: React.FC<BtechSemesterAnalyzerProps> = ({
                 key={tab.id}
                 type="button"
                 onClick={() => setActiveAnalysisTab(tab.id)}
-                className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-mono font-medium transition-all cursor-pointer whitespace-nowrap ${
+                className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-mono font-medium transition-all cursor-pointer whitespace-nowrap shrink-0 ${
                   isActive
                     ? 'bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 font-bold shadow-sm'
                     : 'text-neutral-600 dark:text-neutral-400 hover:bg-black/[0.04] dark:hover:bg-white/[0.06]'
@@ -368,95 +391,547 @@ export const BtechSemesterAnalyzer: React.FC<BtechSemesterAnalyzerProps> = ({
           })}
         </div>
 
-        {/* Tab 1: Core Theory Subjects & Full Modules */}
+        {/* Tab 1: Core Theory Subjects & Hierarchical Drill-Down */}
         {activeAnalysisTab === 'subjects' && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 animate-fade-in">
-            {semesterTheoryCourses.map((course: R25Course) => (
-              <div
-                key={course.code}
-                className="p-5 rounded-2xl bg-[#FBFBF9] dark:bg-[#0A0C10] border border-black/[0.06] dark:border-white/[0.06] space-y-3 flex flex-col justify-between hover:border-black/[0.12] dark:hover:border-white/[0.12] transition-all shadow-sm"
-              >
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-mono text-blue-600 dark:text-blue-400 font-bold uppercase">
-                      {course.code} • {course.category}
-                    </span>
-                    <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-black/[0.05] dark:bg-white/[0.08] text-neutral-700 dark:text-neutral-300 font-bold">
-                      {course.credits} Credits ({course.contact})
-                    </span>
-                  </div>
-
-                  <h4 className="text-base font-bold text-neutral-900 dark:text-white font-display">
-                    {course.name}
-                  </h4>
-
-                  {course.contactHours && (
-                    <div className="text-[11px] font-mono text-neutral-500">
-                      Total Contact Hours: {course.contactHours} Hours
-                    </div>
-                  )}
-
-                  {/* Modules with exact lecture counts — ALL TOPICS CLICKABLE */}
-                  <div className="space-y-2 pt-2">
-                    <div className="text-[10px] font-mono text-neutral-400 font-semibold uppercase tracking-wider flex items-center gap-1.5">
-                      <span>Course Modules ({course.modules?.length || 0}):</span>
-                      <span className="px-1.5 py-0.5 rounded bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 text-[9px] font-bold">Click topic → Full Notes</span>
-                    </div>
-                    <div className="space-y-2">
-                      {course.modules?.map((mod, idx) => (
-                        <div key={idx} className="p-2.5 rounded-xl bg-white dark:bg-[#12151D] border border-black/[0.04] dark:border-white/[0.05] text-xs space-y-1.5">
-                          <div className="font-bold text-neutral-800 dark:text-neutral-200 font-mono flex items-center justify-between">
-                            <span>Mod {mod.moduleNumber}: {mod.title}</span>
-                            {mod.lectures && <span className="text-[10px] text-blue-600 dark:text-blue-400">{mod.lectures}</span>}
-                          </div>
-                          <div className="flex flex-wrap gap-1.5">
-                            {mod.topics.map((t, tIdx) => (
-                              <button
-                                key={tIdx}
-                                type="button"
-                                onClick={() => handleTopicClick(t, course.code, course.name, selectedSem)}
-                                className="px-2 py-1 rounded-lg text-[11px] bg-slate-50 dark:bg-slate-800/80 hover:bg-blue-50 dark:hover:bg-blue-950/60 hover:text-blue-700 dark:hover:text-blue-300 text-neutral-700 dark:text-neutral-300 border border-black/[0.06] dark:border-white/[0.08] hover:border-blue-300 dark:hover:border-blue-700 transition-all cursor-pointer text-left font-sans leading-tight flex items-center gap-1 group"
-                              >
-                                <span className="text-[9px] text-blue-400 dark:text-blue-500 group-hover:text-blue-600 dark:group-hover:text-blue-300">📖</span>
-                                <span>{t}</span>
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+          <div className="space-y-5 animate-fade-in">
+            {/* Header Control & Mode Toggle */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl bg-blue-50/60 dark:bg-blue-950/30 border border-blue-200/60 dark:border-blue-900/40">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-xl bg-blue-600 text-white flex items-center justify-center shrink-0 shadow-xs">
+                  <ListTree className="w-4 h-4" />
                 </div>
-
-                <div className="pt-3 border-t border-black/[0.05] dark:border-white/[0.06] flex items-center gap-2">
-                  {(setActiveTab || onSelectTopic) && (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        toast.success(`Opening Study Room for ${course.name}`);
-                        if (onSelectTopic) onSelectTopic(course.name);
-                        if (setActiveTab) setActiveTab('studyHub');
-                      }}
-                      className="flex-1 py-2 px-3 rounded-xl text-xs font-semibold border border-black/10 dark:border-white/15 bg-transparent hover:bg-black/5 dark:hover:bg-white/10 text-neutral-900 dark:text-white transition-all cursor-pointer text-center truncate"
-                    >
-                      Study Notes →
-                    </button>
-                  )}
-                  {onOpenMockTest && (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        toast.info(`Configuring Mock Test Paper for ${course.name}...`);
-                        onOpenMockTest(course.name, 'btech_makaut');
-                      }}
-                      className="flex-1 py-2 px-3 rounded-xl text-xs font-semibold bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 border border-blue-200/60 dark:border-blue-800/60 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-all cursor-pointer text-center truncate"
-                    >
-                      Take Mock Test →
-                    </button>
-                  )}
+                <div>
+                  <div className="text-xs font-mono font-bold text-blue-700 dark:text-blue-300 uppercase tracking-wider flex items-center gap-1.5">
+                    <span>Curriculum Navigator</span>
+                    <span className="text-[10px] px-2 py-0.2 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200">
+                      Step-by-Step Drilldown
+                    </span>
+                  </div>
+                  <div className="text-xs text-neutral-600 dark:text-neutral-400 font-sans">
+                    {selectedCourse && selectedModule
+                      ? `Level 3: ${selectedCourse.code} › Module ${selectedModule.moduleNumber} Chapters`
+                      : selectedCourse
+                      ? `Level 2: ${selectedCourse.code} Modules › Select a Module`
+                      : `Level 1: Semester ${selectedSem} (${semesterTheoryCourses.length} Theory Subjects) › Click a Subject`}
+                  </div>
                 </div>
               </div>
-            ))}
+
+              <div className="flex items-center gap-1.5 self-start sm:self-auto">
+                <button
+                  type="button"
+                  onClick={() => setViewMode('hierarchy')}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                    viewMode === 'hierarchy'
+                      ? 'bg-blue-600 text-white shadow-xs'
+                      : 'bg-white dark:bg-[#12151D] text-neutral-600 dark:text-neutral-400 border border-black/[0.06] dark:border-white/[0.08]'
+                  }`}
+                >
+                  <ListTree className="w-3.5 h-3.5" />
+                  <span>Step-by-Step Flow</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setViewMode('all')}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                    viewMode === 'all'
+                      ? 'bg-blue-600 text-white shadow-xs'
+                      : 'bg-white dark:bg-[#12151D] text-neutral-600 dark:text-neutral-400 border border-black/[0.06] dark:border-white/[0.08]'
+                  }`}
+                >
+                  <BookOpen className="w-3.5 h-3.5" />
+                  <span>Expand All</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Breadcrumbs Navigation Bar (Active in Hierarchy Mode when drilled down) */}
+            {viewMode === 'hierarchy' && selectedCourse && (
+              <div className="p-3.5 rounded-2xl bg-[#F8F9FA] dark:bg-[#06080F] border border-black/[0.06] dark:border-white/[0.08] flex flex-wrap items-center justify-between gap-3 text-xs font-mono shadow-2xs">
+                <div className="flex flex-wrap items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSelectedSubjectCode(null);
+                      setSelectedModuleNumber(null);
+                    }}
+                    className="flex items-center gap-1 text-blue-600 dark:text-blue-400 hover:underline font-bold cursor-pointer"
+                  >
+                    <span>Semester {selectedSem} Subjects</span>
+                  </button>
+                  <ChevronRight className="w-3.5 h-3.5 text-neutral-400" />
+                  
+                  <button
+                    type="button"
+                    onClick={() => setSelectedModuleNumber(null)}
+                    className={`flex items-center gap-1 font-bold cursor-pointer ${
+                      selectedModule
+                        ? 'text-blue-600 dark:text-blue-400 hover:underline'
+                        : 'text-neutral-900 dark:text-white'
+                    }`}
+                  >
+                    <span>{selectedCourse.code}: {selectedCourse.name.length > 28 ? selectedCourse.name.substring(0, 28) + '...' : selectedCourse.name}</span>
+                  </button>
+
+                  {selectedModule && (
+                    <>
+                      <ChevronRight className="w-3.5 h-3.5 text-neutral-400" />
+                      <span className="font-bold text-neutral-900 dark:text-white px-2 py-0.5 rounded-md bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-300">
+                        Mod {selectedModule.moduleNumber}: {selectedModule.title.length > 24 ? selectedModule.title.substring(0, 24) + '...' : selectedModule.title}
+                      </span>
+                    </>
+                  )}
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (selectedModule) {
+                      setSelectedModuleNumber(null);
+                    } else {
+                      setSelectedSubjectCode(null);
+                    }
+                  }}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-[#12151D] border border-black/[0.08] dark:border-white/[0.1] text-neutral-700 dark:text-neutral-300 hover:text-blue-600 text-xs font-mono font-semibold cursor-pointer transition-colors shadow-2xs"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5" />
+                  <span>{selectedModule ? 'Back to Modules' : `Back to Sem ${selectedSem} Subjects`}</span>
+                </button>
+              </div>
+            )}
+
+            {/* LEVEL 1: Subjects List View (when no subject is selected) */}
+            {viewMode === 'hierarchy' && !selectedCourse && (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="space-y-0.5">
+                    <h3 className="font-bold font-display text-base sm:text-lg text-neutral-900 dark:text-white">
+                      Subjects in Semester {selectedSem}
+                    </h3>
+                    <p className="text-xs text-neutral-500 font-sans">
+                      Click any subject card below to view its syllabus modules.
+                    </p>
+                  </div>
+                  <span className="text-xs font-mono text-neutral-400 font-semibold px-2.5 py-1 rounded-full bg-black/[0.04] dark:bg-white/[0.06]">
+                    {semesterTheoryCourses.length} Subjects
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {semesterTheoryCourses.map((course: R25Course) => {
+                    const totalTopics = course.modules?.reduce((acc, m) => acc + (m.topics?.length || 0), 0) || 0;
+                    return (
+                      <div
+                        key={course.code}
+                        onClick={() => {
+                          setSelectedSubjectCode(course.code);
+                          setSelectedModuleNumber(null);
+                        }}
+                        className="p-5 rounded-2xl bg-[#FBFBF9] dark:bg-[#0A0C10] border border-black/[0.06] dark:border-white/[0.06] space-y-4 hover:border-blue-500/60 dark:hover:border-blue-500/60 hover:shadow-md transition-all cursor-pointer group flex flex-col justify-between"
+                      >
+                        <div className="space-y-3">
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="text-xs font-mono text-blue-600 dark:text-blue-400 font-bold px-2.5 py-0.5 rounded-lg bg-blue-50 dark:bg-blue-950/60 border border-blue-200/50 dark:border-blue-900/50 uppercase">
+                              {course.code} • {course.category}
+                            </span>
+                            <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-black/[0.04] dark:bg-white/[0.06] text-neutral-600 dark:text-neutral-400 font-semibold">
+                              {course.credits} Credits ({course.contact})
+                            </span>
+                          </div>
+
+                          <div>
+                            <h4 className="text-base font-bold text-neutral-900 dark:text-white font-display group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                              {course.name}
+                            </h4>
+                            {course.contactHours && (
+                              <div className="text-[11px] font-mono text-neutral-500 mt-1">
+                                Total Contact: {course.contactHours} Lecture Hours
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Modules and Chapters Badges */}
+                          <div className="flex flex-wrap items-center gap-2 pt-1 text-xs font-mono">
+                            <span className="px-2.5 py-1 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 font-bold flex items-center gap-1.5">
+                              <Layers className="w-3.5 h-3.5" />
+                              <span>{course.modules?.length || 0} Modules</span>
+                            </span>
+                            <span className="px-2.5 py-1 rounded-xl bg-black/[0.03] dark:bg-white/[0.05] border border-black/[0.04] dark:border-white/[0.06] text-neutral-600 dark:text-neutral-400 flex items-center gap-1.5">
+                              <BookOpen className="w-3.5 h-3.5 text-emerald-500" />
+                              <span>{totalTopics} Chapters</span>
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className="pt-3 border-t border-black/[0.05] dark:border-white/[0.06] flex items-center justify-between text-xs font-mono">
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setSelectedSubjectCode(course.code);
+                              setSelectedModuleNumber(null);
+                            }}
+                            className="font-bold text-blue-600 dark:text-blue-400 flex items-center gap-1.5 group-hover:translate-x-1 transition-transform cursor-pointer"
+                          >
+                            <span>Explore Modules ({course.modules?.length || 0})</span>
+                            <ArrowRight className="w-3.5 h-3.5" />
+                          </button>
+                          <span className="text-[11px] text-neutral-400">Click card</span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {/* LEVEL 2: Modules of Selected Subject (when subject chosen, module not chosen) */}
+            {viewMode === 'hierarchy' && selectedCourse && !selectedModule && (
+              <div className="space-y-6">
+                {/* Subject Summary Banner */}
+                <div className="p-6 rounded-2xl bg-[#FBFBF9] dark:bg-[#0A0C10] border border-black/[0.06] dark:border-white/[0.06] space-y-4">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs font-mono text-blue-600 dark:text-blue-400 font-bold px-2.5 py-0.5 rounded-lg bg-blue-50 dark:bg-blue-950/60 border border-blue-200/50 uppercase">
+                          {selectedCourse.code} • {selectedCourse.category}
+                        </span>
+                        <span className="text-xs font-mono text-neutral-500">
+                          Semester {selectedSem} • {selectedCourse.credits} Credits • {selectedCourse.contactHours || 36} Hours
+                        </span>
+                      </div>
+                      <h3 className="text-xl sm:text-2xl font-bold font-display text-neutral-900 dark:text-white">
+                        {selectedCourse.name}
+                      </h3>
+                      <p className="text-xs text-neutral-500 dark:text-neutral-400 font-sans max-w-2xl">
+                        Select any module below to inspect its detailed syllabus chapters, video derivations, lecture hours, and AI revision notes.
+                      </p>
+                    </div>
+
+                    <div className="flex items-center gap-2 shrink-0">
+                      {onOpenMockTest && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            toast.info(`Configuring Mock Test for ${selectedCourse.name}...`);
+                            onOpenMockTest(selectedCourse.name, 'btech_makaut');
+                          }}
+                          className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-mono font-bold flex items-center gap-1.5 cursor-pointer shadow-xs transition-all"
+                        >
+                          <FileCheck className="w-3.5 h-3.5" />
+                          <span>Take Mock Test</span>
+                        </button>
+                      )}
+                      {(setActiveTab || onSelectTopic) && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            toast.success(`Opening Study Room for ${selectedCourse.name}`);
+                            if (onSelectTopic) onSelectTopic(selectedCourse.name);
+                            if (setActiveTab) setActiveTab('studyHub');
+                          }}
+                          className="px-4 py-2 rounded-xl bg-white dark:bg-[#12151D] border border-black/[0.08] dark:border-white/[0.1] text-neutral-800 dark:text-neutral-200 text-xs font-mono font-bold flex items-center gap-1.5 cursor-pointer hover:border-blue-500 transition-colors"
+                        >
+                          <BookOpen className="w-3.5 h-3.5 text-blue-500" />
+                          <span>Study Notes</span>
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Modules Grid */}
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <h4 className="font-bold text-base font-display text-neutral-900 dark:text-white flex items-center gap-2">
+                      <Layers className="w-4 h-4 text-blue-500" />
+                      <span>Modules in {selectedCourse.code} ({selectedCourse.modules?.length || 0})</span>
+                    </h4>
+                    <span className="text-xs font-mono text-neutral-400">
+                      Click a module to view its chapters
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {selectedCourse.modules?.map((mod) => (
+                      <div
+                        key={mod.moduleNumber}
+                        onClick={() => setSelectedModuleNumber(mod.moduleNumber)}
+                        className="p-5 rounded-2xl bg-[#FBFBF9] dark:bg-[#0A0C10] border border-black/[0.06] dark:border-white/[0.06] hover:border-blue-500/60 dark:hover:border-blue-500/60 hover:shadow-md transition-all cursor-pointer group space-y-3 flex flex-col justify-between"
+                      >
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-between">
+                            <span className="text-xs font-mono font-bold px-2.5 py-0.5 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
+                              Module {mod.moduleNumber}
+                            </span>
+                            {mod.lectures && (
+                              <span className="text-[11px] font-mono font-semibold px-2 py-0.5 rounded-md bg-black/[0.04] dark:bg-white/[0.06] text-neutral-600 dark:text-neutral-400">
+                                {mod.lectures} Lectures
+                              </span>
+                            )}
+                          </div>
+
+                          <h5 className="font-bold text-sm sm:text-base text-neutral-900 dark:text-white font-display group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                            {mod.title}
+                          </h5>
+
+                          <p className="text-xs text-neutral-500 dark:text-neutral-400 font-sans line-clamp-2">
+                            Includes {mod.topics?.length || 0} chapters: {mod.topics?.slice(0, 3).join(', ')}...
+                          </p>
+                        </div>
+
+                        <div className="pt-3 border-t border-black/[0.05] dark:border-white/[0.06] flex items-center justify-between text-xs font-mono">
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setSelectedModuleNumber(mod.moduleNumber);
+                            }}
+                            className="font-bold text-blue-600 dark:text-blue-400 flex items-center gap-1.5 group-hover:translate-x-1 transition-transform cursor-pointer"
+                          >
+                            <span>View {mod.topics?.length || 0} Chapters</span>
+                            <ArrowRight className="w-3.5 h-3.5" />
+                          </button>
+                          <span className="text-[11px] text-neutral-400 font-semibold">
+                            {mod.topics?.length || 0} Topics
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* LEVEL 3: Chapters of Selected Module */}
+            {viewMode === 'hierarchy' && selectedCourse && selectedModule && (
+              <div className="space-y-6">
+                {/* Horizontal Module Quick Switcher */}
+                <div className="p-2 rounded-2xl bg-[#FBFBF9] dark:bg-[#0A0C10] border border-black/[0.06] dark:border-white/[0.06] flex items-center gap-1.5 overflow-x-auto shadow-2xs">
+                  {selectedCourse.modules?.map((m) => {
+                    const isCurrent = m.moduleNumber === selectedModule.moduleNumber;
+                    return (
+                      <button
+                        key={m.moduleNumber}
+                        type="button"
+                        onClick={() => setSelectedModuleNumber(m.moduleNumber)}
+                        className={`px-3.5 py-2 rounded-xl text-xs font-mono font-bold transition-all whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
+                          isCurrent
+                            ? 'bg-blue-600 text-white shadow-xs'
+                            : 'text-neutral-600 dark:text-neutral-400 hover:bg-black/[0.04] dark:hover:bg-white/[0.06]'
+                        }`}
+                      >
+                        <span>Mod {m.moduleNumber}</span>
+                        <span className="text-[10px] opacity-80">({m.topics?.length || 0})</span>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Selected Module Detail Card */}
+                <div className="p-6 rounded-2xl bg-[#FBFBF9] dark:bg-[#0A0C10] border border-black/[0.06] dark:border-white/[0.06] space-y-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-black/[0.05] dark:border-white/[0.06] pb-3">
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs font-mono font-bold px-2.5 py-0.5 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
+                          Module {selectedModule.moduleNumber}
+                        </span>
+                        {selectedModule.lectures && (
+                          <span className="text-xs font-mono text-neutral-500">
+                            {selectedModule.lectures} Lecture Hours
+                          </span>
+                        )}
+                      </div>
+                      <h3 className="text-lg sm:text-xl font-bold font-display text-neutral-900 dark:text-white">
+                        {selectedModule.title}
+                      </h3>
+                    </div>
+
+                    <div className="text-xs font-mono text-neutral-400">
+                      {selectedModule.topics?.length || 0} Prescribed Chapters / Topics
+                    </div>
+                  </div>
+
+                  {/* Chapters List */}
+                  <div className="space-y-2.5">
+                    {selectedModule.topics?.map((topic, idx) => (
+                      <div
+                        key={idx}
+                        className="p-3.5 rounded-xl bg-white dark:bg-[#12151D] border border-black/[0.05] dark:border-white/[0.06] hover:border-blue-400 dark:hover:border-blue-500/50 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 group"
+                      >
+                        <div className="flex items-center gap-3">
+                          <span className="w-7 h-7 rounded-lg bg-black/[0.03] dark:bg-white/[0.05] border border-black/[0.04] dark:border-white/[0.06] flex items-center justify-center text-xs font-mono font-bold text-neutral-700 dark:text-neutral-300 shrink-0 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-colors">
+                            #{idx + 1}
+                          </span>
+                          <span className="text-xs sm:text-sm font-semibold text-neutral-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors font-sans">
+                            {topic}
+                          </span>
+                        </div>
+
+                        <div className="flex items-center gap-2 shrink-0 self-end sm:self-auto">
+                          <button
+                            type="button"
+                            onClick={() => handleTopicClick(topic, selectedCourse.code, selectedCourse.name, selectedSem)}
+                            className="px-3 py-1.5 rounded-lg bg-blue-50 dark:bg-blue-950/60 hover:bg-blue-600 hover:text-white text-blue-700 dark:text-blue-300 border border-blue-200/60 dark:border-blue-800/60 text-xs font-mono font-bold transition-all cursor-pointer flex items-center gap-1.5 shadow-2xs"
+                          >
+                            <BookOpen className="w-3.5 h-3.5" />
+                            <span>Full Notes & Formulas</span>
+                          </button>
+
+                          {onSelectTopic && (
+                            <button
+                              type="button"
+                              onClick={() => {
+                                handleTopicClick(topic, selectedCourse.code, selectedCourse.name, selectedSem);
+                                if (onSelectTopic) onSelectTopic(topic);
+                              }}
+                              className="px-2.5 py-1.5 rounded-lg bg-black/[0.03] dark:bg-white/[0.05] hover:bg-black/[0.08] dark:hover:bg-white/[0.1] text-neutral-700 dark:text-neutral-300 text-xs font-mono font-medium transition-colors cursor-pointer"
+                              title="Topic Video & Derivation"
+                            >
+                              <Play className="w-3.5 h-3.5 text-blue-500" />
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Prev / Next Module Navigation */}
+                  {(() => {
+                    const currentIdx = selectedCourse.modules?.findIndex(m => m.moduleNumber === selectedModule.moduleNumber) ?? -1;
+                    const prevMod = currentIdx > 0 ? selectedCourse.modules?.[currentIdx - 1] : null;
+                    const nextMod = (currentIdx >= 0 && selectedCourse.modules && currentIdx < selectedCourse.modules.length - 1)
+                      ? selectedCourse.modules[currentIdx + 1]
+                      : null;
+
+                    return (
+                      <div className="pt-4 border-t border-black/[0.05] dark:border-white/[0.06] flex items-center justify-between gap-3">
+                        {prevMod ? (
+                          <button
+                            type="button"
+                            onClick={() => setSelectedModuleNumber(prevMod.moduleNumber)}
+                            className="px-4 py-2 rounded-xl bg-white dark:bg-[#12151D] border border-black/[0.08] dark:border-white/[0.1] text-xs font-mono font-bold text-neutral-700 dark:text-neutral-300 hover:text-blue-600 transition-colors flex items-center gap-1.5 cursor-pointer"
+                          >
+                            <ArrowLeft className="w-3.5 h-3.5" />
+                            <span>Prev: Mod {prevMod.moduleNumber}</span>
+                          </button>
+                        ) : <div />}
+
+                        {nextMod ? (
+                          <button
+                            type="button"
+                            onClick={() => setSelectedModuleNumber(nextMod.moduleNumber)}
+                            className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-mono font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
+                          >
+                            <span>Next: Mod {nextMod.moduleNumber}</span>
+                            <ArrowRight className="w-3.5 h-3.5" />
+                          </button>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={() => setSelectedModuleNumber(null)}
+                            className="px-4 py-2 rounded-xl bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 text-xs font-mono font-bold transition-all flex items-center gap-1.5 cursor-pointer"
+                          >
+                            <span>All Modules Completed ✓</span>
+                          </button>
+                        )}
+                      </div>
+                    );
+                  })()}
+                </div>
+              </div>
+            )}
+
+            {/* EXPAND ALL VIEW (if user explicitly switches viewMode to 'all') */}
+            {viewMode === 'all' && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 animate-fade-in">
+                {semesterTheoryCourses.map((course: R25Course) => (
+                  <div
+                    key={course.code}
+                    className="p-5 rounded-2xl bg-[#FBFBF9] dark:bg-[#0A0C10] border border-black/[0.06] dark:border-white/[0.06] space-y-3 flex flex-col justify-between hover:border-black/[0.12] dark:hover:border-white/[0.12] transition-all shadow-sm"
+                  >
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[11px] font-mono text-blue-600 dark:text-blue-400 font-bold uppercase">
+                          {course.code} • {course.category}
+                        </span>
+                        <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-black/[0.05] dark:bg-white/[0.08] text-neutral-700 dark:text-neutral-300 font-bold">
+                          {course.credits} Credits ({course.contact})
+                        </span>
+                      </div>
+
+                      <h4 className="text-base font-bold text-neutral-900 dark:text-white font-display">
+                        {course.name}
+                      </h4>
+
+                      {course.contactHours && (
+                        <div className="text-[11px] font-mono text-neutral-500">
+                          Total Contact Hours: {course.contactHours} Hours
+                        </div>
+                      )}
+
+                      <div className="space-y-2 pt-2">
+                        <div className="text-[10px] font-mono text-neutral-400 font-semibold uppercase tracking-wider flex items-center gap-1.5">
+                          <span>Course Modules ({course.modules?.length || 0}):</span>
+                        </div>
+                        <div className="space-y-2">
+                          {course.modules?.map((mod, idx) => (
+                            <div key={idx} className="p-2.5 rounded-xl bg-white dark:bg-[#12151D] border border-black/[0.04] dark:border-white/[0.05] text-xs space-y-1.5">
+                              <div className="font-bold text-neutral-800 dark:text-neutral-200 font-mono flex items-center justify-between">
+                                <span>Mod {mod.moduleNumber}: {mod.title}</span>
+                                {mod.lectures && <span className="text-[10px] text-blue-600 dark:text-blue-400">{mod.lectures}</span>}
+                              </div>
+                              <div className="flex flex-wrap gap-1.5">
+                                {mod.topics.map((t, tIdx) => (
+                                  <button
+                                    key={tIdx}
+                                    type="button"
+                                    onClick={() => handleTopicClick(t, course.code, course.name, selectedSem)}
+                                    className="px-2 py-1 rounded-lg text-[11px] bg-slate-50 dark:bg-slate-800/80 hover:bg-blue-50 dark:hover:bg-blue-950/60 hover:text-blue-700 dark:hover:text-blue-300 text-neutral-700 dark:text-neutral-300 border border-black/[0.06] dark:border-white/[0.08] hover:border-blue-300 dark:hover:border-blue-700 transition-all cursor-pointer text-left font-sans leading-tight flex items-center gap-1 group"
+                                  >
+                                    <span className="text-[9px] text-blue-400 dark:text-blue-500 group-hover:text-blue-600 dark:group-hover:text-blue-300">📖</span>
+                                    <span>{t}</span>
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="pt-3 border-t border-black/[0.05] dark:border-white/[0.06] flex items-center gap-2">
+                      {(setActiveTab || onSelectTopic) && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            toast.success(`Opening Study Room for ${course.name}`);
+                            if (onSelectTopic) onSelectTopic(course.name);
+                            if (setActiveTab) setActiveTab('studyHub');
+                          }}
+                          className="flex-1 py-2 px-3 rounded-xl text-xs font-semibold border border-black/10 dark:border-white/15 bg-transparent hover:bg-black/5 dark:hover:bg-white/10 text-neutral-900 dark:text-white transition-all cursor-pointer text-center truncate"
+                        >
+                          Study Notes →
+                        </button>
+                      )}
+                      {onOpenMockTest && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            toast.info(`Configuring Mock Test Paper for ${course.name}...`);
+                            onOpenMockTest(course.name, 'btech_makaut');
+                          }}
+                          className="flex-1 py-2 px-3 rounded-xl text-xs font-semibold bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 border border-blue-200/60 dark:border-blue-800/60 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-all cursor-pointer text-center truncate"
+                        >
+                          Take Mock Test →
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         )}
 

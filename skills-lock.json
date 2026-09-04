@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "skills": {
+    "improve": {
+      "source": "motiondivision/motion",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/improve/SKILL.md",
+      "computedHash": "6fec25022b25a049dbe5c18148e6eea9897150c2eeeeb39207732f949a3c797d"
+    },
+    "fix": {
+      "source": "motiondivision/motion",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/fix/SKILL.md",
+      "computedHash": "2af71853affa9bdf654577d8626b93e912844809f36049a113c5f7b8e88b696a"
+    }
+  }
+}

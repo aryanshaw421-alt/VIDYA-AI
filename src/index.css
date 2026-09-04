@@ -4,22 +4,26 @@
 
 @layer base {
   :root {
-    --bg-primary: #FBFBF9;
+    --bg-primary: #F8F9FA;
     --card-bg: #FFFFFF;
     --border-color: rgba(14, 16, 21, 0.08);
     --text-primary: #0E1015;
     --text-muted: #575D6A;
-    --royal-blue: #2563EB;
+    --royal-blue: #0055FE;
+    --cyber-cyan: #06B6D4;
     --lime-accent: #D4F038;
   }
 
   .dark {
-    --bg-primary: #090B10;
-    --card-bg: #0F1219;
+    --bg-primary: #06080F;
+    --card-bg: #0B0E17;
+    --card-hover: #101422;
     --border-color: rgba(255, 255, 255, 0.08);
+    --hud-border: rgba(255, 255, 255, 0.12);
     --text-primary: #F3F4F6;
-    --text-muted: #9CA3AF;
-    --royal-blue: #3B82F6;
+    --text-muted: #94A3B8;
+    --royal-blue: #0055FE;
+    --cyber-cyan: #06B6D4;
     --lime-accent: #D4F038;
   }
 
@@ -91,11 +95,27 @@
 /* Fluid Full-Width Container */
 .fluid-container {
   width: 100%;
-  max-width: 1280px;
+  max-width: 1440px;
   margin-left: auto;
   margin-right: auto;
-  padding-left: clamp(16px, 4vw, 48px);
-  padding-right: clamp(16px, 4vw, 48px);
+  padding-left: clamp(12px, 3.5vw, 40px);
+  padding-right: clamp(12px, 3.5vw, 40px);
+}
+
+/* Hide scrollbar while preserving touch & mouse scrollability */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+  width: 0 !important;
+  height: 0 !important;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Mobile Touch Tap Highlight fix */
+* {
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Subtle Architectural Grid */
@@ -173,4 +193,95 @@
 
 .dark ::-webkit-scrollbar-thumb:hover {
   background: rgba(59, 130, 246, 0.6);
+}
+
+/* ============================================================
+   FUTURISTIC COGNITIVE HUD & BENTO DESIGN UTILITIES
+   ============================================================ */
+
+/* Cyber-Atmospheric Background Glow */
+.cyber-canvas-glow {
+  background-image: 
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(0, 85, 254, 0.14), transparent 70%),
+    radial-gradient(circle 400px at 90% 20%, rgba(6, 182, 212, 0.08), transparent 60%),
+    radial-gradient(circle 350px at 10% 40%, rgba(212, 240, 56, 0.05), transparent 60%);
+}
+
+.dark .cyber-canvas-glow {
+  background-image: 
+    radial-gradient(ellipse 90% 70% at 50% -15%, rgba(0, 85, 254, 0.22), transparent 70%),
+    radial-gradient(circle 500px at 85% 15%, rgba(6, 182, 212, 0.12), transparent 65%),
+    radial-gradient(circle 400px at 15% 45%, rgba(212, 240, 56, 0.08), transparent 60%);
+}
+
+/* Cyber Matrix Subtle Grid */
+.cyber-grid-overlay {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(0, 85, 254, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 85, 254, 0.04) 1px, transparent 1px);
+}
+
+.dark .cyber-grid-overlay {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+/* Futuristic HUD Bento Glass Card */
+.hud-bento-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dark .hud-bento-card {
+  background: rgba(11, 14, 23, 0.82);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.4);
+}
+
+.dark .hud-bento-card:hover {
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow: 0 12px 40px -4px rgba(0, 85, 254, 0.15);
+}
+
+/* Neon Glow Accents */
+.neon-glow-blue {
+  box-shadow: 0 0 25px -4px rgba(0, 85, 254, 0.45);
+}
+
+.neon-glow-lime {
+  box-shadow: 0 0 25px -4px rgba(212, 240, 56, 0.4);
+}
+
+.neon-glow-cyan {
+  box-shadow: 0 0 25px -4px rgba(6, 182, 212, 0.4);
+}
+
+/* Radar Scan Line Animation */
+@keyframes radarSweep {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-radar-sweep {
+  animation: radarSweep 6s linear infinite;
+  transform-origin: center;
+}
+
+/* Telemetry Pulse Badge */
+@keyframes telemetryPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.15); }
+}
+
+.animate-telemetry-pulse {
+  animation: telemetryPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }

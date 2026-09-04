@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { TopicDeepDiveSection } from './collegeHub/TopicDeepDiveSection';
 import { BtechSemesterAnalyzer } from './collegeHub/BtechSemesterAnalyzer';
+import { PyqPredictorVault } from './collegeHub/PyqPredictorVault';
 import { 
   BookOpen, 
   Sparkles, 
@@ -30,7 +31,7 @@ export const StudyRoomView = ({
   onSelectSemester
 }) => {
   const [selectedTopic, setSelectedTopic] = useState(initialTopic);
-  const [activeStudyMode, setActiveStudyMode] = useState('semester'); // 'semester' | 'deepDive'
+  const [activeStudyMode, setActiveStudyMode] = useState('semester'); // 'semester' | 'deepDive' | 'pyqVault'
   const [activeSem, setActiveSem] = useState(initialSemester || 3);
 
   useEffect(() => {
@@ -121,31 +122,47 @@ export const StudyRoomView = ({
         </div>
 
         {/* Dual Mode Switcher Pills */}
-        <div className="flex items-center p-1.5 rounded-2xl bg-black/[0.04] dark:bg-white/[0.06] border border-black/[0.05] dark:border-white/[0.08] shrink-0 self-stretch sm:self-auto">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-1.5 sm:gap-1 p-1.5 rounded-2xl bg-black/[0.04] dark:bg-white/[0.06] border border-black/[0.05] dark:border-white/[0.08] shrink-0 self-stretch sm:self-auto w-full sm:w-auto">
           <button
             type="button"
             onClick={() => setActiveStudyMode('semester')}
-            className={`flex-1 sm:flex-initial flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer select-none ${
+            className={`flex items-center justify-center gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer select-none ${
               activeStudyMode === 'semester'
                 ? 'bg-blue-600 text-white shadow-md'
                 : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
             }`}
           >
-            <GraduationCap className="w-4 h-4" />
-            <span>🎯 B.Tech Semester Engine (1-8)</span>
+            <GraduationCap className="w-4 h-4 shrink-0" />
+            <span className="sm:hidden">🎯 Semesters 1 to 8 Engine</span>
+            <span className="hidden sm:inline">🎯 B.Tech Semester Engine (1-8)</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveStudyMode('pyqVault')}
+            className={`flex items-center justify-center gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer select-none ${
+              activeStudyMode === 'pyqVault'
+                ? 'bg-amber-600 text-white shadow-md'
+                : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
+            }`}
+          >
+            <Flame className="w-4 h-4 shrink-0 text-amber-300" />
+            <span className="sm:hidden">📜 Predicted Papers & PYQ</span>
+            <span className="hidden sm:inline">📜 Predicted Papers & PYQ Vault (70M)</span>
           </button>
 
           <button
             type="button"
             onClick={() => setActiveStudyMode('deepDive')}
-            className={`flex-1 sm:flex-initial flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer select-none ${
+            className={`flex items-center justify-center gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer select-none ${
               activeStudyMode === 'deepDive'
                 ? 'bg-blue-600 text-white shadow-md'
                 : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
             }`}
           >
-            <Sparkles className="w-4 h-4" />
-            <span>🔍 Topic Deep-Dive & YouTube</span>
+            <Sparkles className="w-4 h-4 shrink-0" />
+            <span className="sm:hidden">🔍 Topic Notes & Videos</span>
+            <span className="hidden sm:inline">🔍 Topic Deep-Dive & YouTube</span>
           </button>
         </div>
       </div>
@@ -157,6 +174,17 @@ export const StudyRoomView = ({
             initialSemester={activeSem}
             setActiveTab={setActiveTab}
             onSelectTopic={handleLaunchTopic}
+            onOpenMockTest={onOpenMockTest}
+          />
+        </div>
+      )}
+
+      {/* Mode C: Subject-Wise Predicted Semester Question Papers & PYQ Vault */}
+      {activeStudyMode === 'pyqVault' && (
+        <div className="space-y-6">
+          <PyqPredictorVault
+            initialSemester={activeSem}
+            setActiveTab={setActiveTab}
             onOpenMockTest={onOpenMockTest}
           />
         </div>

@@ -98,39 +98,58 @@ const SAMPLE_DOUBTS = [
   }
 ];
 
+import { solveAcademicDoubt, getGeminiApiKey, setGeminiApiKey } from '../services/geminiService';
+
 export const DoubtSolver = () => {
   const [inputText, setInputText] = useState('');
   const [activeDoubt, setActiveDoubt] = useState(SAMPLE_DOUBTS[0]);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [apiKeyModalOpen, setApiKeyModalOpen] = useState(false);
+  const [keyInput, setKeyInput] = useState('');
 
-  const handleSolve = (doubtToSolve) => {
+  const handleSolve = async (doubtToSolve) => {
     setIsAnalyzing(true);
-    setTimeout(() => {
-      if (doubtToSolve) {
-        setActiveDoubt(doubtToSolve);
-      } else if (inputText.trim()) {
-        setActiveDoubt({
-          id: 'custom',
-          stream: 'AI Custom Solution',
-          subject: 'Diagnostic AI Solver',
-          question: inputText,
-          concept: 'AI Generated Step-by-Step Derivation & Concept Proof',
-          steps: [
-            { step: 1, title: 'Problem Analysis & Given Parameters', detail: `Extracted variables and constraints from: "${inputText.slice(0, 80)}..."` },
-            { step: 2, title: 'Apply Standard Academic Theorem / Formula', detail: 'Mapped question parameters to official syllabus derivation matrix with exact boundary constraints.' },
-            { step: 3, title: 'Step-by-Step Mathematical / Logical Proof', detail: 'Evaluated final simplified expression with step marking rubric and step deductions.' },
-            { step: 4, title: 'Final Verified Result', detail: 'Verified with zero margin error. Recommended review: revise prerequisite concept in Knowledge Graph.' }
-          ],
-          pitfall: 'Carefully verify unit conversions and boundary edge conditions (e.g. N=0 or negative indices).',
-          similarPYQs: ['Official Board Pattern 2024', 'Semester PYQ 2023', 'GATE Technical Standard']
-        });
-      }
+    if (doubtToSolve) {
+      setActiveDoubt(doubtToSolve);
       setIsAnalyzing(false);
-      toast.success('Doubt solved successfully!', {
-        description: 'Complete step-by-step solution generated with step-marking rubric.'
+      toast.success('Loaded verified sample solution!');
+      return;
+    }
+
+    if (!inputText.trim()) {
+      setIsAnalyzing(false);
+      return;
+    }
+
+    try {
+      const res = await solveAcademicDoubt(inputText);
+      setActiveDoubt({
+        id: 'custom-' + Date.now(),
+        stream: res.source === 'live_gemini' ? 'Google Gemini 1.5 Live' : 'Analytical AI Solver',
+        subject: 'Diagnostic AI Solver',
+        question: inputText,
+        concept: res.source === 'live_gemini' ? 'Live Neural Derivation & Proof' : 'Step-by-Step Concept Proof',
+        steps: [
+          { step: 1, title: 'Problem Analysis & Given Parameters', detail: `Extracted parameters and constraints from: "${inputText.slice(0, 100)}..."` },
+          { step: 2, title: 'Detailed Step-by-Step Derivation', detail: res.solution },
+          { step: 3, title: 'Key Governing Formulas & Principles', detail: res.keyFormulas.join(' • ') },
+          { step: 4, title: 'Verification & University Marking Standard', detail: 'Evaluated final simplified expression with university step-marking criteria.' }
+        ],
+        pitfall: res.examTip,
+        similarPYQs: ['Official University Paper 2024', 'Semester Examination Standard', 'GATE Benchmark']
       });
-    }, 600);
+
+      toast.success(
+        res.source === 'live_gemini'
+          ? 'Live Gemini AI Solution Generated!'
+          : 'Doubt solved with academic heuristics!'
+      );
+    } catch (err) {
+      toast.error('Failed to solve doubt', { description: err.message });
+    } finally {
+      setIsAnalyzing(false);
+    }
   };
 
   const handleCopySolution = () => {

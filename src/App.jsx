@@ -9,6 +9,7 @@ import { CommandPalette } from './components/CommandPalette';
 import { AiAssistant } from './components/AiAssistant';
 import { Footer } from './components/Footer';
 import { DashboardSkeleton } from './components/dashboard/DashboardSkeleton';
+import { ErrorBoundary } from './components/ui/ErrorBoundary';
 
 // Code-split heavy secondary views for maximum performance & fast initial paint:
 const MockTestEngine = lazy(() => import('./components/MockTestEngine').then(m => ({ default: m.MockTestEngine })));
@@ -26,6 +27,7 @@ const EducatorRadar = lazy(() => import('./components/EducatorRadar').then(m => 
 const PublicApiHub = lazy(() => import('./components/PublicApiHub').then(m => ({ default: m.PublicApiHub })));
 const DeckStudio = lazy(() => import('./components/DeckStudio').then(m => ({ default: m.DeckStudio })));
 const CollegeHubView = lazy(() => import('./components/collegeHub/CollegeHubView').then(m => ({ default: m.CollegeHubView })));
+const PyqPredictorVault = lazy(() => import('./components/collegeHub/PyqPredictorVault').then(m => ({ default: m.PyqPredictorVault })));
 
 const VALID_TABS = [
   'home',
@@ -45,7 +47,8 @@ const VALID_TABS = [
   'educatorRadar',
   'publicApiHub',
   'deckStudio',
-  'collegeHub'
+  'collegeHub',
+  'pyqVault'
 ];
 
 const getInitialTabFromUrl = () => {
@@ -153,7 +156,7 @@ export const App = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#FBFBF9] dark:bg-[#0A0C10] text-neutral-900 dark:text-white flex flex-col font-sans transition-colors duration-200 selection:bg-blue-600 selection:text-white">
+    <div className="min-h-screen bg-[#F8F9FA] dark:bg-[#06080F] text-neutral-900 dark:text-white flex flex-col font-sans transition-colors duration-300 selection:bg-[#0055FE] selection:text-white cyber-grid-overlay relative">
       
       {/* Toast Notifications */}
       <Toaster 
@@ -174,69 +177,80 @@ export const App = () => {
       />
 
       {/* Main View Container */}
-      <main className="flex-grow w-full">
-        <Suspense fallback={
-          <div className="fluid-container py-12">
-            <DashboardSkeleton />
-          </div>
-        }>
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeTab}
-              variants={pageVariants}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-              className="w-full"
-            >
-              {activeTab === 'home' && (
-                <HomePage 
-                  setActiveTab={setActiveTab} 
-                  onOpenTopic={handleOpenTopic} 
-                  onOpenSemester={handleOpenSemester} 
-                  user={user} 
-                />
-              )}
-              {activeTab === 'studyHub' && (
-                <StudyRoomView 
-                  initialTopic={studyTopic} 
-                  onSelectTopic={setStudyTopic} 
-                  setActiveTab={setActiveTab}
-                  onOpenMockTest={handleOpenMockTest}
-                  initialSemester={selectedSemester}
-                  onSelectSemester={setSelectedSemester}
-                />
-              )}
-              {activeTab === 'dashboard' && <Dashboard setActiveTab={setActiveTab} user={user} />}
-              {activeTab === 'mockTests' && (
-                <MockTestEngine 
-                  user={user} 
-                  initialSubject={selectedMockSubject} 
-                />
-              )}
-              {activeTab === 'doubtSolver' && <DoubtSolver />}
-              {activeTab === 'flashcards' && <FlashcardStudio />}
-              {activeTab === 'smartPdf' && <SmartPDFViewer />}
-              {activeTab === 'weaknessHeatmap' && <WeaknessHeatmap setActiveTab={setActiveTab} />}
-              {activeTab === 'vivaExaminer' && <VivaExaminer user={user} />}
-              {activeTab === 'cheatSheets' && <CheatSheetGenerator user={user} />}
-              {activeTab === 'focusRoom' && <FocusRoom user={user} />}
-              {activeTab === 'digitalTwin' && <DigitalTwin user={user} />}
-              {activeTab === 'conceptGraph' && <ConceptGraph user={user} />}
-              {activeTab === 'agentSwarm' && <AgentSwarm user={user} />}
-              {activeTab === 'educatorRadar' && <EducatorRadar user={user} />}
-              {activeTab === 'publicApiHub' && <PublicApiHub user={user} />}
-              {activeTab === 'deckStudio' && <DeckStudio user={user} />}
-              {activeTab === 'collegeHub' && (
-                <CollegeHubView 
-                  setActiveTab={setActiveTab} 
-                  onOpenMockTest={handleOpenMockTest}
-                  initialSemester={selectedSemester}
-                />
-              )}
-            </motion.div>
-          </AnimatePresence>
-        </Suspense>
+      <main className="flex-1 w-full relative z-10">
+        <ErrorBoundary>
+          <Suspense fallback={
+            <div className="w-full fluid-container py-12">
+              <DashboardSkeleton />
+            </div>
+          }>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeTab}
+                variants={pageVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                className="w-full"
+              >
+                {activeTab === 'home' && (
+                  <HomePage 
+                    setActiveTab={setActiveTab} 
+                    onOpenTopic={handleOpenTopic} 
+                    onOpenSemester={handleOpenSemester} 
+                    user={user} 
+                  />
+                )}
+                {activeTab === 'studyHub' && (
+                  <StudyRoomView 
+                    initialTopic={studyTopic} 
+                    onSelectTopic={setStudyTopic} 
+                    setActiveTab={setActiveTab}
+                    onOpenMockTest={handleOpenMockTest}
+                    initialSemester={selectedSemester}
+                    onSelectSemester={setSelectedSemester}
+                  />
+                )}
+                {activeTab === 'dashboard' && <Dashboard setActiveTab={setActiveTab} user={user} />}
+                {activeTab === 'mockTests' && (
+                  <MockTestEngine 
+                    user={user} 
+                    initialSubject={selectedMockSubject} 
+                  />
+                )}
+                {activeTab === 'doubtSolver' && <DoubtSolver />}
+                {activeTab === 'flashcards' && <FlashcardStudio />}
+                {activeTab === 'smartPdf' && <SmartPDFViewer />}
+                {activeTab === 'weaknessHeatmap' && <WeaknessHeatmap setActiveTab={setActiveTab} />}
+                {activeTab === 'vivaExaminer' && <VivaExaminer user={user} />}
+                {activeTab === 'cheatSheets' && <CheatSheetGenerator user={user} />}
+                {activeTab === 'focusRoom' && <FocusRoom user={user} />}
+                {activeTab === 'digitalTwin' && <DigitalTwin user={user} />}
+                {activeTab === 'conceptGraph' && <ConceptGraph user={user} />}
+                {activeTab === 'agentSwarm' && <AgentSwarm user={user} />}
+                {activeTab === 'educatorRadar' && <EducatorRadar user={user} />}
+                {activeTab === 'publicApiHub' && <PublicApiHub user={user} />}
+                {activeTab === 'deckStudio' && <DeckStudio user={user} />}
+                {activeTab === 'collegeHub' && (
+                  <CollegeHubView 
+                    setActiveTab={setActiveTab} 
+                    onOpenMockTest={handleOpenMockTest}
+                    initialSemester={selectedSemester}
+                  />
+                )}
+                {activeTab === 'pyqVault' && (
+                  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 animate-fade-in">
+                    <PyqPredictorVault 
+                      initialSemester={selectedSemester}
+                      setActiveTab={setActiveTab}
+                      onOpenMockTest={handleOpenMockTest}
+                    />
+                  </div>
+                )}
+              </motion.div>
+            </AnimatePresence>
+          </Suspense>
+        </ErrorBoundary>
       </main>
 
       {/* Universal Cmd+K Command Palette */}

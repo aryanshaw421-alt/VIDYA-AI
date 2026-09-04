@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { useStudy } from '../../context/StudyContext';
+import { useOptionalStudy } from '../../context/StudyContext';
 import { LAB_VIVA_QUESTIONS, PYQ_HEATMAPS, EMERGENCY_CRAM_ITEMS } from '../../data/collegeHubData';
 import { BtechStudyMaterialView } from './BtechStudyMaterialView';
 import { TopicDeepDiveSection } from './TopicDeepDiveSection';
 import { BtechSemesterAnalyzer } from './BtechSemesterAnalyzer';
+import { PyqPredictorVault } from './PyqPredictorVault';
 import { LabVivaItem, PyqHeatmapItem, EmergencyCramItem } from '../../types';
 import { 
   GraduationCap, 
@@ -35,16 +36,11 @@ export const CollegeHubView: React.FC<CollegeHubViewProps> = ({
   onOpenMockTest,
   initialSemester = 3
 }) => {
-  let contextSetActiveTab: any = null;
-  try {
-    const study = useStudy();
-    contextSetActiveTab = study?.setActiveTab;
-  } catch (e) {
-    // Safe fallback when not inside StudyProvider
-  }
+  const study = useOptionalStudy();
+  const contextSetActiveTab = study?.setActiveTab;
 
   const setActiveTab = propSetActiveTab || contextSetActiveTab || (() => {});
-  const [activeTab, setActiveTabLocal] = useState<'semesterAnalyzer' | 'deepDive' | 'materials' | 'viva' | 'pyq' | 'cram'>('semesterAnalyzer');
+  const [activeTab, setActiveTabLocal] = useState<'semesterAnalyzer' | 'pyqVault' | 'deepDive' | 'materials' | 'viva' | 'pyq' | 'cram'>('semesterAnalyzer');
   const [revealedAnswers, setRevealedAnswers] = useState<{ [id: string]: boolean }>({});
 
   const toggleReveal = (id: string) => {
@@ -83,10 +79,10 @@ export const CollegeHubView: React.FC<CollegeHubViewProps> = ({
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2 bg-slate-900/90 p-1.5 rounded-xl border border-slate-800">
+          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar w-full sm:w-auto p-1.5 rounded-2xl bg-slate-900/90 border border-slate-800">
             <button
               onClick={() => setActiveTabLocal('semesterAnalyzer')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
                 activeTab === 'semesterAnalyzer'
                   ? 'bg-blue-600 text-white shadow-glow-cyan'
                   : 'text-slate-400 hover:text-white'
@@ -96,8 +92,19 @@ export const CollegeHubView: React.FC<CollegeHubViewProps> = ({
               <span>🎯 Sem 1-8 Analyzer</span>
             </button>
             <button
+              onClick={() => setActiveTabLocal('pyqVault')}
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
+                activeTab === 'pyqVault'
+                  ? 'bg-amber-600 text-white shadow-sm'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              <Flame className="w-3.5 h-3.5 text-amber-300 fill-amber-300" />
+              <span>📜 Predicted Papers & PYQs (70M)</span>
+            </button>
+            <button
               onClick={() => setActiveTabLocal('deepDive')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
                 activeTab === 'deepDive'
                   ? 'bg-brand-600 text-white shadow-glow-cyan'
                   : 'text-slate-400 hover:text-white'
@@ -108,7 +115,7 @@ export const CollegeHubView: React.FC<CollegeHubViewProps> = ({
             </button>
             <button
               onClick={() => setActiveTabLocal('materials')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap shrink-0 cursor-pointer ${
                 activeTab === 'materials'
                   ? 'bg-brand-600 text-white shadow-glow-cyan'
                   : 'text-slate-400 hover:text-white'
@@ -118,7 +125,7 @@ export const CollegeHubView: React.FC<CollegeHubViewProps> = ({
             </button>
             <button
               onClick={() => setActiveTabLocal('viva')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap shrink-0 cursor-pointer ${
                 activeTab === 'viva'
                   ? 'bg-purple-600 text-white shadow-glow-purple'
                   : 'text-slate-400 hover:text-white'
@@ -128,7 +135,7 @@ export const CollegeHubView: React.FC<CollegeHubViewProps> = ({
             </button>
             <button
               onClick={() => setActiveTabLocal('pyq')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap shrink-0 cursor-pointer ${
                 activeTab === 'pyq'
                   ? 'bg-brand-600 text-white shadow-glow-cyan'
                   : 'text-slate-400 hover:text-white'
@@ -138,7 +145,7 @@ export const CollegeHubView: React.FC<CollegeHubViewProps> = ({
             </button>
             <button
               onClick={() => setActiveTabLocal('cram')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap shrink-0 cursor-pointer ${
                 activeTab === 'cram'
                   ? 'bg-rose-600 text-white shadow-sm'
                   : 'text-slate-400 hover:text-white'
@@ -156,6 +163,15 @@ export const CollegeHubView: React.FC<CollegeHubViewProps> = ({
           initialSemester={initialSemester}
           setActiveTab={setActiveTab} 
           onOpenMockTest={onOpenMockTest} 
+        />
+      )}
+
+      {/* Tab 0.5: Subject-Wise Predicted Semester Question Papers & PYQ Vault */}
+      {activeTab === 'pyqVault' && (
+        <PyqPredictorVault
+          initialSemester={initialSemester}
+          setActiveTab={setActiveTab}
+          onOpenMockTest={onOpenMockTest}
         />
       )}
 

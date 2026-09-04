@@ -22,3 +22,13 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Binaries & Tunneling
+cloudflared
+cloudflared.tgz
+cloudflared*
+
+# Environment & API keys
+.env
+.env.local
+.env.*.local

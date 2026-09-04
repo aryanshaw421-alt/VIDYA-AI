@@ -259,28 +259,28 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
             </div>
           </motion.div>
 
-          {/* Card 4: Class 12 */}
+          {/* Card 4: JEE Advanced */}
           <motion.div
             whileHover={{ y: -2 }}
             onClick={() => {
-              setActiveCourseId('cbse_12');
+              setActiveCourseId('jee_main');
               setActiveTab('mockTests');
             }}
             className="p-4 sm:p-5 rounded-3xl bg-white dark:bg-[#12151D] border border-black/[0.08] dark:border-white/[0.08] shadow-sm hover:shadow-md transition-all cursor-pointer flex items-center justify-between gap-3 group"
           >
             <div>
               <h4 className="font-bold text-sm sm:text-base text-neutral-900 dark:text-white group-hover:text-blue-600 transition-colors">
-                Class 12 Boards
+                JEE Advanced
               </h4>
               <p className="text-xs text-neutral-500 font-medium">
-                (CBSE / State Board)
+                (IIT Entrance Simulator)
               </p>
             </div>
 
             <div className="w-12 h-12 rounded-full overflow-hidden border border-black/[0.08] dark:border-white/[0.1] shadow-sm shrink-0">
               <img 
-                src="/images/logos/school_badge.jpg" 
-                alt="School Badge" 
+                src="/images/logos/nta_jee_emblem.jpg" 
+                alt="JEE Advanced" 
                 className="w-full h-full object-cover"
               />
             </div>
