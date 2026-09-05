@@ -20,6 +20,7 @@ import { VivaExaminer } from './components/VivaExaminer';
 import { CheatSheetGenerator } from './components/CheatSheetGenerator';
 import { FocusRoom } from './components/FocusRoom';
 import { AiAssistant } from './components/AiAssistant';
+import { AppleGlassBackground } from './components/AppleGlassBackground';
 
 export const App = () => {
   const [activeTab, setActiveTab] = useState('home');
@@ -79,8 +80,11 @@ export const App = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FFFFFF] dark:bg-[#050A18] text-[#0A1128] dark:text-[#F8FAFC] transition-colors duration-200 selection:bg-blue-600/20 selection:text-blue-600">
+    <div className="relative min-h-screen flex flex-col text-[#020617] dark:text-[#F8FAFC] transition-colors duration-200 selection:bg-blue-600/20 selection:text-blue-600 font-sans overflow-x-hidden">
       
+      {/* Apple VisionOS & macOS Liquid Glass Ambient Background */}
+      <AppleGlassBackground isDark={isDark} />
+
       {/* Toast Provider */}
       <Toaster 
         position="top-right" 
@@ -89,7 +93,7 @@ export const App = () => {
         theme={isDark ? 'dark' : 'light'}
       />
 
-      {/* Clean 5-Tab Top Navbar */}
+      {/* Clean Top Navbar with Apple Frosted Glass */}
       <Navbar 
         activeTab={activeTab} 
         setActiveTab={setActiveTab} 
@@ -100,7 +104,7 @@ export const App = () => {
       />
 
       {/* Main View Router */}
-      <main className="flex-grow w-full">
+      <main className="relative z-10 flex-grow w-full">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}
@@ -110,7 +114,7 @@ export const App = () => {
             exit="exit"
             className="w-full"
           >
-            {activeTab === 'home' && <HomePage setActiveTab={setActiveTab} user={user} />}
+            {activeTab === 'home' && <HomePage activeTab={activeTab} setActiveTab={setActiveTab} user={user} />}
             {activeTab === 'dashboard' && <Dashboard setActiveTab={setActiveTab} user={user} />}
             {activeTab === 'mockTests' && <MockTestEngine user={user} />}
             {activeTab === 'doubtSolver' && <DoubtSolver />}
@@ -134,14 +138,16 @@ export const App = () => {
       {/* Persistent Floating AI Assistant */}
       <AiAssistant setActiveTab={setActiveTab} />
 
-      {/* Footer */}
-      <footer className="border-t border-slate-200/80 dark:border-slate-800/80 bg-white/50 dark:bg-[#050814]/50 py-8 text-xs text-slate-500 font-mono transition-colors">
+      {/* Footer matching Google Notebook Minimalist Style */}
+      <footer className="border-t border-slate-200/80 dark:border-slate-800 bg-white dark:bg-[#131314] py-8 text-xs text-slate-500 dark:text-slate-400 transition-colors">
         <div className="w-full fluid-container flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div>
-            <strong>VIDYA AI</strong> • Cognitive Learning Operating System
+          <div className="flex items-center gap-2">
+            <span className="font-semibold text-slate-800 dark:text-slate-200">VIDYA AI</span>
+            <span>•</span>
+            <span>Cognitive Learning Intelligence System</span>
           </div>
-          <div>
-            "AI doesn't just teach the student. It understands the student's knowledge state and adapts around them."
+          <div className="text-slate-500 dark:text-slate-400 text-center sm:text-right">
+            Grounded in the syllabus you trust. Built with adaptive multi-agent AI.
           </div>
         </div>
       </footer>

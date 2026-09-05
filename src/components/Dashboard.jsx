@@ -88,7 +88,7 @@ export const Dashboard = ({ setActiveTab }) => {
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-        className="rounded-3xl p-6 sm:p-10 bg-white dark:bg-[#0B132B] border border-blue-100 dark:border-blue-900/40 shadow-soft relative overflow-hidden royal-mesh-bg"
+        className="rounded-3xl p-6 sm:p-10 frosted-glass relative overflow-hidden royal-mesh-bg"
       >
         {/* Subtle Ambient Radial Light */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 dark:bg-blue-500/20 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
@@ -143,7 +143,7 @@ export const Dashboard = ({ setActiveTab }) => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.05 }}
-              className="p-5 rounded-2xl bg-white dark:bg-[#0D1326] border border-slate-200/80 dark:border-slate-800/80 shadow-sm hover:shadow-md transition-all"
+              className="p-5 rounded-2xl frosted-glass-card shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all"
             >
               <div className="flex items-center justify-between mb-3">
                 <div className={`w-9 h-9 rounded-xl ${stat.bg} ${stat.color} flex items-center justify-center`}>
@@ -174,7 +174,7 @@ export const Dashboard = ({ setActiveTab }) => {
         <div className="lg:col-span-7 space-y-6">
 
           {/* PW & Allen Style Benchmark & All-India Rank (AIR) Estimator Card */}
-          <div className="p-6 rounded-3xl bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 border border-indigo-500/30 text-white shadow-xl space-y-5">
+          <div className="p-6 rounded-3xl bg-gradient-to-br from-slate-900/85 via-indigo-950/75 to-slate-900/85 backdrop-blur-2xl border border-indigo-500/30 text-white shadow-xl space-y-5">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
               <div className="flex items-center gap-2.5">
                 <div className="w-10 h-10 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-lg">
@@ -283,7 +283,7 @@ export const Dashboard = ({ setActiveTab }) => {
             ].map((item, idx) => (
               <div 
                 key={idx}
-                className="p-4 rounded-2xl bg-white dark:bg-[#0D1326] border border-slate-200/80 dark:border-slate-800/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:border-blue-400 transition-all shadow-sm"
+                className="p-4 rounded-2xl frosted-glass-card flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:border-blue-400 transition-all shadow-sm"
               >
                 <div className="flex items-start gap-3.5">
                   <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-xs flex items-center justify-center shrink-0">
@@ -315,7 +315,7 @@ export const Dashboard = ({ setActiveTab }) => {
         <div className="lg:col-span-5 space-y-4">
           
           {/* Google Drive Study Vault & Notes Importer */}
-          <div className="p-5 rounded-3xl bg-gradient-to-br from-blue-900/40 via-indigo-950/40 to-slate-900 border border-blue-500/30 text-white shadow-lg space-y-3.5">
+          <div className="p-5 rounded-3xl bg-gradient-to-br from-blue-900/35 via-indigo-950/35 to-slate-900/75 backdrop-blur-2xl border border-blue-500/30 text-white shadow-lg space-y-3.5">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <div className="w-8 h-8 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold">
@@ -386,7 +386,7 @@ export const Dashboard = ({ setActiveTab }) => {
                 <button
                   key={tool.id}
                   onClick={() => setActiveTab(tool.id)}
-                  className="p-4 rounded-2xl bg-white dark:bg-[#0D1326] border border-slate-200/80 dark:border-slate-800/80 text-left hover:border-blue-500 hover:shadow-md transition-all group"
+                  className="p-4 rounded-2xl frosted-glass-card text-left hover:border-blue-500 hover:shadow-md transition-all group"
                 >
                   <ToolIcon className={`w-5 h-5 ${tool.color} mb-2 group-hover:scale-110 transition-transform`} />
                   <div className="font-bold text-xs sm:text-sm text-slate-900 dark:text-white">{tool.title}</div>
@@ -397,7 +397,7 @@ export const Dashboard = ({ setActiveTab }) => {
           </div>
 
           {/* Clean Activity Feed */}
-          <div className="p-4 rounded-2xl bg-white dark:bg-[#0D1326] border border-slate-200/80 dark:border-slate-800/80">
+          <div className="p-4 rounded-2xl frosted-glass-card">
             <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">
               Recent Progress
             </div>

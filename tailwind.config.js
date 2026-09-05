@@ -28,8 +28,9 @@ export default {
         }
       },
       fontFamily: {
-        sans: ['Montserrat', 'Avenir', 'Helvetica Neue', 'system-ui', 'sans-serif'],
-        display: ['Playfair Display', 'Georgia', 'serif'],
+        sans: ['Inter', 'Plus Jakarta Sans', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        display: ['Plus Jakarta Sans', 'Inter', 'Outfit', '-apple-system', 'sans-serif'],
+        outfit: ['Outfit', 'sans-serif'],
         editorial: ['Playfair Display', 'Georgia', 'serif'],
         montserrat: ['Montserrat', 'sans-serif'],
         mono: ['JetBrains Mono', 'Fira Code', 'monospace']
