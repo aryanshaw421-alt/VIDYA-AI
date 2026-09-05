@@ -4,7 +4,6 @@ import { Toaster } from 'sonner';
 import { Navbar } from './components/Navbar';
 import { HomePage } from './components/HomePage';
 import { Dashboard } from './components/Dashboard';
-import { StudyRoomView } from './components/StudyRoomView';
 import { CommandPalette } from './components/CommandPalette';
 import { AiAssistant } from './components/AiAssistant';
 import { Footer } from './components/Footer';
@@ -13,6 +12,7 @@ import { ErrorBoundary } from './components/ui/ErrorBoundary';
 import { TooltipProvider } from './components/ui/tooltip';
 
 // Code-split heavy secondary views for maximum performance & fast initial paint:
+const StudyRoomView = lazy(() => import('./components/StudyRoomView').then(m => ({ default: m.StudyRoomView })));
 const MockTestEngine = lazy(() => import('./components/MockTestEngine').then(m => ({ default: m.MockTestEngine })));
 const DoubtSolver = lazy(() => import('./components/DoubtSolver').then(m => ({ default: m.DoubtSolver })));
 const FlashcardStudio = lazy(() => import('./components/FlashcardStudio').then(m => ({ default: m.FlashcardStudio })));

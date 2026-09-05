@@ -78,12 +78,12 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
         setActiveTab={setActiveTab} 
       />
 
-      {/* 5. Quick Study Room & Topic Search Studio */}
+      {/* 5. Quick Study Room & Topic Search Studio (Floating Glass Container) */}
       <section className="w-full fluid-container">
-        <div className="p-6 sm:p-8 rounded-2xl frosted-glass-card liquid-sheen space-y-5 relative overflow-hidden">
+        <div className="p-6 sm:p-8 rounded-2xl glass-card text-left space-y-5 relative overflow-hidden shadow-xl border border-white/60 dark:border-white/10">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div className="space-y-1.5">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg frosted-glass-pill text-[#083A4F] dark:text-neutral-200 text-xs font-mono font-semibold border border-[#083A4F]/10">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg glass-pill text-[#083A4F] dark:text-neutral-200 text-xs font-mono font-semibold border border-[#083A4F]/10">
                 <span>📖</span>
                 <span>AI Study Room & Curated YouTube Lectures</span>
               </div>
@@ -108,7 +108,7 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
             </Button>
           </div>
 
-          {/* Search Form */}
+          {/* Search Form with High-Contrast Glass Input */}
           <form 
             onSubmit={(e) => {
               e.preventDefault();
@@ -125,7 +125,7 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
                 name="homeTopicSearch"
                 type="text"
                 placeholder="Search any topic: Maths Matrix, Eigenvalues, Normalization, Banker's Algorithm, Calculus..."
-                className="w-full pl-11 pr-4 py-3 text-xs sm:text-sm rounded-xl frosted-glass text-neutral-900 dark:text-white placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#407E8C]/30 focus:border-[#407E8C] transition-all font-sans border border-[#083A4F]/10 dark:border-white/10"
+                className="w-full pl-11 pr-4 py-3 text-xs sm:text-sm rounded-xl glass-input text-[#083A4F] dark:text-white placeholder:text-neutral-400 focus:outline-none transition-all font-sans"
               />
             </div>
             <Button
@@ -140,7 +140,7 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
           </form>
 
           {/* Quick Topic Chips */}
-          <div className="flex flex-wrap items-center gap-2 pt-3 border-t border-black/[0.05] dark:border-white/[0.06]">
+          <div className="flex flex-wrap items-center gap-2 pt-3 border-t border-[#083A4F]/10 dark:border-white/[0.06]">
             <span className="text-xs text-neutral-500 font-medium">Popular:</span>
             {[
               'Matrices & Determinants (Maths)',
@@ -158,7 +158,7 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
                   if (onOpenTopic) onOpenTopic(t);
                   else setActiveTab('studyHub');
                 }}
-                className="px-3 py-1 rounded-lg text-xs frosted-glass text-[#083A4F] dark:text-neutral-300 hover:border-[#407E8C] hover:text-[#407E8C] transition-all font-mono cursor-pointer border border-[#083A4F]/10 dark:border-white/10"
+                className="px-3 py-1 rounded-lg text-xs glass-pill text-[#083A4F] dark:text-neutral-300 hover:border-[#407E8C] hover:text-[#407E8C] transition-all font-mono cursor-pointer"
               >
                 {t}
               </button>
@@ -182,12 +182,12 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
           
           {/* Card 1: B.Tech (Large Emphasized Card) */}
           <motion.div
-            whileHover={{ y: -4, scale: 1.01 }}
+            whileHover={{ y: -2 }}
             onClick={() => {
               setActiveCourseId('btech_makaut');
               setActiveTab('collegeHub');
             }}
-            className="sm:row-span-2 p-6 rounded-2xl frosted-glass-card liquid-sheen flex flex-col items-center justify-center text-center cursor-pointer group relative overflow-hidden transition-all border border-[#083A4F]/10 dark:border-white/10 hover:border-[#407E8C]/40"
+            className="sm:row-span-2 p-6 rounded-2xl glass-card flex flex-col items-center justify-center text-center cursor-pointer group relative overflow-hidden transition-all border border-white/60 dark:border-white/10 hover:border-[#407E8C]/40"
           >
             <div className="w-36 h-36 mb-3 flex items-center justify-center transition-transform group-hover:scale-105 duration-300">
               <img 
@@ -207,12 +207,12 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
 
           {/* Card 2: GATE (IIT Madras Campus) */}
           <motion.div
-            whileHover={{ y: -3 }}
+            whileHover={{ y: -2 }}
             onClick={() => {
               setActiveCourseId('gate_2027');
               setActiveTab('mockTests');
             }}
-            className="p-4 sm:p-5 rounded-2xl frosted-glass-card liquid-sheen transition-all cursor-pointer flex items-center justify-between gap-3 group border border-[#083A4F]/10 dark:border-white/10 hover:border-[#407E8C]/40"
+            className="p-4 sm:p-5 rounded-2xl glass-card transition-all cursor-pointer flex items-center justify-between gap-3 group border border-white/60 dark:border-white/10 hover:border-[#407E8C]/40"
           >
             <div>
               <h4 className="font-bold text-sm sm:text-base text-[#083A4F] dark:text-white group-hover:text-[#407E8C] transition-colors">
@@ -234,12 +234,12 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
 
           {/* Card 3: SSC CGL */}
           <motion.div
-            whileHover={{ y: -3 }}
+            whileHover={{ y: -2 }}
             onClick={() => {
               setActiveCourseId('ssc_cgl');
               setActiveTab('mockTests');
             }}
-            className="p-4 sm:p-5 rounded-2xl frosted-glass-card liquid-sheen transition-all cursor-pointer flex items-center justify-between gap-3 group border border-[#083A4F]/10 dark:border-white/10 hover:border-[#407E8C]/40"
+            className="p-4 sm:p-5 rounded-2xl glass-card transition-all cursor-pointer flex items-center justify-between gap-3 group border border-white/60 dark:border-white/10 hover:border-[#407E8C]/40"
           >
             <div>
               <h4 className="font-bold text-sm sm:text-base text-[#083A4F] dark:text-white group-hover:text-[#407E8C] transition-colors">
@@ -261,12 +261,12 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
 
           {/* Card 4: JEE Advanced */}
           <motion.div
-            whileHover={{ y: -3 }}
+            whileHover={{ y: -2 }}
             onClick={() => {
               setActiveCourseId('jee_main');
               setActiveTab('mockTests');
             }}
-            className="p-4 sm:p-5 rounded-2xl frosted-glass-card liquid-sheen transition-all cursor-pointer flex items-center justify-between gap-3 group border border-[#083A4F]/10 dark:border-white/10 hover:border-[#407E8C]/40"
+            className="p-4 sm:p-5 rounded-2xl glass-card transition-all cursor-pointer flex items-center justify-between gap-3 group border border-white/60 dark:border-white/10 hover:border-[#407E8C]/40"
           >
             <div>
               <h4 className="font-bold text-sm sm:text-base text-[#083A4F] dark:text-white group-hover:text-[#407E8C] transition-colors">
@@ -288,12 +288,12 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
 
           {/* Card 5: Class 10 */}
           <motion.div
-            whileHover={{ y: -3 }}
+            whileHover={{ y: -2 }}
             onClick={() => {
               setActiveCourseId('cbse_10');
               setActiveTab('mockTests');
             }}
-            className="p-4 sm:p-5 rounded-2xl frosted-glass-card liquid-sheen transition-all cursor-pointer flex items-center justify-between gap-3 group border border-[#083A4F]/10 dark:border-white/10 hover:border-[#407E8C]/40"
+            className="p-4 sm:p-5 rounded-2xl glass-card transition-all cursor-pointer flex items-center justify-between gap-3 group border border-white/60 dark:border-white/10 hover:border-[#407E8C]/40"
           >
             <div>
               <h4 className="font-bold text-sm sm:text-base text-[#083A4F] dark:text-white group-hover:text-[#407E8C] transition-colors">
@@ -315,12 +315,12 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
 
           {/* Card 6: NTA JEE Main */}
           <motion.div
-            whileHover={{ y: -3 }}
+            whileHover={{ y: -2 }}
             onClick={() => {
               setActiveCourseId('jee_main');
               setActiveTab('mockTests');
             }}
-            className="p-4 sm:p-5 rounded-2xl frosted-glass-card liquid-sheen transition-all cursor-pointer flex items-center justify-between gap-3 group border border-[#083A4F]/10 dark:border-white/10 hover:border-[#407E8C]/40"
+            className="p-4 sm:p-5 rounded-2xl glass-card transition-all cursor-pointer flex items-center justify-between gap-3 group border border-white/60 dark:border-white/10 hover:border-[#407E8C]/40"
           >
             <div>
               <h4 className="font-bold text-sm sm:text-base text-[#083A4F] dark:text-white group-hover:text-[#407E8C] transition-colors">
@@ -342,12 +342,12 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
 
           {/* Card 7: BCA / MCA */}
           <motion.div
-            whileHover={{ y: -3 }}
+            whileHover={{ y: -2 }}
             onClick={() => {
               setActiveCourseId('btech_makaut');
               setActiveTab('collegeHub');
             }}
-            className="p-4 sm:p-5 rounded-2xl frosted-glass-card liquid-sheen transition-all cursor-pointer flex items-center justify-between gap-3 group border border-[#083A4F]/10 dark:border-white/10 hover:border-[#407E8C]/40"
+            className="p-4 sm:p-5 rounded-2xl glass-card transition-all cursor-pointer flex items-center justify-between gap-3 group border border-white/60 dark:border-white/10 hover:border-[#407E8C]/40"
           >
             <div>
               <h4 className="font-bold text-sm sm:text-base text-[#083A4F] dark:text-white group-hover:text-[#407E8C] transition-colors">
@@ -377,7 +377,7 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
             transition={{ duration: 0.25 }}
-            className="rounded-2xl p-6 sm:p-8 frosted-glass-card liquid-sheen space-y-6 border border-[#083A4F]/10 dark:border-white/10"
+            className="rounded-2xl p-6 sm:p-8 glass-card space-y-6 border border-white/60 dark:border-white/10 shadow-lg"
           >
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-5 border-b border-black/[0.05] dark:border-white/[0.06]">
               <div className="flex items-center gap-3.5">
@@ -409,17 +409,17 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
 
             {/* Pattern & Marks Structure */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-              <div className="p-4 rounded-xl frosted-glass space-y-1 border border-[#083A4F]/10 dark:border-white/10">
+              <div className="p-4 rounded-xl glass-surface space-y-1">
                 <div className="text-[10px] font-mono text-neutral-400 uppercase font-semibold">OFFICIAL PATTERN</div>
                 <div className="text-sm font-bold text-[#083A4F] dark:text-white mt-1">{activeCourse.patternName}</div>
                 <div className="text-xs text-neutral-500 mt-1">Full Marks: <strong className="text-[#083A4F] dark:text-neutral-300">{activeCourse.totalMarks} Marks</strong> ({activeCourse.durationMinutes} Mins)</div>
               </div>
 
-              <div className="p-4 rounded-xl frosted-glass md:col-span-2 space-y-1 border border-[#083A4F]/10 dark:border-white/10">
+              <div className="p-4 rounded-xl glass-surface md:col-span-2 space-y-1">
                 <div className="text-[10px] font-mono text-neutral-400 uppercase font-semibold">SECTION & GROUP STRUCTURE</div>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-2">
                   {activeCourse.structure.map((st, sIdx) => (
-                    <div key={sIdx} className="p-2.5 rounded-lg frosted-glass-pill text-xs border border-[#083A4F]/10">
+                    <div key={sIdx} className="p-2.5 rounded-lg glass-pill text-xs">
                       <div className="font-semibold text-[#083A4F] dark:text-white">{st.name}</div>
                       <div className="text-[#407E8C] dark:text-[#6BB0C0] font-mono font-bold text-[11px]">{st.marks} • {st.count}</div>
                     </div>
@@ -433,14 +433,14 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
 
       </section>
 
-      {/* 7. Student Spotlight & Success Quote Card */}
+      {/* 7. Student Spotlight & Success Quote Card (Sophisticated Navy Glass & Gold Accent) */}
       <section className="w-full fluid-container">
-        <div className="p-8 sm:p-12 rounded-2xl bg-[#083A4F] text-white space-y-6 relative overflow-hidden shadow-xl border border-[#407E8C]/20">
+        <div className="p-8 sm:p-12 rounded-3xl glass-navy text-white space-y-6 relative overflow-hidden shadow-2xl border border-white/15">
           <div className="absolute top-0 right-0 w-96 h-96 bg-[#407E8C]/20 blur-3xl rounded-full pointer-events-none" />
           
           <div className="max-w-2xl space-y-4 relative z-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-[#FAF9F8]/10 text-white text-xs font-mono font-semibold border border-white/10">
-              <Sparkles className="w-3.5 h-3.5 text-[#A58D66]" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg glass-gold text-xs font-mono font-semibold">
+              <Sparkles className="w-3.5 h-3.5 text-[#A58D66] dark:text-[#C5AF88]" />
               <span>National Cohort Benchmark</span>
             </div>
             <blockquote className="text-lg sm:text-2xl font-normal leading-relaxed text-[#E5E1DD]">
@@ -455,7 +455,7 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
                 variant="accent"
                 size="sm"
                 onClick={() => setActiveTab('studyHub')}
-                className="bg-[#A58D66] text-white hover:bg-[#917b58] border-none shadow-sm"
+                className="bg-[#A58D66] text-white hover:bg-[#8D7652] border-none shadow-sm"
               >
                 Join Cohort Free
               </Button>

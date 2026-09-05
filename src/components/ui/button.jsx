@@ -14,7 +14,9 @@ const buttonVariants = cva(
         primary:
           "bg-[#407E8C] text-white hover:bg-[#336570] active:bg-[#264D56] shadow-sm shadow-[#407E8C]/20 border border-[#407E8C]",
         secondary:
-          "bg-transparent dark:bg-[#083A4F]/40 border border-[#407E8C] text-[#083A4F] dark:text-[#E5E1DD] hover:bg-[#E5E1DD]/40 dark:hover:bg-[#407E8C]/15 active:bg-[#E5E1DD]/70",
+          "bg-white/55 dark:bg-[#083A4F]/60 backdrop-blur-md border border-[#083A4F]/15 dark:border-white/15 text-[#083A4F] dark:text-[#FAF9F8] hover:bg-white/85 dark:hover:bg-[#083A4F]/85 hover:border-[#407E8C]/50 hover:-translate-y-0.5 active:translate-y-0 shadow-xs",
+        glass:
+          "bg-white/50 dark:bg-[#083A4F]/50 backdrop-blur-md border border-white/40 dark:border-white/12 text-[#083A4F] dark:text-[#FAF9F8] hover:bg-white/80 dark:hover:bg-[#083A4F]/80 hover:border-[#407E8C]/40 hover:-translate-y-0.5 active:translate-y-0 shadow-xs",
         accent:
           "bg-[#A58D66] text-white hover:bg-[#8D7652] active:bg-[#6E5B3D] shadow-sm shadow-[#A58D66]/20 border border-[#A58D66]",
         premium:

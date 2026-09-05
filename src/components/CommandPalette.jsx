@@ -30,6 +30,14 @@ const SEARCH_ITEMS = [
   { id: 'sem-7', category: 'R-25 B.Tech Semester', title: '7th Semester (CS701 Blockchain/Robotics/Optimization, HRD & OB, IPR, Project-III)', type: 'semester', semNum: 7, tab: 'collegeHub' },
   { id: 'sem-8', category: 'R-25 B.Tech Semester', title: '8th Semester (CS881 Industry Internship/Entrepreneurship, CS882 Grand Viva)', type: 'semester', semNum: 8, tab: 'collegeHub' },
 
+  // National Competitive Exam Streams
+  { id: 'gate-cs', category: 'GATE 2027 (IIT Madras)', title: 'GATE CS / IT (Algorithms, OS, DBMS, Networks, TOC, Compiler)', type: 'tool', tab: 'mockTests', icon: FileCheck },
+  { id: 'gate-da', category: 'GATE 2027 (IIT Madras)', title: 'GATE DA (Data Science & AI, ML, Python, Probability, DBMS)', type: 'tool', tab: 'mockTests', icon: FileCheck },
+  { id: 'gate-ec', category: 'GATE 2027 (IIT Madras)', title: 'GATE EC (Electronics & Comm: Signals, Digital, Analog, EMF)', type: 'tool', tab: 'mockTests', icon: FileCheck },
+  { id: 'jee-main', category: 'JEE CBT Simulator', title: 'JEE Main 300-Mark Full Mock (Physics, Chemistry & Maths CBT)', type: 'tool', tab: 'mockTests', icon: FileCheck },
+  { id: 'jee-adv', category: 'JEE CBT Simulator', title: 'JEE Advanced Paper Simulator (IIT Multi-Correct MSQs & Numerical)', type: 'tool', tab: 'mockTests', icon: FileCheck },
+  { id: 'ssc-cgl', category: 'Govt Job Exam', title: 'SSC CGL Tier-1 60-Min Speed Mock Test (100 Questions / 200 Marks)', type: 'tool', tab: 'mockTests', icon: FileCheck },
+
   // Core Subjects & Topics
   { id: 'sub-dsa', category: 'Core Subject', title: 'Data Structures & Algorithms (AVL Trees, Graphs, Sorting)', type: 'topic', topic: 'Data Structures & Algorithms (DSA)', tab: 'studyHub' },
   { id: 'sub-os', category: 'Core Subject', title: "Operating Systems (Banker's Algorithm, Paging, Deadlocks)", type: 'topic', topic: 'Operating Systems (OS)', tab: 'studyHub' },
@@ -39,7 +47,7 @@ const SEARCH_ITEMS = [
   { id: 'sub-math', category: 'Core Subject', title: 'Linear Algebra & Calculus (Eigenvalues, Cayley-Hamilton)', type: 'topic', topic: 'Matrices & Determinants (Maths)', tab: 'studyHub' },
 
   // Platform Tools
-  { id: 'tool-mock', category: 'Exam Tool', title: 'Mock Test Engine (70M MAKAUT / CBSE / SSC Timed Papers)', type: 'tool', tab: 'mockTests', icon: FileCheck },
+  { id: 'tool-mock', category: 'Exam Tool', title: 'Mock Test Engine (70M MAKAUT / GATE / JEE CBT Timed Papers)', type: 'tool', tab: 'mockTests', icon: FileCheck },
   { id: 'tool-doubt', category: 'AI Tool', title: 'AI Instant Doubt Solver (Step Derivations & OCR)', type: 'tool', tab: 'doubtSolver', icon: HelpCircle },
   { id: 'tool-cards', category: 'Study Tool', title: 'Flashcard Decks (Anki SM-2 Spaced Repetition)', type: 'tool', tab: 'flashcards', icon: Layers },
   { id: 'tool-focus', category: 'Productivity', title: 'Pomodoro Focus Room (432Hz Alpha Waves & Rain Audio)', type: 'tool', tab: 'focusRoom', icon: Timer },
@@ -93,7 +101,7 @@ export const CommandPalette = ({
       if (onSelectTopic) onSelectTopic(item.topic);
       setActiveTab('studyHub');
     } else if (item.type === 'semester') {
-      setActiveTab('studyHub');
+      setActiveTab('collegeHub');
     } else {
       setActiveTab(item.tab);
     }
@@ -117,12 +125,12 @@ export const CommandPalette = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm animate-fade-in" />
-        <Dialog.Content className="fixed left-1/2 top-[20%] -translate-x-1/2 z-50 w-[95vw] sm:w-[580px] max-h-[70vh] rounded-3xl bg-white dark:bg-[#12151D] border border-black/[0.1] dark:border-white/[0.12] shadow-2xl overflow-hidden flex flex-col animate-slide-in">
+        <Dialog.Overlay className="fixed inset-0 z-glass-modal bg-black/60 backdrop-blur-md animate-fade-in" />
+        <Dialog.Content className="fixed left-1/2 top-[16%] -translate-x-1/2 z-glass-modal w-[95vw] sm:w-[620px] max-h-[74vh] rounded-3xl glass-card border border-white/60 dark:border-white/12 shadow-2xl overflow-hidden flex flex-col animate-scale-in">
           
           {/* Search Header Input */}
-          <div className="p-4 border-b border-black/[0.06] dark:border-white/[0.08] flex items-center gap-3 bg-black/[0.02] dark:bg-white/[0.02]">
-            <Search className="w-5 h-5 text-neutral-400 shrink-0" />
+          <div className="p-4 border-b border-[#083A4F]/10 dark:border-white/[0.08] flex items-center gap-3 bg-white/40 dark:bg-[#083A4F]/30">
+            <Search className="w-5 h-5 text-[#407E8C] shrink-0" />
             <input
               ref={inputRef}
               type="text"
@@ -132,10 +140,10 @@ export const CommandPalette = ({
                 setSelectedIndex(0);
               }}
               onKeyDown={handleKeyDownInList}
-              placeholder="Search B.Tech semesters (1-8), subjects, mock papers, tools..."
-              className="w-full bg-transparent text-sm sm:text-base text-neutral-900 dark:text-white placeholder-neutral-400 focus:outline-none font-sans"
+              placeholder="Search B.Tech Semesters, GATE Papers, JEE Mocks, or Topics..."
+              className="w-full bg-transparent text-sm sm:text-base text-[#083A4F] dark:text-white placeholder:text-neutral-400 focus:outline-none font-sans"
             />
-            <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-black/[0.05] dark:bg-white/[0.08] text-[10px] font-mono text-neutral-500">
+            <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-lg glass-pill text-[10px] font-mono text-[#083A4F] dark:text-[#E5E1DD]">
               <kbd>ESC</kbd>
             </span>
           </div>
@@ -158,27 +166,27 @@ export const CommandPalette = ({
                     onMouseEnter={() => setSelectedIndex(idx)}
                     className={`p-3 rounded-2xl flex items-center justify-between gap-3 text-xs transition-all cursor-pointer select-none ${
                       isSelected
-                        ? 'bg-blue-50 dark:bg-blue-950/50 text-blue-900 dark:text-blue-100 font-semibold'
-                        : 'text-neutral-700 dark:text-neutral-300 hover:bg-black/[0.03] dark:hover:bg-white/[0.04]'
+                        ? 'glass-teal font-semibold border border-[#407E8C]/30 shadow-xs'
+                        : 'text-[#083A4F] dark:text-neutral-300 hover:bg-[#083A4F]/5 dark:hover:bg-white/5'
                     }`}
                   >
                     <div className="flex items-center gap-3 truncate">
                       <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 ${
                         isSelected 
-                          ? 'bg-blue-600 text-white shadow-sm' 
-                          : 'bg-black/[0.04] dark:bg-white/[0.06] text-neutral-500 dark:text-neutral-400'
+                          ? 'bg-[#083A4F] dark:bg-[#407E8C] text-white shadow-xs' 
+                          : 'glass-surface text-[#083A4F]/70 dark:text-neutral-400'
                       }`}>
                         <Icon className="w-4 h-4" />
                       </div>
                       <div className="truncate">
-                        <div className="truncate font-medium text-neutral-900 dark:text-white">{item.title}</div>
-                        <div className="text-[10px] font-mono text-neutral-400 uppercase tracking-wider">{item.category}</div>
+                        <div className="truncate font-medium text-[#083A4F] dark:text-white">{item.title}</div>
+                        <div className="text-[10px] font-mono text-[#407E8C] dark:text-[#6BB0C0] uppercase tracking-wider">{item.category}</div>
                       </div>
                     </div>
 
                     <div className="flex items-center gap-2 shrink-0">
                       {isSelected && (
-                        <span className="hidden sm:inline-flex items-center gap-1 text-[10px] font-mono text-blue-600 dark:text-blue-400">
+                        <span className="hidden sm:inline-flex items-center gap-1 text-[10px] font-mono text-[#407E8C] dark:text-[#6BB0C0]">
                           <span>Select</span>
                           <ArrowRight className="w-3 h-3" />
                         </span>
@@ -191,7 +199,7 @@ export const CommandPalette = ({
           </div>
 
           {/* Footer Quick Keys Help */}
-          <div className="p-3 border-t border-black/[0.05] dark:border-white/[0.06] bg-black/[0.02] dark:bg-white/[0.02] flex items-center justify-between text-[11px] font-mono text-neutral-400 px-4">
+          <div className="p-3 border-t border-[#083A4F]/10 dark:border-white/[0.08] bg-white/40 dark:bg-[#083A4F]/40 flex items-center justify-between text-[11px] font-mono text-[#083A4F]/70 dark:text-neutral-400 px-4">
             <div className="flex items-center gap-4">
               <span>↑↓ Navigate</span>
               <span>↵ Open</span>
@@ -200,9 +208,9 @@ export const CommandPalette = ({
             {setIsDark && (
               <button
                 onClick={() => setIsDark(!isDark)}
-                className="hover:text-neutral-900 dark:hover:text-white flex items-center gap-1 cursor-pointer"
+                className="hover:text-[#407E8C] dark:hover:text-white flex items-center gap-1 cursor-pointer transition-colors"
               >
-                {isDark ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
+                {isDark ? <Sun className="w-3.5 h-3.5 text-[#A58D66]" /> : <Moon className="w-3.5 h-3.5 text-[#083A4F]" />}
                 <span>Toggle Theme</span>
               </button>
             )}
@@ -213,3 +221,4 @@ export const CommandPalette = ({
     </Dialog.Root>
   );
 };
+

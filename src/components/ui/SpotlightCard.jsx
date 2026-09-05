@@ -45,7 +45,7 @@ export const SpotlightCard = ({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={onClick}
-      className={`relative rounded-2xl overflow-hidden hud-bento-card group transition-all duration-300 ${className}`}
+      className={`relative rounded-2xl overflow-hidden glass-card group transition-all duration-300 ${className}`}
       {...props}
     >
       {/* Top Subtle Edge Glow Line */}

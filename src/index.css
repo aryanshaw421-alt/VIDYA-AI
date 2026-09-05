@@ -17,6 +17,16 @@
     --text-secondary: #407E8C;
     --text-muted: #546E7A;
     --royal-blue: #407E8C;
+
+    /* Production Glass Tokens (Light Mode) */
+    --glass-bg: rgba(255, 255, 255, 0.55);
+    --glass-bg-subtle: rgba(229, 225, 221, 0.5);
+    --glass-border: rgba(255, 255, 255, 0.25);
+    --glass-border-subtle: rgba(8, 58, 79, 0.08);
+    --glass-blur: 20px;
+    --glass-blur-strong: 28px;
+    --glass-shadow: 0 8px 30px rgba(8, 58, 79, 0.06);
+    --glass-shadow-hover: 0 14px 36px rgba(8, 58, 79, 0.1);
   }
 
   .dark {
@@ -33,6 +43,16 @@
     --text-secondary: #5499A8;
     --text-muted: #CBDCE3;
     --royal-blue: #5499A8;
+
+    /* Production Glass Tokens (Dark Mode) */
+    --glass-bg: rgba(8, 58, 79, 0.72);
+    --glass-bg-subtle: rgba(5, 39, 53, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-border-subtle: rgba(8, 58, 79, 0.15);
+    --glass-blur: 20px;
+    --glass-blur-strong: 28px;
+    --glass-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+    --glass-shadow-hover: 0 20px 50px rgba(0, 0, 0, 0.6);
   }
 
   html {
@@ -502,100 +522,216 @@
 }
 
 /* ============================================================
-   ADVANCED FROSTED GLASS & LIQUID GLASS SYSTEM (SKY BLUE EDITION)
+/* ============================================================
+   SOPHISTICATED BRAND GLASSMORPHISM LAYER (PRODUCTION GRADE)
+   Brand Foundation: SAND #E5E1DD | TEAL #407E8C | GOLD #A58D66 | NAVY #083A4F
    ============================================================ */
 
-/* 1. Sky Blue Frosted Glass (Apple-grade Matted Blur & Ice-Blue Specular Depth) */
-.frosted-glass {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.78) 0%, rgba(240, 249, 255, 0.65) 50%, rgba(224, 242, 254, 0.5) 100%);
-  backdrop-filter: blur(28px) saturate(210%) contrast(104%);
-  -webkit-backdrop-filter: blur(28px) saturate(210%) contrast(104%);
-  border: 1px solid rgba(56, 189, 248, 0.35);
-  box-shadow: 
-    inset 0 1px 2px 0 rgba(255, 255, 255, 0.8),
-    inset 0 0 18px rgba(56, 189, 248, 0.08),
-    0 12px 36px -4px rgba(14, 165, 233, 0.12);
+/* 1. Base Frosted Glass (Subtle, Apple/Stripe-grade material) */
+.frosted-glass,
+.glass-surface {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.dark .frosted-glass {
-  background: linear-gradient(135deg, rgba(10, 18, 32, 0.8) 0%, rgba(6, 13, 25, 0.68) 50%, rgba(3, 105, 161, 0.14) 100%);
-  backdrop-filter: blur(32px) saturate(220%) contrast(108%);
-  -webkit-backdrop-filter: blur(32px) saturate(220%) contrast(108%);
-  border: 1px solid rgba(56, 189, 248, 0.24);
-  box-shadow: 
-    inset 0 1px 1.5px 0 rgba(186, 230, 253, 0.35),
-    inset 0 0 24px rgba(14, 165, 233, 0.12),
-    0 16px 45px -10px rgba(0, 0, 0, 0.7),
-    0 0 25px -6px rgba(56, 189, 248, 0.2);
+.dark .frosted-glass,
+.dark .glass-surface {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur)) saturate(190%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(190%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
 }
 
-/* Sky Blue Frosted Glass Pill Variant */
-.frosted-glass-pill {
-  border-radius: 9999px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(224, 242, 254, 0.65) 100%);
-  backdrop-filter: blur(22px) saturate(200%);
-  -webkit-backdrop-filter: blur(22px) saturate(200%);
-  border: 1px solid rgba(56, 189, 248, 0.4);
-  box-shadow: 
-    inset 0 1px 2px 0 rgba(255, 255, 255, 0.9),
-    inset 0 0 12px rgba(64, 126, 140, 0.08),
-    0 4px 20px -2px rgba(8, 58, 79, 0.08);
-}
-
-.dark .frosted-glass-pill {
-  background: linear-gradient(180deg, rgba(8, 58, 79, 0.85) 0%, rgba(5, 39, 53, 0.75) 100%);
-  backdrop-filter: blur(24px) saturate(190%);
-  -webkit-backdrop-filter: blur(24px) saturate(190%);
-  border: 1px solid rgba(229, 225, 221, 0.16);
-  box-shadow: 
-    inset 0 1px 1.5px 0 rgba(229, 225, 221, 0.2),
-    inset 0 0 14px rgba(64, 126, 140, 0.15),
-    0 8px 30px -4px rgba(0, 0, 0, 0.55),
-    0 0 20px -4px rgba(64, 126, 140, 0.15);
-}
-
-/* Brand Frosted Glass Card with Subtle Specular Hover Lift */
-.frosted-glass-card {
+/* 2. Brand Frosted Glass Card with Controlled Geometry & Micro-Lift */
+.frosted-glass-card,
+.glass-card {
   position: relative;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(229, 225, 221, 0.55) 100%);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid rgba(8, 58, 79, 0.09);
-  box-shadow: 
-    inset 0 1px 1px 0 rgba(255, 255, 255, 0.95),
-    inset 0 0 16px rgba(64, 126, 140, 0.03),
-    0 4px 24px -2px rgba(8, 58, 79, 0.06);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.72) 0%, rgba(229, 225, 221, 0.55) 100%);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 0 8px 30px rgba(8, 58, 79, 0.05);
+  border-radius: 1rem;
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, border-color 0.2s ease-out;
 }
 
-.dark .frosted-glass-card {
-  background: linear-gradient(135deg, rgba(8, 58, 79, 0.75) 0%, rgba(5, 39, 53, 0.65) 100%);
-  backdrop-filter: blur(26px) saturate(190%);
-  -webkit-backdrop-filter: blur(26px) saturate(190%);
-  border: 1px solid rgba(229, 225, 221, 0.12);
-  box-shadow: 
-    inset 0 1px 1.5px 0 rgba(229, 225, 221, 0.15),
-    inset 0 0 20px rgba(64, 126, 140, 0.08),
-    0 8px 32px -4px rgba(3, 23, 32, 0.6);
+.dark .frosted-glass-card,
+.dark .glass-card {
+  background: linear-gradient(135deg, rgba(8, 58, 79, 0.72) 0%, rgba(5, 39, 53, 0.65) 100%);
+  backdrop-filter: blur(20px) saturate(190%);
+  -webkit-backdrop-filter: blur(20px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
 }
 
-.frosted-glass-card:hover {
-  transform: translateY(-3px);
+.frosted-glass-card:hover,
+.glass-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(64, 126, 140, 0.35);
+  box-shadow: 0 14px 36px rgba(8, 58, 79, 0.09);
+}
+
+.dark .frosted-glass-card:hover,
+.dark .glass-card:hover {
+  transform: translateY(-2px);
   border-color: rgba(64, 126, 140, 0.45);
-  box-shadow: 
-    inset 0 1px 2px 0 rgba(255, 255, 255, 0.95),
-    inset 0 0 20px rgba(64, 126, 140, 0.08),
-    0 16px 36px -6px rgba(8, 58, 79, 0.12),
-    0 0 20px -4px rgba(64, 126, 140, 0.18);
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.65);
 }
 
-.dark .frosted-glass-card:hover {
+/* 3. Navy Glass (Dark Structural Material: #083A4F base) */
+.glass-navy {
+  background: rgba(8, 58, 79, 0.75);
+  backdrop-filter: blur(22px) saturate(180%);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #FAF9F8;
+  box-shadow: 0 16px 40px rgba(8, 58, 79, 0.2);
+}
+
+.glass-navy-subtle {
+  background: rgba(8, 58, 79, 0.45);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  border: 1px solid rgba(64, 126, 140, 0.2);
+  color: #FAF9F8;
+}
+
+/* 4. Teal Glass (Interactive Highlights & Active States: #407E8C base) */
+.glass-teal {
+  background: rgba(64, 126, 140, 0.14);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(64, 126, 140, 0.32);
+  color: #407E8C;
+}
+
+.dark .glass-teal {
+  background: rgba(64, 126, 140, 0.2);
+  border: 1px solid rgba(64, 126, 140, 0.4);
+  color: #6BB0C0;
+}
+
+/* 5. Gold Glass (Intentional Premium Accents & Badges: #A58D66 base) */
+.glass-gold {
+  background: rgba(165, 141, 102, 0.14);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(165, 141, 102, 0.35);
+  color: #8D7652;
+}
+
+.dark .glass-gold {
+  background: rgba(165, 141, 102, 0.2);
+  border: 1px solid rgba(165, 141, 102, 0.4);
+  color: #C5AF88;
+}
+
+/* 6. Glass Pill & Badge */
+.frosted-glass-pill,
+.glass-pill {
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 14px rgba(8, 58, 79, 0.04);
+}
+
+.dark .frosted-glass-pill,
+.dark .glass-pill {
+  background: rgba(8, 58, 79, 0.65);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  border: 1px solid rgba(229, 225, 221, 0.15);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+}
+
+/* 7. Glass Button & Form Inputs */
+.glass-button-secondary {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(64, 126, 140, 0.3);
+  color: #083A4F;
+  transition: all 0.2s ease-out;
+}
+
+.glass-button-secondary:hover {
+  background: rgba(255, 255, 255, 0.85);
   border-color: rgba(64, 126, 140, 0.5);
-  box-shadow: 
-    inset 0 1px 2px 0 rgba(229, 225, 221, 0.25),
-    inset 0 0 25px rgba(64, 126, 140, 0.15),
-    0 18px 40px -8px rgba(3, 23, 32, 0.75),
-    0 0 25px -4px rgba(64, 126, 140, 0.25);
+  transform: translateY(-1.5px);
+  box-shadow: 0 6px 18px rgba(8, 58, 79, 0.08);
+}
+
+.dark .glass-button-secondary {
+  background: rgba(8, 58, 79, 0.6);
+  border: 1px solid rgba(64, 126, 140, 0.35);
+  color: #FAF9F8;
+}
+
+.dark .glass-button-secondary:hover {
+  background: rgba(8, 58, 79, 0.85);
+  border-color: rgba(64, 126, 140, 0.6);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.glass-input {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(8, 58, 79, 0.15);
+  transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+
+.glass-input:focus {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: #407E8C;
+  box-shadow: 0 0 0 3px rgba(64, 126, 140, 0.18);
+}
+
+.dark .glass-input {
+  background: rgba(8, 58, 79, 0.55);
+  border: 1px solid rgba(229, 225, 221, 0.15);
+}
+
+.dark .glass-input:focus {
+  background: rgba(8, 58, 79, 0.85);
+  border-color: #407E8C;
+  box-shadow: 0 0 0 3px rgba(64, 126, 140, 0.3);
+}
+
+/* 8. Clear Visual Layering System */
+.z-glass-base { z-index: 0; }
+.z-glass-surface { z-index: 10; }
+.z-glass-card { z-index: 20; }
+.z-glass-floating { z-index: 30; }
+.z-glass-dropdown { z-index: 40; }
+.z-glass-modal { z-index: 50; }
+
+/* 9. Mobile Glassmorphism Performance & Readability Optimization */
+@media (max-width: 640px) {
+  :root {
+    --glass-blur: 12px;
+    --glass-blur-strong: 16px;
+  }
+  .dark {
+    --glass-blur: 12px;
+    --glass-blur-strong: 16px;
+  }
+  .frosted-glass,
+  .frosted-glass-card,
+  .glass-card,
+  .glass-surface,
+  .glass-navy,
+  .glass-panel {
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+  }
 }
 
 /* 2. Liquid Glass & Brand Border Flow */

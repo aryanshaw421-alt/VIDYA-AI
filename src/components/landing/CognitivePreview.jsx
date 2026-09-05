@@ -28,7 +28,7 @@ export const CognitivePreview = ({ setActiveTab, onOpenTopic, user }) => {
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="rounded-3xl frosted-glass liquid-glass-border shadow-2xl text-left overflow-hidden relative"
+        className="rounded-3xl glass-surface shadow-2xl text-left overflow-hidden relative border border-white/60 dark:border-white/10"
       >
         {/* Ambient Subtle Teal/Navy Glow */}
         <div className="absolute top-0 right-0 w-80 h-80 bg-[#407E8C]/[0.08] dark:bg-[#407E8C]/[0.12] blur-3xl pointer-events-none -z-0" />
@@ -47,7 +47,7 @@ export const CognitivePreview = ({ setActiveTab, onOpenTopic, user }) => {
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full frosted-glass-pill text-[#407E8C] dark:text-[#6BB0C0] text-[10px] font-mono font-semibold border border-[#407E8C]/20">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full glass-teal text-[10px] font-mono font-semibold">
               <span className="w-1.5 h-1.5 rounded-full bg-[#407E8C] animate-pulse" />
               <span>Telemetry Synchronized (12ms)</span>
             </span>
@@ -76,7 +76,7 @@ export const CognitivePreview = ({ setActiveTab, onOpenTopic, user }) => {
           </div>
 
           {/* Interactive Mode Pills */}
-          <div className="flex items-center gap-1 p-1 rounded-xl frosted-glass-pill border border-[#083A4F]/10 dark:border-white/[0.08]">
+          <div className="flex items-center gap-1 p-1 rounded-xl glass-pill">
             <button
               type="button"
               onClick={() => setActiveView('twin')}
@@ -129,7 +129,7 @@ export const CognitivePreview = ({ setActiveTab, onOpenTopic, user }) => {
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
                   
                   {/* Metric 1 */}
-                  <div className="p-4 rounded-2xl frosted-glass-card liquid-sheen space-y-1">
+                  <div className="p-4 rounded-2xl glass-card space-y-1 border border-white/60 dark:border-white/10">
                     <div className="text-[11px] font-mono text-neutral-500 dark:text-neutral-400 uppercase font-semibold">
                       Prerequisite Readiness
                     </div>
@@ -146,7 +146,7 @@ export const CognitivePreview = ({ setActiveTab, onOpenTopic, user }) => {
                   </div>
 
                   {/* Metric 2 */}
-                  <div className="p-4 rounded-2xl frosted-glass-card liquid-sheen space-y-1">
+                  <div className="p-4 rounded-2xl glass-card space-y-1 border border-white/60 dark:border-white/10">
                     <div className="text-[11px] font-mono text-neutral-500 dark:text-neutral-400 uppercase font-semibold">
                       Memory Retention
                     </div>
@@ -163,7 +163,7 @@ export const CognitivePreview = ({ setActiveTab, onOpenTopic, user }) => {
                   </div>
 
                   {/* Metric 3 */}
-                  <div className="p-4 rounded-2xl frosted-glass-card liquid-sheen space-y-1">
+                  <div className="p-4 rounded-2xl glass-card space-y-1 border border-white/60 dark:border-white/10">
                     <div className="text-[11px] font-mono text-neutral-500 dark:text-neutral-400 uppercase font-semibold">
                       AI Performance Forecast
                     </div>
@@ -182,7 +182,7 @@ export const CognitivePreview = ({ setActiveTab, onOpenTopic, user }) => {
                 </div>
 
                 {/* Next Best Action Banner */}
-                <div className="p-4 rounded-2xl bg-[#E5E1DD]/40 dark:bg-[#083A4F]/30 border border-[#083A4F]/10 dark:border-[#407E8C]/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
+                <div className="p-4 rounded-2xl glass-surface border border-[#083A4F]/10 dark:border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
                   <div className="flex items-start sm:items-center gap-2.5">
                     <span className="px-2.5 py-0.5 rounded-md text-[10px] font-mono font-bold bg-[#A58D66] text-white shrink-0 mt-0.5 sm:mt-0 tracking-wide">
                       Next Best Action

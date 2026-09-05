@@ -32,12 +32,12 @@ export const MetricCard = ({
             {title}
           </span>
           {badgeText ? (
-            <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
+            <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full glass-teal">
               {badgeText}
             </span>
           ) : Icon ? (
-            <div className="w-7 h-7 rounded-xl bg-black/[0.04] dark:bg-white/[0.06] border border-black/[0.04] dark:border-white/[0.08] flex items-center justify-center text-neutral-600 dark:text-neutral-300">
-              <Icon className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+            <div className="w-7 h-7 rounded-xl glass-surface flex items-center justify-center text-[#407E8C] dark:text-[#6BB0C0]">
+              <Icon className="w-3.5 h-3.5" />
             </div>
           ) : null}
         </div>

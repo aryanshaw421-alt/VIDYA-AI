@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
 
@@ -48,6 +48,15 @@ export const Navbar = ({
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 15);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Essential Primary Links
   const navLinks = [
@@ -72,7 +81,11 @@ export const Navbar = ({
 
   return (
     <>
-      <header className="sticky top-0 z-50 w-full backdrop-blur-xl bg-[#FAF9F7]/90 dark:bg-[#083A4F]/90 border-b border-[#083A4F]/10 dark:border-white/10 transition-all duration-300">
+      <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+        isScrolled
+          ? 'backdrop-blur-xl bg-[#FAF9F7]/95 dark:bg-[#083A4F]/95 border-b border-[#083A4F]/15 dark:border-white/15 shadow-sm'
+          : 'backdrop-blur-md bg-[#FAF9F7]/80 dark:bg-[#083A4F]/80 border-b border-[#083A4F]/5 dark:border-white/5'
+      }`}>
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 sm:h-18">
             

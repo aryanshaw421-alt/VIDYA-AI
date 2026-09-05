@@ -32,6 +32,7 @@ export const HeroSection = ({ setActiveTab, onOpenTopic, onOpenSemester }) => {
   const [selectedSscSection, setSelectedSscSection] = useState('ssc_full');
   
   const [selectedGoal, setSelectedGoal] = useState('blueprint');
+  const [heroTopic, setHeroTopic] = useState('');
 
   const streams = [
     { id: 'btech', name: 'B.Tech Engineering', desc: 'Semester 1 to 8 (MAKAUT & University)', icon: '🎓' },
@@ -184,25 +185,177 @@ export const HeroSection = ({ setActiveTab, onOpenTopic, onOpenSemester }) => {
         </p>
       </motion.div>
 
-      {/* 3. Primary Focused Action Button with Liquid Glass Border & Sheen in Brand Teal */}
+      {/* 3. Floating Glass Planner & Search Container */}
       <motion.div
-        initial={{ opacity: 0, y: 12 }}
+        initial={{ opacity: 0, y: 14 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, delay: 0.1 }}
-        className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2"
+        transition={{ duration: 0.45, delay: 0.1 }}
+        className="w-full max-w-3xl mx-auto pt-2"
       >
-        <button
-          type="button"
-          onClick={() => {
-            setWizardStep(1);
-            setIsWizardOpen(true);
-          }}
-          className="w-full sm:w-auto px-8 py-4 rounded-xl bg-[#407E8C] text-white hover:bg-[#336570] active:bg-[#264D56] font-bold text-base hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl shadow-[#407E8C]/25 flex items-center justify-center gap-3 cursor-pointer group select-none liquid-sheen liquid-glass-border"
-        >
-          <Sparkles className="w-5 h-5 text-[#E5E1DD] group-hover:rotate-12 transition-transform" />
-          <span>Start Preparing — Select Your Syllabus</span>
-          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-        </button>
+        <div className="p-4 sm:p-6 rounded-2xl glass-card text-left space-y-4 shadow-xl border border-white/60 dark:border-white/10 relative z-glass-floating">
+          
+          {/* Stream Filter Pills */}
+          <div className="flex items-center justify-between gap-2 flex-wrap pb-2 border-b border-[#083A4F]/10 dark:border-white/[0.08]">
+            <span className="text-[11px] font-mono text-[#083A4F]/70 dark:text-[#CBDCE3]/70 font-semibold uppercase tracking-wider">
+              Target Stream
+            </span>
+            <div className="flex items-center gap-1.5 flex-wrap">
+              {streams.map((s) => (
+                <button
+                  key={s.id}
+                  type="button"
+                  onClick={() => setSelectedStream(s.id)}
+                  className={`px-3 py-1 rounded-lg text-xs font-mono font-medium transition-all cursor-pointer ${
+                    selectedStream === s.id
+                      ? 'bg-[#407E8C] text-white shadow-xs font-bold'
+                      : 'bg-white/60 dark:bg-[#083A4F]/50 text-[#083A4F] dark:text-[#CBDCE3] hover:bg-[#E5E1DD]/50 dark:hover:bg-[#407E8C]/20 border border-[#083A4F]/10 dark:border-white/10'
+                  }`}
+                >
+                  <span className="mr-1">{s.icon}</span>
+                  <span>{s.name.split(' ')[0]}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Form Inputs Grid (Inputs with high contrast and readable glass finish) */}
+          <form 
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (heroTopic.trim()) {
+                if (onOpenTopic) onOpenTopic(heroTopic.trim());
+                else setActiveTab('studyHub');
+                toast.success(`Launching study room for "${heroTopic.trim()}"`);
+                return;
+              }
+              handleFinishWizard();
+            }} 
+            className="space-y-3.5"
+          >
+            <div className="grid grid-cols-1 sm:grid-cols-12 gap-2.5">
+              
+              {/* Input 1: Sub-selection (Semester or Paper or Track) */}
+              <div className="sm:col-span-4">
+                <label className="block text-[10px] font-mono uppercase tracking-wider text-[#083A4F]/70 dark:text-[#CBDCE3]/70 font-bold mb-1">
+                  {selectedStream === 'btech' ? 'Semester' : selectedStream === 'gate' ? 'Paper' : selectedStream === 'jee' ? 'Track' : 'Section'}
+                </label>
+                {selectedStream === 'btech' && (
+                  <select
+                    value={selectedSem}
+                    onChange={(e) => setSelectedSem(Number(e.target.value))}
+                    className="w-full px-3 py-2.5 rounded-xl glass-input text-xs font-mono font-semibold text-[#083A4F] dark:text-[#FAF9F8] focus:outline-none"
+                  >
+                    {[1, 2, 3, 4, 5, 6, 7, 8].map(n => (
+                      <option key={n} value={n} className="dark:bg-[#083A4F] text-[#083A4F] dark:text-white">
+                        Semester {n} (B.Tech)
+                      </option>
+                    ))}
+                  </select>
+                )}
+                {selectedStream === 'gate' && (
+                  <select
+                    value={selectedGatePaper}
+                    onChange={(e) => setSelectedGatePaper(e.target.value)}
+                    className="w-full px-3 py-2.5 rounded-xl glass-input text-xs font-mono font-semibold text-[#083A4F] dark:text-[#FAF9F8] focus:outline-none"
+                  >
+                    {gatePapers.map(p => (
+                      <option key={p.id} value={p.id} className="dark:bg-[#083A4F] text-[#083A4F] dark:text-white">
+                        {p.name.split('—')[0].trim()}
+                      </option>
+                    ))}
+                  </select>
+                )}
+                {selectedStream === 'jee' && (
+                  <select
+                    value={selectedJeeTrack}
+                    onChange={(e) => setSelectedJeeTrack(e.target.value)}
+                    className="w-full px-3 py-2.5 rounded-xl glass-input text-xs font-mono font-semibold text-[#083A4F] dark:text-[#FAF9F8] focus:outline-none"
+                  >
+                    {jeeTracks.map(t => (
+                      <option key={t.id} value={t.id} className="dark:bg-[#083A4F] text-[#083A4F] dark:text-white">
+                        {t.name}
+                      </option>
+                    ))}
+                  </select>
+                )}
+                {selectedStream === 'ssc' && (
+                  <select
+                    value={selectedSscSection}
+                    onChange={(e) => setSelectedSscSection(e.target.value)}
+                    className="w-full px-3 py-2.5 rounded-xl glass-input text-xs font-mono font-semibold text-[#083A4F] dark:text-[#FAF9F8] focus:outline-none"
+                  >
+                    {sscSections.map(s => (
+                      <option key={s.id} value={s.id} className="dark:bg-[#083A4F] text-[#083A4F] dark:text-white">
+                        {s.name}
+                      </option>
+                    ))}
+                  </select>
+                )}
+              </div>
+
+              {/* Input 2: Specific Concept / Topic Search */}
+              <div className="sm:col-span-5">
+                <label className="block text-[10px] font-mono uppercase tracking-wider text-[#083A4F]/70 dark:text-[#CBDCE3]/70 font-bold mb-1">
+                  Focus Topic or Concept
+                </label>
+                <input
+                  type="text"
+                  value={heroTopic}
+                  onChange={(e) => setHeroTopic(e.target.value)}
+                  placeholder="e.g. Matrices, Normalization, Calculus..."
+                  className="w-full px-3.5 py-2.5 rounded-xl glass-input text-xs font-sans text-[#083A4F] dark:text-[#FAF9F8] placeholder:text-neutral-400 focus:outline-none"
+                />
+              </div>
+
+              {/* Input 3: Preparation Need */}
+              <div className="sm:col-span-3">
+                <label className="block text-[10px] font-mono uppercase tracking-wider text-[#083A4F]/70 dark:text-[#CBDCE3]/70 font-bold mb-1">
+                  Blueprint Goal
+                </label>
+                <select
+                  value={selectedGoal}
+                  onChange={(e) => setSelectedGoal(e.target.value)}
+                  className="w-full px-3 py-2.5 rounded-xl glass-input text-xs font-mono font-semibold text-[#083A4F] dark:text-[#FAF9F8] focus:outline-none"
+                >
+                  <option value="blueprint" className="dark:bg-[#083A4F] text-[#083A4F] dark:text-white">Pass Blueprint</option>
+                  <option value="mockTest" className="dark:bg-[#083A4F] text-[#083A4F] dark:text-white">Mock Simulator</option>
+                  <option value="cheatsheet" className="dark:bg-[#083A4F] text-[#083A4F] dark:text-white">Cheat Sheet</option>
+                </select>
+              </div>
+
+            </div>
+
+            {/* Bottom Row: Primary CTA + Wizard trigger */}
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
+              <div className="text-[11px] font-mono text-[#083A4F]/70 dark:text-[#CBDCE3]/70 flex items-center gap-1.5">
+                <Sparkles className="w-3.5 h-3.5 text-[#A58D66]" />
+                <span>Instant AI 70-Mark & Competitive Question Matcher</span>
+              </div>
+
+              <div className="flex items-center gap-2 w-full sm:w-auto">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setWizardStep(1);
+                    setIsWizardOpen(true);
+                  }}
+                  className="px-3.5 py-2.5 rounded-xl glass-button-secondary text-xs font-mono font-semibold shrink-0 cursor-pointer"
+                >
+                  3-Step Wizard
+                </button>
+                <button
+                  type="submit"
+                  className="flex-grow sm:flex-grow-0 px-6 py-2.5 rounded-xl bg-[#407E8C] text-white hover:bg-[#336570] active:bg-[#264D56] font-bold text-xs sm:text-sm transition-all shadow-md shadow-[#407E8C]/20 flex items-center justify-center gap-2 cursor-pointer group select-none hover:-translate-y-0.5"
+                >
+                  <span>Launch Study Plan</span>
+                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                </button>
+              </div>
+            </div>
+
+          </form>
+
+        </div>
       </motion.div>
 
       {/* 4. Minimal, Clean Trust Stats */}
@@ -210,7 +363,7 @@ export const HeroSection = ({ setActiveTab, onOpenTopic, onOpenSemester }) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.4, delay: 0.15 }}
-        className="pt-6 flex items-center justify-center gap-8 text-xs font-mono text-[#083A4F]/65 dark:text-[#CBDCE3]/70 flex-wrap"
+        className="pt-4 flex items-center justify-center gap-8 text-xs font-mono text-[#083A4F]/65 dark:text-[#CBDCE3]/70 flex-wrap"
       >
         <div className="flex items-center gap-1.5">
           <CheckCircle2 className="w-3.5 h-3.5 text-[#407E8C]" />
@@ -231,8 +384,8 @@ export const HeroSection = ({ setActiveTab, onOpenTopic, onOpenSemester }) => {
       {/* 5. Guided Step-by-Step Preparation Modal (Adaptive to Stream) */}
       <Dialog.Root open={isWizardOpen} onOpenChange={setIsWizardOpen}>
         <Dialog.Portal>
-          <Dialog.Overlay className="fixed inset-0 z-50 bg-black/60 backdrop-blur-md animate-fade-in" />
-          <Dialog.Content className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-[95vw] sm:w-[540px] max-h-[90vh] rounded-3xl frosted-glass-card shadow-2xl p-6 sm:p-8 space-y-6 text-left overflow-y-auto animate-scale-in">
+          <Dialog.Overlay className="fixed inset-0 z-glass-modal bg-black/60 backdrop-blur-md animate-fade-in" />
+          <Dialog.Content className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-glass-modal w-[95vw] sm:w-[540px] max-h-[90vh] rounded-3xl glass-card shadow-2xl p-6 sm:p-8 space-y-6 text-left overflow-y-auto animate-scale-in border border-white/60 dark:border-white/12">
             
             {/* Header & Step Indicator */}
             <div className="flex items-center justify-between pb-3 border-b border-[#083A4F]/10 dark:border-white/[0.06]">
@@ -273,8 +426,8 @@ export const HeroSection = ({ setActiveTab, onOpenTopic, onOpenSemester }) => {
                       onClick={() => setSelectedStream(s.id)}
                       className={`p-4 rounded-xl border transition-all cursor-pointer flex items-center justify-between gap-3 ${
                         selectedStream === s.id
-                          ? 'bg-[#407E8C]/15 border-[#407E8C] shadow-xs'
-                          : 'bg-white/80 dark:bg-[#083A4F]/40 border-[#083A4F]/10 dark:border-[#E5E1DD]/12 hover:border-[#407E8C]/40'
+                          ? 'glass-teal shadow-xs border-[#407E8C]'
+                          : 'glass-surface hover:border-[#407E8C]/40'
                       }`}
                     >
                       <div className="flex items-center gap-3">
@@ -332,7 +485,7 @@ export const HeroSection = ({ setActiveTab, onOpenTopic, onOpenSemester }) => {
                           className={`p-3.5 rounded-xl text-xs font-mono font-bold transition-all text-center cursor-pointer ${
                             selectedSem === sem
                               ? 'bg-[#407E8C] text-white shadow-sm border border-[#407E8C]'
-                              : 'bg-white/80 dark:bg-[#083A4F]/40 border border-[#083A4F]/10 dark:border-[#E5E1DD]/12 text-[#083A4F] dark:text-[#E5E1DD] hover:bg-[#E5E1DD]/30'
+                              : 'glass-surface text-[#083A4F] dark:text-[#E5E1DD] hover:bg-[#E5E1DD]/30'
                           }`}
                         >
                           Sem {sem}
@@ -340,7 +493,7 @@ export const HeroSection = ({ setActiveTab, onOpenTopic, onOpenSemester }) => {
                       ))}
                     </div>
 
-                    <div className="p-3.5 rounded-xl bg-[#407E8C]/10 border border-[#407E8C]/20 text-xs font-mono text-[#083A4F] dark:text-[#E5E1DD]">
+                    <div className="p-3.5 rounded-xl glass-teal text-xs font-mono">
                       Selected: <strong>Semester {selectedSem} B.Tech</strong> (Includes all core theory subjects, lab viva guides & repeated questions).
                     </div>
                   </>
@@ -365,8 +518,8 @@ export const HeroSection = ({ setActiveTab, onOpenTopic, onOpenSemester }) => {
                           onClick={() => setSelectedGatePaper(p.id)}
                           className={`p-3.5 rounded-xl border transition-all cursor-pointer flex items-center justify-between gap-3 ${
                             selectedGatePaper === p.id
-                              ? 'bg-[#407E8C]/15 border-[#407E8C] shadow-xs'
-                              : 'bg-white/80 dark:bg-[#083A4F]/40 border-[#083A4F]/10 dark:border-[#E5E1DD]/12 hover:border-[#407E8C]/40'
+                              ? 'glass-teal shadow-xs border-[#407E8C]'
+                              : 'glass-surface hover:border-[#407E8C]/40'
                           }`}
                         >
                           <div>
@@ -384,7 +537,7 @@ export const HeroSection = ({ setActiveTab, onOpenTopic, onOpenSemester }) => {
                       ))}
                     </div>
 
-                    <div className="p-3.5 rounded-xl bg-[#407E8C]/10 border border-[#407E8C]/20 text-xs font-mono text-[#083A4F] dark:text-[#E5E1DD]">
+                    <div className="p-3.5 rounded-xl glass-teal text-xs font-mono">
                       Selected: <strong>GATE 2027 ({selectedGatePaper})</strong> — IIT Madras 100-Mark official pattern.
                     </div>
                   </>
@@ -409,8 +562,8 @@ export const HeroSection = ({ setActiveTab, onOpenTopic, onOpenSemester }) => {
                           onClick={() => setSelectedJeeTrack(t.id)}
                           className={`p-3.5 rounded-xl border transition-all cursor-pointer flex items-center justify-between gap-3 ${
                             selectedJeeTrack === t.id
-                              ? 'bg-[#407E8C]/15 border-[#407E8C] shadow-xs'
-                              : 'bg-white/80 dark:bg-[#083A4F]/40 border-[#083A4F]/10 dark:border-[#E5E1DD]/12 hover:border-[#407E8C]/40'
+                              ? 'glass-teal shadow-xs border-[#407E8C]'
+                              : 'glass-surface hover:border-[#407E8C]/40'
                           }`}
                         >
                           <div>
@@ -428,7 +581,7 @@ export const HeroSection = ({ setActiveTab, onOpenTopic, onOpenSemester }) => {
                       ))}
                     </div>
 
-                    <div className="p-3.5 rounded-xl bg-[#407E8C]/10 border border-[#407E8C]/20 text-xs font-mono text-[#083A4F] dark:text-[#E5E1DD]">
+                    <div className="p-3.5 rounded-xl glass-teal text-xs font-mono">
                       Selected: <strong>{jeeTracks.find(t => t.id === selectedJeeTrack)?.name}</strong>.
                     </div>
                   </>
@@ -453,8 +606,8 @@ export const HeroSection = ({ setActiveTab, onOpenTopic, onOpenSemester }) => {
                           onClick={() => setSelectedSscSection(sec.id)}
                           className={`p-3.5 rounded-xl border transition-all cursor-pointer flex items-center justify-between gap-3 ${
                             selectedSscSection === sec.id
-                              ? 'bg-[#407E8C]/15 border-[#407E8C] shadow-xs'
-                              : 'bg-white/80 dark:bg-[#083A4F]/40 border-[#083A4F]/10 dark:border-[#E5E1DD]/12 hover:border-[#407E8C]/40'
+                              ? 'glass-teal shadow-xs border-[#407E8C]'
+                              : 'glass-surface hover:border-[#407E8C]/40'
                           }`}
                         >
                           <div>
@@ -472,7 +625,7 @@ export const HeroSection = ({ setActiveTab, onOpenTopic, onOpenSemester }) => {
                       ))}
                     </div>
 
-                    <div className="p-3.5 rounded-xl bg-[#407E8C]/10 border border-[#407E8C]/20 text-xs font-mono text-[#083A4F] dark:text-[#E5E1DD]">
+                    <div className="p-3.5 rounded-xl glass-teal text-xs font-mono">
                       Selected: <strong>{sscSections.find(s => s.id === selectedSscSection)?.name}</strong>.
                     </div>
                   </>
@@ -483,7 +636,7 @@ export const HeroSection = ({ setActiveTab, onOpenTopic, onOpenSemester }) => {
                   <button
                     type="button"
                     onClick={() => setWizardStep(1)}
-                    className="py-3 px-5 rounded-xl border border-[#083A4F]/15 dark:border-[#E5E1DD]/15 text-xs font-mono font-medium hover:bg-[#083A4F]/5 dark:hover:bg-white/5 transition-all cursor-pointer flex items-center gap-1 text-[#083A4F] dark:text-[#E5E1DD]"
+                    className="py-3 px-5 rounded-xl glass-button-secondary text-xs font-mono font-medium transition-all cursor-pointer flex items-center gap-1"
                   >
                     <ArrowLeft className="w-3.5 h-3.5" />
                     <span>Back</span>
@@ -523,8 +676,8 @@ export const HeroSection = ({ setActiveTab, onOpenTopic, onOpenSemester }) => {
                       onClick={() => setSelectedGoal(g.id)}
                       className={`p-4 rounded-xl border transition-all cursor-pointer flex items-center justify-between gap-3 ${
                         selectedGoal === g.id
-                          ? 'bg-[#407E8C]/15 border-[#407E8C] shadow-xs'
-                          : 'bg-white/80 dark:bg-[#083A4F]/40 border-[#083A4F]/10 dark:border-[#E5E1DD]/12 hover:border-[#407E8C]/40'
+                          ? 'glass-teal shadow-xs border-[#407E8C]'
+                          : 'glass-surface hover:border-[#407E8C]/40'
                       }`}
                     >
                       <div className="flex items-center gap-3">
@@ -554,7 +707,7 @@ export const HeroSection = ({ setActiveTab, onOpenTopic, onOpenSemester }) => {
                   <button
                     type="button"
                     onClick={() => setWizardStep(2)}
-                    className="py-3 px-5 rounded-xl border border-[#083A4F]/15 dark:border-[#E5E1DD]/15 text-xs font-mono font-medium hover:bg-[#083A4F]/5 dark:hover:bg-white/5 transition-all cursor-pointer flex items-center gap-1 text-[#083A4F] dark:text-[#E5E1DD]"
+                    className="py-3 px-5 rounded-xl glass-button-secondary text-xs font-mono font-medium transition-all cursor-pointer flex items-center gap-1"
                   >
                     <ArrowLeft className="w-3.5 h-3.5" />
                     <span>Back</span>
