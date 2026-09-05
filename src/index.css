@@ -4,27 +4,21 @@
 
 @layer base {
   :root {
-    --bg-primary: #F8F9FA;
+    --bg-primary: #FFFFFF;
     --card-bg: #FFFFFF;
-    --border-color: rgba(14, 16, 21, 0.08);
-    --text-primary: #0E1015;
-    --text-muted: #575D6A;
-    --royal-blue: #0055FE;
-    --cyber-cyan: #06B6D4;
-    --lime-accent: #D4F038;
+    --border-color: #CBD5E1;
+    --text-primary: #000000;
+    --text-muted: #0F172A;
+    --royal-blue: #0037B3;
   }
 
   .dark {
-    --bg-primary: #06080F;
-    --card-bg: #0B0E17;
-    --card-hover: #101422;
-    --border-color: rgba(255, 255, 255, 0.08);
-    --hud-border: rgba(255, 255, 255, 0.12);
-    --text-primary: #F3F4F6;
-    --text-muted: #94A3B8;
-    --royal-blue: #0055FE;
-    --cyber-cyan: #06B6D4;
-    --lime-accent: #D4F038;
+    --bg-primary: #030712;
+    --card-bg: #0A1124;
+    --border-color: #1E293B;
+    --text-primary: #FFFFFF;
+    --text-muted: #F8FAFC;
+    --royal-blue: #38BDF8;
   }
 
   html {
@@ -36,29 +30,51 @@
   }
 
   body {
-    /* Avenir / Avenir Next — Silky, modern humanistic body font */
-    font-family: 'Avenir Next', 'Avenir', 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Inter', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     letter-spacing: -0.012em;
+    line-height: 1.6;
     overflow-x: hidden;
-    transition: background-color 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    color: var(--text-primary);
+    font-weight: 500;
+    transition: background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  /* Playfair Display for all prestigious academic, editorial & showcase headings */
-  h1, h2, h3, h4, .font-display, .font-serif, .font-editorial, .font-playfair {
-    font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
-    letter-spacing: -0.022em;
-    font-feature-settings: "liga", "clig", "kern";
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    letter-spacing: -0.025em;
+    font-weight: 750;
+    color: #000000;
   }
 
-  /* Montserrat for precision UI: navigation, buttons, chips, badges, labels, inputs */
-  h5, h6, nav, button, input, select, textarea, label, th, .font-montserrat, .font-ui {
-    font-family: 'Montserrat', 'Avenir Next', 'Avenir', sans-serif;
-    letter-spacing: -0.005em;
+  .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+    color: #FFFFFF;
   }
 
-  /* Code / monospace stays JetBrains Mono */
-  code, pre, kbd, .font-mono {
-    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  /* Deepen slate utility colors so secondary text is not washed out */
+  .text-slate-400 {
+    color: #334155;
+  }
+  .text-slate-500 {
+    color: #1E293B;
+  }
+  .text-slate-600 {
+    color: #0F172A;
+  }
+  .text-slate-700 {
+    color: #020617;
+  }
+
+  .dark .text-slate-400 {
+    color: #E2E8F0;
+  }
+  .dark .text-slate-500 {
+    color: #CBD5E1;
+  }
+  .dark .text-slate-600 {
+    color: #94A3B8;
+  }
+  .dark .text-slate-700 {
+    color: #F8FAFC;
   }
 
   /* GPU Hardware Acceleration on Animated Layers */
@@ -67,110 +83,370 @@
   }
 }
 
-/* Professional Typography Utility Classes */
-.font-playfair {
-  font-family: 'Playfair Display', Georgia, serif !important;
-}
-
-.font-montserrat {
-  font-family: 'Montserrat', 'Avenir Next', 'Avenir', sans-serif !important;
-}
-
-.font-avenir {
-  font-family: 'Avenir Next', 'Avenir', 'Montserrat', sans-serif !important;
-}
-
-.font-editorial {
-  font-family: 'Playfair Display', Georgia, serif !important;
-  font-style: italic;
-  font-weight: 600;
-  letter-spacing: -0.015em;
-}
-
-.editorial-quote {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-style: italic;
-}
-
 /* Fluid Full-Width Container */
 .fluid-container {
   width: 100%;
-  max-width: 1440px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: clamp(12px, 3.5vw, 40px);
-  padding-right: clamp(12px, 3.5vw, 40px);
+  max-width: none;
+  padding-left: clamp(16px, 3.5vw, 64px);
+  padding-right: clamp(16px, 3.5vw, 64px);
 }
 
-/* Hide scrollbar while preserving touch & mouse scrollability */
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-  width: 0 !important;
-  height: 0 !important;
-}
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+/* 21st Century Radial Mesh Glow with Buttery Soft Blurs */
+.royal-mesh-bg {
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(0, 85, 254, 0.08) 0px, transparent 55%),
+    radial-gradient(at 100% 0%, rgba(99, 102, 241, 0.06) 0px, transparent 50%),
+    radial-gradient(at 50% 100%, rgba(0, 85, 254, 0.05) 0px, transparent 55%);
+  background-attachment: fixed;
 }
 
-/* Mobile Touch Tap Highlight fix */
-* {
-  -webkit-tap-highlight-color: transparent;
+.dark .royal-mesh-bg {
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(0, 85, 254, 0.16) 0px, transparent 55%),
+    radial-gradient(at 100% 0%, rgba(99, 102, 241, 0.12) 0px, transparent 50%),
+    radial-gradient(at 50% 100%, rgba(0, 85, 254, 0.1) 0px, transparent 55%);
+  background-attachment: fixed;
 }
 
 /* Subtle Architectural Grid */
 .bg-grid-pattern {
-  background-size: 32px 32px;
+  background-size: 40px 40px;
   background-image: 
-    linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+    linear-gradient(to right, rgba(0, 85, 254, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 85, 254, 0.04) 1px, transparent 1px);
 }
 
 .dark .bg-grid-pattern {
-  background-size: 32px 32px;
+  background-size: 40px 40px;
   background-image: 
     linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
 }
 
-/* Linear-style Ambient Lighting */
-.hero-glow {
-  background: radial-gradient(circle 500px at 50% 10%, rgba(37, 99, 235, 0.07), transparent 70%);
+/* ========================================================================= */
+/* Classic Luxury Smoked Crystal & Frosted Glass System (Apple / VisionOS)   */
+/* ========================================================================= */
+
+.frosted-glass {
+  background: rgba(255, 255, 255, 0.62);
+  backdrop-filter: blur(24px) saturate(190%) contrast(102%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%) contrast(102%);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 
+    0 20px 45px -10px rgba(0, 0, 0, 0.05),
+    0 8px 18px -4px rgba(0, 0, 0, 0.02),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 1px 0 rgba(0, 0, 0, 0.02);
 }
 
-.dark .hero-glow {
-  background: radial-gradient(circle 500px at 50% 10%, rgba(59, 130, 246, 0.12), transparent 70%);
+.dark .frosted-glass {
+  background: rgba(14, 18, 28, 0.6);
+  backdrop-filter: blur(28px) saturate(200%) contrast(105%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%) contrast(105%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 
+    0 25px 55px -12px rgba(0, 0, 0, 0.7),
+    0 8px 20px -4px rgba(0, 0, 0, 0.4),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 1px 0 rgba(0, 0, 0, 0.4);
 }
 
-/* Shimmer Button Keyframes */
-@keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(200%); }
+.frosted-glass-card {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 
+    0 12px 32px -6px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
 }
 
-.animate-shimmer {
-  animation: shimmer 3s infinite ease-in-out;
+.dark .frosted-glass-card {
+  background: rgba(18, 22, 34, 0.55);
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 16px 40px -8px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.14);
+}
+
+.frosted-glass-pill {
+  background: rgba(255, 255, 255, 0.68);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  box-shadow: 
+    0 4px 14px rgba(0, 0, 0, 0.03),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+
+.dark .frosted-glass-pill {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 
+    0 6px 20px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.apple-glass {
+  background: rgba(255, 255, 255, 0.64);
+  backdrop-filter: blur(26px) saturate(190%);
+  -webkit-backdrop-filter: blur(26px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 
+    0 24px 48px -12px rgba(0, 0, 0, 0.05),
+    0 4px 12px -2px rgba(0, 0, 0, 0.02),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.95);
+}
+
+.dark .apple-glass {
+  background: rgba(14, 16, 24, 0.62);
+  backdrop-filter: blur(30px) saturate(190%);
+  -webkit-backdrop-filter: blur(30px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 30px 60px -15px rgba(0, 0, 0, 0.8),
+    0 10px 24px -5px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.14),
+    inset 0 -1px 0 0 rgba(0, 0, 0, 0.4);
+}
+
+.apple-glass-card {
+  background: rgba(255, 255, 255, 0.58);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 
+    0 12px 30px -6px rgba(0, 0, 0, 0.03),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
+}
+
+.dark .apple-glass-card {
+  background: rgba(18, 20, 28, 0.58);
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: 
+    0 16px 36px -6px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
+}
+
+.apple-glass-pill {
+  background: rgba(255, 255, 255, 0.68);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 
+    0 4px 14px rgba(0, 0, 0, 0.03),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+
+.dark .apple-glass-pill {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 6px 18px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 
 /* Ultra Smooth Glass Surfaces */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(0, 0, 0, 0.07);
+  background: linear-gradient(
+    135deg, 
+    rgba(255, 255, 255, 0.55) 0%, 
+    rgba(255, 255, 255, 0.3) 100%
+  );
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 
+    0 12px 32px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
 }
 
 .dark .glass-panel {
-  background: rgba(15, 18, 25, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(
+    135deg, 
+    rgba(255, 255, 255, 0.08) 0%, 
+    rgba(255, 255, 255, 0.03) 100%
+  );
+  backdrop-filter: blur(26px) saturate(200%);
+  -webkit-backdrop-filter: blur(26px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 
+    0 18px 45px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+/* ========================================================================= */
+/* Transparent Sky Blue Glass System (Azure / Ethereal Water Glass)         */
+/* ========================================================================= */
+
+.sky-glass {
+  background: radial-gradient(
+    140% 140% at 20% 10%, 
+    rgba(255, 255, 255, 0.78) 0%, 
+    rgba(224, 242, 254, 0.45) 40%, 
+    rgba(186, 230, 253, 0.2) 100%
+  );
+  backdrop-filter: blur(30px) saturate(210%);
+  -webkit-backdrop-filter: blur(30px) saturate(210%);
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 
+    0 24px 50px -12px rgba(56, 189, 248, 0.2),
+    0 8px 20px -4px rgba(14, 165, 233, 0.1),
+    inset 0 2px 3px rgba(255, 255, 255, 0.95),
+    inset 0 -2px 4px rgba(56, 189, 248, 0.15);
+}
+
+.dark .sky-glass {
+  background: radial-gradient(
+    140% 140% at 20% 10%, 
+    rgba(255, 255, 255, 0.15) 0%, 
+    rgba(7, 19, 40, 0.68) 50%, 
+    rgba(3, 8, 20, 0.78) 100%
+  );
+  backdrop-filter: blur(34px) saturate(220%);
+  -webkit-backdrop-filter: blur(34px) saturate(220%);
+  border: 1.5px solid rgba(56, 189, 248, 0.25);
+  box-shadow: 
+    0 30px 65px -15px rgba(0, 0, 0, 0.85),
+    0 10px 25px -5px rgba(56, 189, 248, 0.3),
+    inset 0 2px 3px rgba(255, 255, 255, 0.3),
+    inset 0 -2px 4px rgba(14, 165, 233, 0.25);
+}
+
+.sky-glass-card {
+  background: radial-gradient(
+    120% 120% at 15% 15%, 
+    rgba(255, 255, 255, 0.72) 0%, 
+    rgba(224, 242, 254, 0.38) 100%
+  );
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  border: 1.5px solid rgba(186, 230, 253, 0.6);
+  box-shadow: 
+    0 16px 36px -8px rgba(56, 189, 248, 0.15),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.95);
+}
+
+.dark .sky-glass-card {
+  background: radial-gradient(
+    120% 120% at 15% 15%, 
+    rgba(255, 255, 255, 0.12) 0%, 
+    rgba(7, 19, 40, 0.62) 100%
+  );
+  backdrop-filter: blur(26px) saturate(200%);
+  -webkit-backdrop-filter: blur(26px) saturate(200%);
+  border: 1.5px solid rgba(56, 189, 248, 0.2);
+  box-shadow: 
+    0 20px 45px -10px rgba(0, 0, 0, 0.7),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.2);
+}
+
+/* ========================================================================= */
+/* Ultra-Gloss Liquid Glass System (Refractive Fluid / Viscous Mercury)      */
+/* ========================================================================= */
+
+.liquid-glass {
+  background: radial-gradient(
+    140% 140% at 20% 10%, 
+    rgba(255, 255, 255, 0.76) 0%, 
+    rgba(255, 255, 255, 0.38) 45%, 
+    rgba(255, 255, 255, 0.18) 100%
+  );
+  backdrop-filter: blur(32px) saturate(210%) contrast(104%);
+  -webkit-backdrop-filter: blur(32px) saturate(210%) contrast(104%);
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 
+    0 25px 55px -12px rgba(0, 85, 254, 0.14),
+    0 10px 24px -6px rgba(0, 0, 0, 0.04),
+    inset 0 2px 3px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -2px 4px 0 rgba(0, 85, 254, 0.06);
+}
+
+.dark .liquid-glass {
+  background: radial-gradient(
+    140% 140% at 20% 10%, 
+    rgba(255, 255, 255, 0.16) 0%, 
+    rgba(20, 26, 42, 0.68) 50%, 
+    rgba(10, 14, 26, 0.78) 100%
+  );
+  backdrop-filter: blur(36px) saturate(220%) contrast(110%);
+  -webkit-backdrop-filter: blur(36px) saturate(220%) contrast(110%);
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 
+    0 32px 65px -15px rgba(0, 0, 0, 0.85),
+    0 12px 28px -6px rgba(0, 85, 254, 0.3),
+    inset 0 2px 3px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -2px 4px 0 rgba(0, 0, 0, 0.6);
+}
+
+.liquid-glass-card {
+  background: radial-gradient(
+    120% 120% at 15% 15%, 
+    rgba(255, 255, 255, 0.68) 0%, 
+    rgba(255, 255, 255, 0.32) 100%
+  );
+  backdrop-filter: blur(26px) saturate(200%);
+  -webkit-backdrop-filter: blur(26px) saturate(200%);
+  border: 1.5px solid rgba(255, 255, 255, 0.78);
+  box-shadow: 
+    0 18px 40px -8px rgba(0, 85, 254, 0.1),
+    inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.95);
+}
+
+.dark .liquid-glass-card {
+  background: radial-gradient(
+    120% 120% at 15% 15%, 
+    rgba(255, 255, 255, 0.12) 0%, 
+    rgba(18, 24, 38, 0.65) 100%
+  );
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  border: 1.5px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 
+    0 22px 50px -10px rgba(0, 0, 0, 0.7),
+    inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.22);
+}
+
+.liquid-glass-pill {
+  background: radial-gradient(
+    100% 100% at 20% 20%, 
+    rgba(255, 255, 255, 0.82) 0%, 
+    rgba(255, 255, 255, 0.48) 100%
+  );
+  backdrop-filter: blur(20px) saturate(200%);
+  -webkit-backdrop-filter: blur(20px) saturate(200%);
+  border: 1.5px solid rgba(255, 255, 255, 0.88);
+  box-shadow: 
+    0 6px 20px rgba(0, 85, 254, 0.08),
+    inset 0 1.5px 1.5px rgba(255, 255, 255, 1);
+}
+
+.dark .liquid-glass-pill {
+  background: radial-gradient(
+    100% 100% at 20% 20%, 
+    rgba(255, 255, 255, 0.14) 0%, 
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  backdrop-filter: blur(20px) saturate(200%);
+  -webkit-backdrop-filter: blur(20px) saturate(200%);
+  border: 1.5px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 
+    0 8px 25px rgba(0, 0, 0, 0.5),
+    inset 0 1.5px 1.5px rgba(255, 255, 255, 0.22);
 }
 
 /* Ultra-Smooth Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
 }
 
 ::-webkit-scrollbar-track {
@@ -178,112 +454,36 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.3);
+  background: rgba(148, 163, 184, 0.35);
   border-radius: 9999px;
   transition: background-color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(37, 99, 235, 0.5);
+  background: rgba(0, 85, 254, 0.6);
 }
 
 .dark ::-webkit-scrollbar-thumb {
-  background: rgba(100, 116, 139, 0.3);
+  background: rgba(100, 116, 139, 0.35);
 }
 
 .dark ::-webkit-scrollbar-thumb:hover {
-  background: rgba(59, 130, 246, 0.6);
+  background: rgba(59, 130, 246, 0.7);
 }
 
-/* ============================================================
-   FUTURISTIC COGNITIVE HUD & BENTO DESIGN UTILITIES
-   ============================================================ */
-
-/* Cyber-Atmospheric Background Glow */
-.cyber-canvas-glow {
-  background-image: 
-    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(0, 85, 254, 0.14), transparent 70%),
-    radial-gradient(circle 400px at 90% 20%, rgba(6, 182, 212, 0.08), transparent 60%),
-    radial-gradient(circle 350px at 10% 40%, rgba(212, 240, 56, 0.05), transparent 60%);
+/* Smooth 3D Transform Utilities */
+.preserve-3d {
+  transform-style: preserve-3d;
+  perspective: 1000px;
 }
 
-.dark .cyber-canvas-glow {
-  background-image: 
-    radial-gradient(ellipse 90% 70% at 50% -15%, rgba(0, 85, 254, 0.22), transparent 70%),
-    radial-gradient(circle 500px at 85% 15%, rgba(6, 182, 212, 0.12), transparent 65%),
-    radial-gradient(circle 400px at 15% 45%, rgba(212, 240, 56, 0.08), transparent 60%);
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
-/* Cyber Matrix Subtle Grid */
-.cyber-grid-overlay {
-  background-size: 40px 40px;
-  background-image: 
-    linear-gradient(to right, rgba(0, 85, 254, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 85, 254, 0.04) 1px, transparent 1px);
-}
-
-.dark .cyber-grid-overlay {
-  background-size: 40px 40px;
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-}
-
-/* Futuristic HUD Bento Glass Card */
-.hud-bento-card {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(0, 0, 0, 0.07);
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.dark .hud-bento-card {
-  background: rgba(11, 14, 23, 0.82);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.4);
-}
-
-.dark .hud-bento-card:hover {
-  border-color: rgba(255, 255, 255, 0.16);
-  box-shadow: 0 12px 40px -4px rgba(0, 85, 254, 0.15);
-}
-
-/* Neon Glow Accents */
-.neon-glow-blue {
-  box-shadow: 0 0 25px -4px rgba(0, 85, 254, 0.45);
-}
-
-.neon-glow-lime {
-  box-shadow: 0 0 25px -4px rgba(212, 240, 56, 0.4);
-}
-
-.neon-glow-cyan {
-  box-shadow: 0 0 25px -4px rgba(6, 182, 212, 0.4);
-}
-
-/* Radar Scan Line Animation */
-@keyframes radarSweep {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.animate-radar-sweep {
-  animation: radarSweep 6s linear infinite;
-  transform-origin: center;
-}
-
-/* Telemetry Pulse Badge */
-@keyframes telemetryPulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(1.15); }
-}
-
-.animate-telemetry-pulse {
-  animation: telemetryPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+.rotate-y-180 {
+  transform: rotateY(180deg);
 }
 
 /* ============================================================
@@ -543,87 +743,8 @@
   animation: liquidMorph 15s ease-in-out infinite, liquidFloatFast 16s ease-in-out infinite;
 }
 
-    rgba(255, 255, 255, 0.08) 55%,
-    transparent 65%
-  );
-  transform: rotate(-25deg) translateY(-120%);
-  transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
-  pointer-events: none;
-  z-index: 2;
-}
 
-.liquid-sheen:hover::after {
-  transform: rotate(-25deg) translateY(120%);
-}
-
-/* 3. Ambient Fluid Liquid Morphing & Floating Orbs */
-@keyframes liquidMorph {
-  0%, 100% {
-    border-radius: 62% 38% 70% 30% / 55% 42% 58% 45%;
-    transform: rotate(0deg) scale(1);
-  }
-  33% {
-    border-radius: 35% 65% 48% 52% / 62% 32% 68% 38%;
-    transform: rotate(120deg) scale(1.06);
-  }
-  66% {
-    border-radius: 70% 30% 38% 62% / 40% 70% 30% 60%;
-    transform: rotate(240deg) scale(0.96);
-  }
-}
-
-@keyframes liquidFloatSlow {
-  0%, 100% {
-    transform: translate3d(0, 0, 0);
-  }
-  50% {
-    transform: translate3d(30px, -40px, 0);
-  }
-}
-
-@keyframes liquidFloatFast {
-  0%, 100% {
-    transform: translate3d(0, 0, 0);
-  }
-  50% {
-    transform: translate3d(-35px, 30px, 0);
-  }
-}
-
-.liquid-ambient-orb {
-  position: absolute;
-  filter: blur(65px);
-  pointer-events: none;
-  opacity: 0.6;
-  animation: liquidMorph 12s ease-in-out infinite alternate;
-}
-
-.dark .liquid-ambient-orb {
-  opacity: 0.45;
-  filter: blur(80px);
-}
-
-.liquid-orb-blue {
-  background: radial-gradient(circle, rgba(0, 85, 254, 0.5) 0%, rgba(6, 182, 212, 0.25) 70%, transparent 100%);
-  animation: liquidMorph 14s ease-in-out infinite, liquidFloatSlow 18s ease-in-out infinite;
-}
-
-.liquid-orb-cyan {
-  background: radial-gradient(circle, rgba(6, 182, 212, 0.5) 0%, rgba(0, 85, 254, 0.2) 70%, transparent 100%);
-  animation: liquidMorph 16s ease-in-out infinite reverse, liquidFloatFast 20s ease-in-out infinite;
-}
-
-.liquid-orb-lime {
-  background: radial-gradient(circle, rgba(212, 240, 56, 0.35) 0%, rgba(16, 185, 129, 0.15) 70%, transparent 100%);
-  animation: liquidMorph 18s ease-in-out infinite, liquidFloatSlow 22s ease-in-out infinite reverse;
-}
-
-.liquid-orb-purple {
-  background: radial-gradient(circle, rgba(147, 51, 234, 0.45) 0%, rgba(236, 72, 153, 0.2) 70%, transparent 100%);
-  animation: liquidMorph 15s ease-in-out infinite, liquidFloatFast 16s ease-in-out infinite;
-}
-
-/* 4. Fluid Mesh Animated Background */
+/* 4. Fluid Mesh Animated Background (Sky Blue) */
 @keyframes liquidMeshShift {
   0% {
     background-position: 0% 50%;
@@ -639,10 +760,10 @@
 .liquid-mesh-bg {
   background: linear-gradient(
     -45deg, 
-    rgba(0, 85, 254, 0.08), 
-    rgba(6, 182, 212, 0.07), 
-    rgba(212, 240, 56, 0.04), 
-    rgba(147, 51, 234, 0.06)
+    rgba(14, 165, 233, 0.08), 
+    rgba(56, 189, 248, 0.07), 
+    rgba(186, 230, 253, 0.05), 
+    rgba(2, 132, 199, 0.06)
   );
   background-size: 400% 400%;
   animation: liquidMeshShift 15s ease infinite;
@@ -651,12 +772,13 @@
 .dark .liquid-mesh-bg {
   background: linear-gradient(
     -45deg, 
-    rgba(0, 85, 254, 0.16), 
-    rgba(6, 182, 212, 0.12), 
-    rgba(212, 240, 56, 0.06), 
-    rgba(147, 51, 234, 0.14)
+    rgba(14, 165, 233, 0.16), 
+    rgba(56, 189, 248, 0.12), 
+    rgba(186, 230, 253, 0.08), 
+    rgba(2, 132, 199, 0.14)
   );
   background-size: 400% 400%;
   animation: liquidMeshShift 15s ease infinite;
 }
+
 

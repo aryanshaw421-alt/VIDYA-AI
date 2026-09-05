@@ -5,6 +5,7 @@ import {
   Home,
   LayoutDashboard,
   HelpCircle,
+  Trophy,
   FileCheck,
   Layers,
   BookOpen,
@@ -53,6 +54,7 @@ export const Sidebar = ({
       items: [
         { id: 'home', label: 'Home', icon: Home, badge: null },
         { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, badge: 'Live' },
+        { id: 'liveTests', label: 'All-India AITS', icon: Trophy, badge: 'Hot' },
         { id: 'mockTests', label: 'Mock Tests', icon: FileCheck, badge: '32+' },
       ]
     },

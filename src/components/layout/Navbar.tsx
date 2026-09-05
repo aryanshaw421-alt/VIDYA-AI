@@ -103,12 +103,12 @@ export const Navbar: React.FC = () => {
               onClick={() => setActiveTab('collegeHub')}
               className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
                 activeTab === 'collegeHub'
-                  ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30 shadow-glow-purple'
+                  ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30'
                   : 'text-slate-300 hover:text-white hover:bg-slate-800/40'
               }`}
             >
               <GraduationCap className="w-4 h-4 text-purple-400" />
-              <span>B.Tech Study Hub</span>
+              College Zone
             </button>
 
             <button

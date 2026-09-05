@@ -22,9 +22,7 @@ interface StudyContextType {
   simulateCustomSyllabusUpload: (syllabusName: string, chapters: string[]) => void;
 }
 
-export const StudyContext = createContext<StudyContextType | undefined>(undefined);
-
-export const useOptionalStudy = () => useContext(StudyContext);
+const StudyContext = createContext<StudyContextType | undefined>(undefined);
 
 export const StudyProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [stream, setStreamState] = useState<ExamStream>(() => {
@@ -192,4 +190,8 @@ export const useStudy = () => {
     throw new Error('useStudy must be used within a StudyProvider');
   }
   return context;
+};
+
+export const useOptionalStudy = () => {
+  return useContext(StudyContext);
 };
