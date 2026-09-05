@@ -143,18 +143,23 @@ export const HeroSection = ({ setActiveTab, onOpenTopic, onOpenSemester }) => {
   return (
     <section className="relative w-full pt-12 sm:pt-20 pb-12 px-4 sm:px-6 lg:px-8 text-center space-y-8 max-w-4xl mx-auto">
       
+      {/* Dynamic Fluid Liquid Morphing Ambient Orbs */}
+      <div className="liquid-ambient-orb liquid-orb-blue w-[340px] h-[340px] -top-12 -left-20 -z-10" />
+      <div className="liquid-ambient-orb liquid-orb-cyan w-[380px] h-[380px] top-10 -right-24 -z-10" />
+      <div className="liquid-ambient-orb liquid-orb-purple w-[280px] h-[280px] bottom-0 left-1/3 -z-10" />
+
       {/* Background Architectural Subtle Glow & Grid */}
       <div className="absolute inset-0 bg-grid-pattern opacity-25 pointer-events-none -z-20 [mask-image:radial-gradient(ellipse_70%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-blue-500/10 dark:bg-blue-500/15 blur-3xl pointer-events-none -z-10" />
 
-      {/* 1. Subtle, Clean Indian Badge */}
+      {/* 1. Frosted Glass Telemetry Badge */}
       <motion.div
         initial={{ opacity: 0, y: -8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
         className="flex justify-center"
       >
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white dark:bg-[#12151D] border border-black/[0.08] dark:border-white/[0.1] text-xs font-mono font-medium text-neutral-700 dark:text-neutral-300 shadow-sm">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full frosted-glass-pill text-xs font-mono font-medium text-neutral-700 dark:text-neutral-300 shadow-sm">
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
           <span>VIDYA AI • Cognitive Exam Intelligence</span>
         </div>
@@ -179,7 +184,7 @@ export const HeroSection = ({ setActiveTab, onOpenTopic, onOpenSemester }) => {
         </p>
       </motion.div>
 
-      {/* 3. Primary Focused Action Button */}
+      {/* 3. Primary Focused Action Button with Liquid Glass Border & Sheen */}
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
@@ -192,7 +197,7 @@ export const HeroSection = ({ setActiveTab, onOpenTopic, onOpenSemester }) => {
             setWizardStep(1);
             setIsWizardOpen(true);
           }}
-          className="w-full sm:w-auto px-8 py-4 rounded-full bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 font-bold text-base hover:scale-105 active:scale-95 transition-all shadow-xl shadow-black/10 flex items-center justify-center gap-3 cursor-pointer group select-none"
+          className="w-full sm:w-auto px-8 py-4 rounded-full bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 font-bold text-base hover:scale-105 active:scale-95 transition-all shadow-xl shadow-black/10 flex items-center justify-center gap-3 cursor-pointer group select-none liquid-sheen liquid-glass-border"
         >
           <Sparkles className="w-5 h-5 text-[#D4F038] group-hover:rotate-12 transition-transform" />
           <span>Start Preparing — Select Your Syllabus</span>
@@ -226,8 +231,8 @@ export const HeroSection = ({ setActiveTab, onOpenTopic, onOpenSemester }) => {
       {/* 5. Guided Step-by-Step Preparation Modal (Adaptive to Stream) */}
       <Dialog.Root open={isWizardOpen} onOpenChange={setIsWizardOpen}>
         <Dialog.Portal>
-          <Dialog.Overlay className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm animate-fade-in" />
-          <Dialog.Content className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-[95vw] sm:w-[540px] max-h-[90vh] rounded-3xl bg-white dark:bg-[#12151D] border border-black/[0.1] dark:border-white/[0.12] shadow-2xl p-6 sm:p-8 space-y-6 text-left overflow-y-auto animate-scale-in">
+          <Dialog.Overlay className="fixed inset-0 z-50 bg-black/60 backdrop-blur-md animate-fade-in" />
+          <Dialog.Content className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-[95vw] sm:w-[540px] max-h-[90vh] rounded-3xl frosted-glass-card shadow-2xl p-6 sm:p-8 space-y-6 text-left overflow-y-auto animate-scale-in">
             
             {/* Header & Step Indicator */}
             <div className="flex items-center justify-between pb-3 border-b border-black/[0.05] dark:border-white/[0.06]">

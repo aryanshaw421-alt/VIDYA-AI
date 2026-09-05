@@ -28,7 +28,7 @@ export const CognitivePreview = ({ setActiveTab, onOpenTopic, user }) => {
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="rounded-3xl bg-white dark:bg-[#12151D] border border-black/[0.08] dark:border-white/[0.08] shadow-2xl text-left overflow-hidden relative"
+        className="rounded-3xl frosted-glass liquid-glass-border shadow-2xl text-left overflow-hidden relative"
       >
         {/* Ambient Subtle Indigo/Blue Glow */}
         <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/[0.06] dark:bg-blue-500/[0.09] blur-3xl pointer-events-none -z-0" />
@@ -47,7 +47,7 @@ export const CognitivePreview = ({ setActiveTab, onOpenTopic, user }) => {
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 text-[10px] font-mono font-semibold border border-emerald-200/50 dark:border-emerald-800/50">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full frosted-glass-pill text-emerald-700 dark:text-emerald-400 text-[10px] font-mono font-semibold">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
               <span>Telemetry Synchronized (12ms)</span>
             </span>
@@ -76,7 +76,7 @@ export const CognitivePreview = ({ setActiveTab, onOpenTopic, user }) => {
           </div>
 
           {/* Interactive Mode Pills */}
-          <div className="flex items-center gap-1 p-1 rounded-full bg-black/[0.03] dark:bg-white/[0.05] border border-black/[0.05] dark:border-white/[0.06]">
+          <div className="flex items-center gap-1 p-1 rounded-full frosted-glass-pill border border-black/[0.05] dark:border-white/[0.08]">
             <button
               type="button"
               onClick={() => setActiveView('twin')}
@@ -129,7 +129,7 @@ export const CognitivePreview = ({ setActiveTab, onOpenTopic, user }) => {
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
                   
                   {/* Metric 1 */}
-                  <div className="p-4 rounded-2xl bg-[#FBFBF9] dark:bg-[#0A0C10] border border-black/[0.05] dark:border-white/[0.06] space-y-1">
+                  <div className="p-4 rounded-2xl frosted-glass-card liquid-sheen space-y-1">
                     <div className="text-[11px] font-mono text-neutral-500 dark:text-neutral-400 uppercase font-semibold">
                       Prerequisite Readiness
                     </div>
@@ -146,7 +146,7 @@ export const CognitivePreview = ({ setActiveTab, onOpenTopic, user }) => {
                   </div>
 
                   {/* Metric 2 */}
-                  <div className="p-4 rounded-2xl bg-[#FBFBF9] dark:bg-[#0A0C10] border border-black/[0.05] dark:border-white/[0.06] space-y-1">
+                  <div className="p-4 rounded-2xl frosted-glass-card liquid-sheen space-y-1">
                     <div className="text-[11px] font-mono text-neutral-500 dark:text-neutral-400 uppercase font-semibold">
                       Memory Retention
                     </div>
@@ -163,7 +163,7 @@ export const CognitivePreview = ({ setActiveTab, onOpenTopic, user }) => {
                   </div>
 
                   {/* Metric 3 */}
-                  <div className="p-4 rounded-2xl bg-[#FBFBF9] dark:bg-[#0A0C10] border border-black/[0.05] dark:border-white/[0.06] space-y-1">
+                  <div className="p-4 rounded-2xl frosted-glass-card liquid-sheen space-y-1">
                     <div className="text-[11px] font-mono text-neutral-500 dark:text-neutral-400 uppercase font-semibold">
                       AI Performance Forecast
                     </div>

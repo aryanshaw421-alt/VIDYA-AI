@@ -99,17 +99,17 @@ export const FeatureGridSection = ({ setActiveTab }) => {
           return (
             <motion.div
               key={feat.id}
-              whileHover={{ y: -3 }}
-              transition={{ duration: 0.18, ease: 'easeOut' }}
+              whileHover={{ y: -4, scale: 1.01 }}
+              transition={{ duration: 0.22, ease: 'easeOut' }}
               onClick={() => setActiveTab(feat.id)}
-              className="p-6 rounded-3xl bg-white dark:bg-[#12151D] border border-black/[0.08] dark:border-white/[0.08] shadow-sm hover:shadow-md hover:border-black/[0.15] dark:hover:border-white/[0.15] transition-all cursor-pointer group flex flex-col justify-between space-y-4 relative"
+              className="p-6 rounded-3xl frosted-glass-card liquid-sheen cursor-pointer group flex flex-col justify-between space-y-4 relative overflow-hidden transition-all duration-300"
             >
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-black/[0.04] dark:bg-white/[0.06] text-neutral-700 dark:text-neutral-300">
+                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold frosted-glass-pill text-neutral-700 dark:text-neutral-300">
                     {feat.badge}
                   </span>
-                  <div className="w-8 h-8 rounded-xl bg-black/[0.03] dark:bg-white/[0.05] flex items-center justify-center text-neutral-600 dark:text-neutral-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                  <div className="w-8 h-8 rounded-xl frosted-glass flex items-center justify-center text-neutral-600 dark:text-neutral-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 group-hover:scale-110 transition-all">
                     <Icon className="w-4 h-4" />
                   </div>
                 </div>
@@ -123,7 +123,7 @@ export const FeatureGridSection = ({ setActiveTab }) => {
                 </p>
               </div>
 
-              <div className="text-xs font-semibold text-neutral-900 dark:text-white flex items-center gap-1 group-hover:translate-x-1 transition-transform pt-2 border-t border-black/[0.04] dark:border-white/[0.04]">
+              <div className="text-xs font-semibold text-neutral-900 dark:text-white flex items-center gap-1 group-hover:translate-x-1.5 transition-transform pt-2 border-t border-black/[0.04] dark:border-white/[0.06]">
                 <span>{feat.action}</span>
                 <ChevronRight className="w-3.5 h-3.5 text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-white" />
               </div>

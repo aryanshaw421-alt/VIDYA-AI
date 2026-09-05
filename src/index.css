@@ -285,3 +285,378 @@
 .animate-telemetry-pulse {
   animation: telemetryPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
+
+/* ============================================================
+   ADVANCED FROSTED GLASS & LIQUID GLASS SYSTEM (SKY BLUE EDITION)
+   ============================================================ */
+
+/* 1. Sky Blue Frosted Glass (Apple-grade Matted Blur & Ice-Blue Specular Depth) */
+.frosted-glass {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.78) 0%, rgba(240, 249, 255, 0.65) 50%, rgba(224, 242, 254, 0.5) 100%);
+  backdrop-filter: blur(28px) saturate(210%) contrast(104%);
+  -webkit-backdrop-filter: blur(28px) saturate(210%) contrast(104%);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  box-shadow: 
+    inset 0 1px 2px 0 rgba(255, 255, 255, 0.8),
+    inset 0 0 18px rgba(56, 189, 248, 0.08),
+    0 12px 36px -4px rgba(14, 165, 233, 0.12);
+}
+
+.dark .frosted-glass {
+  background: linear-gradient(135deg, rgba(10, 18, 32, 0.8) 0%, rgba(6, 13, 25, 0.68) 50%, rgba(3, 105, 161, 0.14) 100%);
+  backdrop-filter: blur(32px) saturate(220%) contrast(108%);
+  -webkit-backdrop-filter: blur(32px) saturate(220%) contrast(108%);
+  border: 1px solid rgba(56, 189, 248, 0.24);
+  box-shadow: 
+    inset 0 1px 1.5px 0 rgba(186, 230, 253, 0.35),
+    inset 0 0 24px rgba(14, 165, 233, 0.12),
+    0 16px 45px -10px rgba(0, 0, 0, 0.7),
+    0 0 25px -6px rgba(56, 189, 248, 0.2);
+}
+
+/* Sky Blue Frosted Glass Pill Variant */
+.frosted-glass-pill {
+  border-radius: 9999px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(224, 242, 254, 0.65) 100%);
+  backdrop-filter: blur(22px) saturate(200%);
+  -webkit-backdrop-filter: blur(22px) saturate(200%);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  box-shadow: 
+    inset 0 1px 2px 0 rgba(255, 255, 255, 0.85),
+    inset 0 0 12px rgba(56, 189, 248, 0.1),
+    0 4px 20px -2px rgba(14, 165, 233, 0.12);
+}
+
+.dark .frosted-glass-pill {
+  background: linear-gradient(180deg, rgba(12, 24, 44, 0.82) 0%, rgba(6, 14, 28, 0.72) 100%);
+  backdrop-filter: blur(24px) saturate(210%);
+  -webkit-backdrop-filter: blur(24px) saturate(210%);
+  border: 1px solid rgba(56, 189, 248, 0.28);
+  box-shadow: 
+    inset 0 1px 1.5px 0 rgba(186, 230, 253, 0.35),
+    inset 0 0 14px rgba(14, 165, 233, 0.15),
+    0 8px 30px -4px rgba(0, 0, 0, 0.55),
+    0 0 20px -4px rgba(56, 189, 248, 0.2);
+}
+
+/* Sky Blue Frosted Glass Card with Specular Hover Lift */
+.frosted-glass-card {
+  position: relative;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.78) 0%, rgba(240, 249, 255, 0.62) 100%);
+  backdrop-filter: blur(26px) saturate(200%);
+  -webkit-backdrop-filter: blur(26px) saturate(200%);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  box-shadow: 
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 0 16px rgba(56, 189, 248, 0.05),
+    0 6px 24px -3px rgba(14, 165, 233, 0.08);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dark .frosted-glass-card {
+  background: linear-gradient(135deg, rgba(11, 20, 36, 0.76) 0%, rgba(7, 13, 24, 0.62) 100%);
+  backdrop-filter: blur(28px) saturate(210%);
+  -webkit-backdrop-filter: blur(28px) saturate(210%);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  box-shadow: 
+    inset 0 1px 1.5px 0 rgba(186, 230, 253, 0.22),
+    inset 0 0 20px rgba(14, 165, 233, 0.08),
+    0 12px 36px -6px rgba(0, 0, 0, 0.55),
+    0 0 20px -6px rgba(56, 189, 248, 0.15);
+}
+
+.frosted-glass-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(56, 189, 248, 0.65);
+  box-shadow: 
+    inset 0 1px 2px 0 rgba(255, 255, 255, 0.95),
+    inset 0 0 25px rgba(56, 189, 248, 0.15),
+    0 20px 45px -8px rgba(14, 165, 233, 0.24),
+    0 0 25px -4px rgba(56, 189, 248, 0.35);
+}
+
+.dark .frosted-glass-card:hover {
+  border-color: rgba(56, 189, 248, 0.5);
+  box-shadow: 
+    inset 0 1px 2px 0 rgba(186, 230, 253, 0.4),
+    inset 0 0 30px rgba(14, 165, 233, 0.2),
+    0 22px 50px -10px rgba(0, 0, 0, 0.7),
+    0 0 35px -6px rgba(56, 189, 248, 0.38);
+}
+
+/* 2. Liquid Glass & Sky Blue Border Flow */
+.liquid-glass {
+  position: relative;
+  background: rgba(240, 249, 255, 0.68);
+  backdrop-filter: blur(30px) saturate(220%) contrast(106%);
+  -webkit-backdrop-filter: blur(30px) saturate(220%) contrast(106%);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  overflow: hidden;
+}
+
+.dark .liquid-glass {
+  background: linear-gradient(135deg, rgba(10, 22, 38, 0.75) 0%, rgba(5, 12, 23, 0.58) 100%);
+  backdrop-filter: blur(34px) saturate(230%) contrast(108%);
+  -webkit-backdrop-filter: blur(34px) saturate(230%) contrast(108%);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+}
+
+/* Sky Blue Liquid Glass Border Flow */
+@keyframes liquidBorderFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.liquid-glass-border {
+  position: relative;
+  background-clip: padding-box;
+  border: 1px solid transparent !important;
+}
+
+.liquid-glass-border::before {
+  content: '';
+  position: absolute;
+  inset: -1.5px;
+  border-radius: inherit;
+  background: linear-gradient(
+    90deg, 
+    #0EA5E9, 
+    #38BDF8, 
+    #BAE6FD, 
+    #0284C7, 
+    #7DD3FC, 
+    #0EA5E9
+  );
+  background-size: 300% 300%;
+  animation: liquidBorderFlow 5s ease infinite;
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Sky Blue Specular Sheen (Interactive diagonal ice-blue beam) */
+.liquid-sheen {
+  position: relative;
+  overflow: hidden;
+}
+
+.liquid-sheen::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    transparent 35%,
+    rgba(186, 230, 253, 0.12) 45%,
+    rgba(224, 242, 254, 0.4) 50%,
+    rgba(186, 230, 253, 0.12) 55%,
+    transparent 65%
+  );
+  transform: rotate(-25deg) translateY(-120%);
+  transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.liquid-sheen:hover::after {
+  transform: rotate(-25deg) translateY(120%);
+}
+
+/* 3. Ambient Fluid Liquid Morphing Orbs (Sky Blue Palette) */
+@keyframes liquidMorph {
+  0%, 100% {
+    border-radius: 62% 38% 70% 30% / 55% 42% 58% 45%;
+    transform: rotate(0deg) scale(1);
+  }
+  33% {
+    border-radius: 35% 65% 48% 52% / 62% 32% 68% 38%;
+    transform: rotate(120deg) scale(1.06);
+  }
+  66% {
+    border-radius: 70% 30% 38% 62% / 40% 70% 30% 60%;
+    transform: rotate(240deg) scale(0.96);
+  }
+}
+
+@keyframes liquidFloatSlow {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(30px, -40px, 0);
+  }
+}
+
+@keyframes liquidFloatFast {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-35px, 30px, 0);
+  }
+}
+
+.liquid-ambient-orb {
+  position: absolute;
+  filter: blur(75px);
+  pointer-events: none;
+  opacity: 0.65;
+  animation: liquidMorph 12s ease-in-out infinite alternate;
+}
+
+.dark .liquid-ambient-orb {
+  opacity: 0.55;
+  filter: blur(90px);
+}
+
+.liquid-orb-sky {
+  background: radial-gradient(circle, rgba(14, 165, 233, 0.65) 0%, rgba(56, 189, 248, 0.35) 60%, transparent 100%);
+  animation: liquidMorph 14s ease-in-out infinite, liquidFloatSlow 18s ease-in-out infinite;
+}
+
+.liquid-orb-cyan {
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.6) 0%, rgba(6, 182, 212, 0.3) 65%, transparent 100%);
+  animation: liquidMorph 16s ease-in-out infinite reverse, liquidFloatFast 20s ease-in-out infinite;
+}
+
+.liquid-orb-azure {
+  background: radial-gradient(circle, rgba(2, 132, 199, 0.55) 0%, rgba(14, 165, 233, 0.25) 65%, transparent 100%);
+  animation: liquidMorph 18s ease-in-out infinite, liquidFloatSlow 22s ease-in-out infinite reverse;
+}
+
+.liquid-orb-ice {
+  background: radial-gradient(circle, rgba(186, 230, 253, 0.5) 0%, rgba(56, 189, 248, 0.2) 65%, transparent 100%);
+  animation: liquidMorph 15s ease-in-out infinite, liquidFloatFast 16s ease-in-out infinite;
+}
+
+    rgba(255, 255, 255, 0.08) 55%,
+    transparent 65%
+  );
+  transform: rotate(-25deg) translateY(-120%);
+  transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.liquid-sheen:hover::after {
+  transform: rotate(-25deg) translateY(120%);
+}
+
+/* 3. Ambient Fluid Liquid Morphing & Floating Orbs */
+@keyframes liquidMorph {
+  0%, 100% {
+    border-radius: 62% 38% 70% 30% / 55% 42% 58% 45%;
+    transform: rotate(0deg) scale(1);
+  }
+  33% {
+    border-radius: 35% 65% 48% 52% / 62% 32% 68% 38%;
+    transform: rotate(120deg) scale(1.06);
+  }
+  66% {
+    border-radius: 70% 30% 38% 62% / 40% 70% 30% 60%;
+    transform: rotate(240deg) scale(0.96);
+  }
+}
+
+@keyframes liquidFloatSlow {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(30px, -40px, 0);
+  }
+}
+
+@keyframes liquidFloatFast {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-35px, 30px, 0);
+  }
+}
+
+.liquid-ambient-orb {
+  position: absolute;
+  filter: blur(65px);
+  pointer-events: none;
+  opacity: 0.6;
+  animation: liquidMorph 12s ease-in-out infinite alternate;
+}
+
+.dark .liquid-ambient-orb {
+  opacity: 0.45;
+  filter: blur(80px);
+}
+
+.liquid-orb-blue {
+  background: radial-gradient(circle, rgba(0, 85, 254, 0.5) 0%, rgba(6, 182, 212, 0.25) 70%, transparent 100%);
+  animation: liquidMorph 14s ease-in-out infinite, liquidFloatSlow 18s ease-in-out infinite;
+}
+
+.liquid-orb-cyan {
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.5) 0%, rgba(0, 85, 254, 0.2) 70%, transparent 100%);
+  animation: liquidMorph 16s ease-in-out infinite reverse, liquidFloatFast 20s ease-in-out infinite;
+}
+
+.liquid-orb-lime {
+  background: radial-gradient(circle, rgba(212, 240, 56, 0.35) 0%, rgba(16, 185, 129, 0.15) 70%, transparent 100%);
+  animation: liquidMorph 18s ease-in-out infinite, liquidFloatSlow 22s ease-in-out infinite reverse;
+}
+
+.liquid-orb-purple {
+  background: radial-gradient(circle, rgba(147, 51, 234, 0.45) 0%, rgba(236, 72, 153, 0.2) 70%, transparent 100%);
+  animation: liquidMorph 15s ease-in-out infinite, liquidFloatFast 16s ease-in-out infinite;
+}
+
+/* 4. Fluid Mesh Animated Background */
+@keyframes liquidMeshShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.liquid-mesh-bg {
+  background: linear-gradient(
+    -45deg, 
+    rgba(0, 85, 254, 0.08), 
+    rgba(6, 182, 212, 0.07), 
+    rgba(212, 240, 56, 0.04), 
+    rgba(147, 51, 234, 0.06)
+  );
+  background-size: 400% 400%;
+  animation: liquidMeshShift 15s ease infinite;
+}
+
+.dark .liquid-mesh-bg {
+  background: linear-gradient(
+    -45deg, 
+    rgba(0, 85, 254, 0.16), 
+    rgba(6, 182, 212, 0.12), 
+    rgba(212, 240, 56, 0.06), 
+    rgba(147, 51, 234, 0.14)
+  );
+  background-size: 400% 400%;
+  animation: liquidMeshShift 15s ease infinite;
+}
+

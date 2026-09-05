@@ -80,10 +80,10 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
 
       {/* 5. Quick Study Room & Topic Search Studio */}
       <section className="w-full fluid-container">
-        <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#12151D] border border-black/[0.08] dark:border-white/[0.08] shadow-sm relative overflow-hidden space-y-5">
+        <div className="p-6 sm:p-8 rounded-3xl frosted-glass-card liquid-sheen space-y-5 relative overflow-hidden">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div className="space-y-1.5">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/[0.04] dark:bg-white/[0.06] text-neutral-800 dark:text-neutral-200 text-xs font-mono font-semibold border border-black/[0.06] dark:border-white/[0.08]">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full frosted-glass-pill text-neutral-800 dark:text-neutral-200 text-xs font-mono font-semibold">
                 <span>📖</span>
                 <span>AI Study Room & Curated YouTube Lectures</span>
               </div>
@@ -125,7 +125,7 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
                 name="homeTopicSearch"
                 type="text"
                 placeholder="Search any topic: Maths Matrix, Eigenvalues, Normalization, Banker's Algorithm, Calculus..."
-                className="w-full pl-11 pr-4 py-3.5 text-xs sm:text-sm rounded-2xl bg-[#FBFBF9] dark:bg-[#0A0C10] border border-black/[0.08] dark:border-white/[0.08] text-neutral-900 dark:text-white placeholder:text-neutral-400 focus:outline-none focus:ring-1 focus:ring-black dark:focus:ring-white transition-all font-sans"
+                className="w-full pl-11 pr-4 py-3.5 text-xs sm:text-sm rounded-2xl frosted-glass text-neutral-900 dark:text-white placeholder:text-neutral-400 focus:outline-none focus:ring-1 focus:ring-blue-500 transition-all font-sans"
               />
             </div>
             <Button
@@ -158,7 +158,7 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
                   if (onOpenTopic) onOpenTopic(t);
                   else setActiveTab('studyHub');
                 }}
-                className="px-3 py-1 rounded-full text-xs bg-black/[0.04] dark:bg-white/[0.06] text-neutral-700 dark:text-neutral-300 hover:bg-black/[0.08] dark:hover:bg-white/[0.1] border border-black/[0.04] dark:border-white/[0.06] transition-all font-mono cursor-pointer"
+                className="px-3 py-1 rounded-full text-xs frosted-glass text-neutral-700 dark:text-neutral-300 hover:scale-105 transition-all font-mono cursor-pointer"
               >
                 {t}
               </button>
@@ -182,12 +182,12 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
           
           {/* Card 1: B.Tech (Large Emphasized Card) */}
           <motion.div
-            whileHover={{ y: -3 }}
+            whileHover={{ y: -4, scale: 1.01 }}
             onClick={() => {
               setActiveCourseId('btech_makaut');
               setActiveTab('collegeHub');
             }}
-            className="sm:row-span-2 p-6 rounded-3xl bg-white dark:bg-[#12151D] border border-black/[0.08] dark:border-white/[0.08] shadow-sm hover:shadow-md transition-all flex flex-col items-center justify-center text-center cursor-pointer group relative overflow-hidden"
+            className="sm:row-span-2 p-6 rounded-3xl frosted-glass-card liquid-sheen flex flex-col items-center justify-center text-center cursor-pointer group relative overflow-hidden transition-all"
           >
             <div className="w-36 h-36 mb-3 flex items-center justify-center transition-transform group-hover:scale-105 duration-300">
               <img 
@@ -207,12 +207,12 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
 
           {/* Card 2: GATE (IIT Madras Campus) */}
           <motion.div
-            whileHover={{ y: -2 }}
+            whileHover={{ y: -3 }}
             onClick={() => {
               setActiveCourseId('gate_2027');
               setActiveTab('mockTests');
             }}
-            className="p-4 sm:p-5 rounded-3xl bg-white dark:bg-[#12151D] border border-black/[0.08] dark:border-white/[0.08] shadow-sm hover:shadow-md transition-all cursor-pointer flex items-center justify-between gap-3 group"
+            className="p-4 sm:p-5 rounded-3xl frosted-glass-card liquid-sheen transition-all cursor-pointer flex items-center justify-between gap-3 group"
           >
             <div>
               <h4 className="font-bold text-sm sm:text-base text-neutral-900 dark:text-white group-hover:text-blue-600 transition-colors">
@@ -234,12 +234,12 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
 
           {/* Card 3: SSC CGL */}
           <motion.div
-            whileHover={{ y: -2 }}
+            whileHover={{ y: -3 }}
             onClick={() => {
               setActiveCourseId('ssc_cgl');
               setActiveTab('mockTests');
             }}
-            className="p-4 sm:p-5 rounded-3xl bg-white dark:bg-[#12151D] border border-black/[0.08] dark:border-white/[0.08] shadow-sm hover:shadow-md transition-all cursor-pointer flex items-center justify-between gap-3 group"
+            className="p-4 sm:p-5 rounded-3xl frosted-glass-card liquid-sheen transition-all cursor-pointer flex items-center justify-between gap-3 group"
           >
             <div>
               <h4 className="font-bold text-sm sm:text-base text-neutral-900 dark:text-white group-hover:text-blue-600 transition-colors">
@@ -261,12 +261,12 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
 
           {/* Card 4: JEE Advanced */}
           <motion.div
-            whileHover={{ y: -2 }}
+            whileHover={{ y: -3 }}
             onClick={() => {
               setActiveCourseId('jee_main');
               setActiveTab('mockTests');
             }}
-            className="p-4 sm:p-5 rounded-3xl bg-white dark:bg-[#12151D] border border-black/[0.08] dark:border-white/[0.08] shadow-sm hover:shadow-md transition-all cursor-pointer flex items-center justify-between gap-3 group"
+            className="p-4 sm:p-5 rounded-3xl frosted-glass-card liquid-sheen transition-all cursor-pointer flex items-center justify-between gap-3 group"
           >
             <div>
               <h4 className="font-bold text-sm sm:text-base text-neutral-900 dark:text-white group-hover:text-blue-600 transition-colors">
@@ -288,12 +288,12 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
 
           {/* Card 5: Class 10 */}
           <motion.div
-            whileHover={{ y: -2 }}
+            whileHover={{ y: -3 }}
             onClick={() => {
               setActiveCourseId('cbse_10');
               setActiveTab('mockTests');
             }}
-            className="p-4 sm:p-5 rounded-3xl bg-white dark:bg-[#12151D] border border-black/[0.08] dark:border-white/[0.08] shadow-sm hover:shadow-md transition-all cursor-pointer flex items-center justify-between gap-3 group"
+            className="p-4 sm:p-5 rounded-3xl frosted-glass-card liquid-sheen transition-all cursor-pointer flex items-center justify-between gap-3 group"
           >
             <div>
               <h4 className="font-bold text-sm sm:text-base text-neutral-900 dark:text-white group-hover:text-blue-600 transition-colors">
@@ -315,12 +315,12 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
 
           {/* Card 6: NTA JEE Main */}
           <motion.div
-            whileHover={{ y: -2 }}
+            whileHover={{ y: -3 }}
             onClick={() => {
               setActiveCourseId('jee_main');
               setActiveTab('mockTests');
             }}
-            className="p-4 sm:p-5 rounded-3xl bg-white dark:bg-[#12151D] border border-black/[0.08] dark:border-white/[0.08] shadow-sm hover:shadow-md transition-all cursor-pointer flex items-center justify-between gap-3 group"
+            className="p-4 sm:p-5 rounded-3xl frosted-glass-card liquid-sheen transition-all cursor-pointer flex items-center justify-between gap-3 group"
           >
             <div>
               <h4 className="font-bold text-sm sm:text-base text-neutral-900 dark:text-white group-hover:text-blue-600 transition-colors">
@@ -342,12 +342,12 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
 
           {/* Card 7: BCA / MCA */}
           <motion.div
-            whileHover={{ y: -2 }}
+            whileHover={{ y: -3 }}
             onClick={() => {
               setActiveCourseId('btech_makaut');
               setActiveTab('collegeHub');
             }}
-            className="p-4 sm:p-5 rounded-3xl bg-white dark:bg-[#12151D] border border-black/[0.08] dark:border-white/[0.08] shadow-sm hover:shadow-md transition-all cursor-pointer flex items-center justify-between gap-3 group"
+            className="p-4 sm:p-5 rounded-3xl frosted-glass-card liquid-sheen transition-all cursor-pointer flex items-center justify-between gap-3 group"
           >
             <div>
               <h4 className="font-bold text-sm sm:text-base text-neutral-900 dark:text-white group-hover:text-blue-600 transition-colors">
@@ -377,7 +377,7 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
             transition={{ duration: 0.25 }}
-            className="rounded-3xl p-6 sm:p-8 bg-white dark:bg-[#12151D] border border-black/[0.08] dark:border-white/[0.08] shadow-sm space-y-6"
+            className="rounded-3xl p-6 sm:p-8 frosted-glass-card liquid-sheen space-y-6"
           >
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-5 border-b border-black/[0.05] dark:border-white/[0.06]">
               <div className="flex items-center gap-3.5">
@@ -409,17 +409,17 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
 
             {/* Pattern & Marks Structure */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-              <div className="p-4 rounded-2xl bg-[#FBFBF9] dark:bg-[#0A0C10] border border-black/[0.05] dark:border-white/[0.06]">
+              <div className="p-4 rounded-2xl frosted-glass space-y-1">
                 <div className="text-[10px] font-mono text-neutral-400 uppercase font-semibold">OFFICIAL PATTERN</div>
                 <div className="text-sm font-bold text-neutral-900 dark:text-white mt-1">{activeCourse.patternName}</div>
                 <div className="text-xs text-neutral-500 mt-1">Full Marks: <strong>{activeCourse.totalMarks} Marks</strong> ({activeCourse.durationMinutes} Mins)</div>
               </div>
 
-              <div className="p-4 rounded-2xl bg-[#FBFBF9] dark:bg-[#0A0C10] border border-black/[0.05] dark:border-white/[0.06] md:col-span-2">
+              <div className="p-4 rounded-2xl frosted-glass md:col-span-2 space-y-1">
                 <div className="text-[10px] font-mono text-neutral-400 uppercase font-semibold">SECTION & GROUP STRUCTURE</div>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-2">
                   {activeCourse.structure.map((st, sIdx) => (
-                    <div key={sIdx} className="p-2.5 rounded-xl bg-white dark:bg-[#12151D] border border-black/[0.06] dark:border-white/[0.08] text-xs">
+                    <div key={sIdx} className="p-2.5 rounded-xl frosted-glass-pill text-xs">
                       <div className="font-semibold text-neutral-900 dark:text-white">{st.name}</div>
                       <div className="text-blue-600 dark:text-blue-400 font-mono font-bold text-[11px]">{st.marks} • {st.count}</div>
                     </div>
@@ -435,7 +435,7 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
 
       {/* 7. Student Spotlight & Success Quote Card */}
       <section className="w-full fluid-container">
-        <div className="p-8 sm:p-12 rounded-3xl bg-[#0E1015] text-white space-y-6 relative overflow-hidden">
+        <div className="p-8 sm:p-12 rounded-3xl frosted-glass-card liquid-glass-border text-neutral-900 dark:text-white space-y-6 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600/10 blur-3xl rounded-full pointer-events-none" />
           
           <div className="max-w-2xl space-y-4 relative z-10">
