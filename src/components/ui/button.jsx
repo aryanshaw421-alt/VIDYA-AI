@@ -5,33 +5,39 @@ import { ArrowRight, Loader2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 dark:focus-visible:ring-neutral-300 cursor-pointer select-none group",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#407E8C] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 dark:focus-visible:ring-[#5499A8] cursor-pointer select-none group",
   {
     variants: {
       variant: {
         default:
-          "bg-[#0E1015] text-white hover:bg-[#1f242d] dark:bg-white dark:text-[#0E1015] dark:hover:bg-neutral-100 shadow-sm",
+          "bg-[#407E8C] text-white hover:bg-[#336570] active:bg-[#264D56] shadow-sm shadow-[#407E8C]/20 border border-[#407E8C]",
         primary:
-          "bg-[#0E1015] text-white hover:bg-[#1f242d] dark:bg-white dark:text-[#0E1015] dark:hover:bg-neutral-100 shadow-sm",
-        destructive:
-          "bg-rose-500 text-white hover:bg-rose-600 dark:bg-rose-900 dark:text-rose-50 dark:hover:bg-rose-900/90 shadow-sm",
-        outline:
-          "border border-black/[0.1] dark:border-white/[0.15] bg-transparent hover:bg-black/[0.04] dark:hover:bg-white/[0.08] text-neutral-900 dark:text-neutral-100",
+          "bg-[#407E8C] text-white hover:bg-[#336570] active:bg-[#264D56] shadow-sm shadow-[#407E8C]/20 border border-[#407E8C]",
         secondary:
-          "bg-black/[0.04] text-neutral-900 hover:bg-black/[0.08] dark:bg-white/[0.08] dark:text-neutral-50 dark:hover:bg-white/[0.12] border border-black/[0.06] dark:border-white/[0.08]",
+          "bg-transparent dark:bg-[#083A4F]/40 border border-[#407E8C] text-[#083A4F] dark:text-[#E5E1DD] hover:bg-[#E5E1DD]/40 dark:hover:bg-[#407E8C]/15 active:bg-[#E5E1DD]/70",
+        accent:
+          "bg-[#A58D66] text-white hover:bg-[#8D7652] active:bg-[#6E5B3D] shadow-sm shadow-[#A58D66]/20 border border-[#A58D66]",
+        premium:
+          "bg-[#A58D66] text-white hover:bg-[#8D7652] active:bg-[#6E5B3D] shadow-sm shadow-[#A58D66]/20 border border-[#A58D66]",
+        dark:
+          "bg-[#083A4F] text-white hover:bg-[#052735] active:bg-[#031720] shadow-sm shadow-[#083A4F]/30 border border-[#083A4F]",
+        destructive:
+          "bg-rose-600 text-white hover:bg-rose-700 shadow-sm",
+        outline:
+          "border border-[#083A4F]/20 dark:border-[#E5E1DD]/20 bg-transparent hover:bg-[#E5E1DD]/30 dark:hover:bg-white/[0.06] text-[#083A4F] dark:text-[#E5E1DD]",
         ghost:
-          "hover:bg-black/[0.04] hover:text-neutral-900 dark:hover:bg-white/[0.08] dark:hover:text-neutral-50",
+          "hover:bg-[#407E8C]/10 text-[#083A4F] dark:text-[#E5E1DD] hover:text-[#083A4F] dark:hover:text-white",
         link:
-          "text-blue-600 underline-offset-4 hover:underline dark:text-blue-400",
+          "text-[#407E8C] underline-offset-4 hover:underline dark:text-[#5499A8]",
         ai:
-          "bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white hover:opacity-95 shadow-sm"
+          "bg-gradient-to-r from-[#083A4F] via-[#407E8C] to-[#083A4F] text-white hover:opacity-95 shadow-sm border border-[#407E8C]/30"
       },
       size: {
         default: "h-9 px-4 py-2 text-xs sm:text-sm",
         md: "h-9 px-4 py-2 text-xs sm:text-sm",
-        sm: "h-8 rounded-full px-3 text-xs",
-        lg: "h-11 rounded-full px-7 text-sm sm:text-base font-semibold",
-        icon: "h-9 w-9 rounded-full",
+        sm: "h-8 rounded-lg px-3 text-xs",
+        lg: "h-11 rounded-xl px-6 text-sm sm:text-base font-semibold",
+        icon: "h-9 w-9 rounded-lg",
       },
     },
     defaultVariants: {

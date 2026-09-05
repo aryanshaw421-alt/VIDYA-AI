@@ -80,14 +80,14 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
 
       {/* 5. Quick Study Room & Topic Search Studio */}
       <section className="w-full fluid-container">
-        <div className="p-6 sm:p-8 rounded-3xl frosted-glass-card liquid-sheen space-y-5 relative overflow-hidden">
+        <div className="p-6 sm:p-8 rounded-2xl frosted-glass-card liquid-sheen space-y-5 relative overflow-hidden">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div className="space-y-1.5">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full frosted-glass-pill text-neutral-800 dark:text-neutral-200 text-xs font-mono font-semibold">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg frosted-glass-pill text-[#083A4F] dark:text-neutral-200 text-xs font-mono font-semibold border border-[#083A4F]/10">
                 <span>📖</span>
                 <span>AI Study Room & Curated YouTube Lectures</span>
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold font-display text-neutral-900 dark:text-white">
+              <h3 className="text-xl sm:text-2xl font-bold font-display text-[#083A4F] dark:text-white">
                 Enter any syllabus concept for step-marked notes + top video lectures
               </h3>
               <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
@@ -125,16 +125,16 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
                 name="homeTopicSearch"
                 type="text"
                 placeholder="Search any topic: Maths Matrix, Eigenvalues, Normalization, Banker's Algorithm, Calculus..."
-                className="w-full pl-11 pr-4 py-3.5 text-xs sm:text-sm rounded-2xl frosted-glass text-neutral-900 dark:text-white placeholder:text-neutral-400 focus:outline-none focus:ring-1 focus:ring-blue-500 transition-all font-sans"
+                className="w-full pl-11 pr-4 py-3 text-xs sm:text-sm rounded-xl frosted-glass text-neutral-900 dark:text-white placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#407E8C]/30 focus:border-[#407E8C] transition-all font-sans border border-[#083A4F]/10 dark:border-white/10"
               />
             </div>
             <Button
               type="submit"
               variant="primary"
               size="md"
-              className="px-6 py-3.5 rounded-2xl shrink-0"
+              className="px-6 py-3 rounded-xl shrink-0"
             >
-              <Sparkles className="w-3.5 h-3.5 text-[#D4F038] mr-1.5" />
+              <Sparkles className="w-3.5 h-3.5 text-[#A58D66] mr-1.5" />
               <span>Get Notes & Videos</span>
             </Button>
           </form>
@@ -158,7 +158,7 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
                   if (onOpenTopic) onOpenTopic(t);
                   else setActiveTab('studyHub');
                 }}
-                className="px-3 py-1 rounded-full text-xs frosted-glass text-neutral-700 dark:text-neutral-300 hover:scale-105 transition-all font-mono cursor-pointer"
+                className="px-3 py-1 rounded-lg text-xs frosted-glass text-[#083A4F] dark:text-neutral-300 hover:border-[#407E8C] hover:text-[#407E8C] transition-all font-mono cursor-pointer border border-[#083A4F]/10 dark:border-white/10"
               >
                 {t}
               </button>
@@ -187,7 +187,7 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
               setActiveCourseId('btech_makaut');
               setActiveTab('collegeHub');
             }}
-            className="sm:row-span-2 p-6 rounded-3xl frosted-glass-card liquid-sheen flex flex-col items-center justify-center text-center cursor-pointer group relative overflow-hidden transition-all"
+            className="sm:row-span-2 p-6 rounded-2xl frosted-glass-card liquid-sheen flex flex-col items-center justify-center text-center cursor-pointer group relative overflow-hidden transition-all border border-[#083A4F]/10 dark:border-white/10 hover:border-[#407E8C]/40"
           >
             <div className="w-36 h-36 mb-3 flex items-center justify-center transition-transform group-hover:scale-105 duration-300">
               <img 
@@ -197,7 +197,7 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
               />
             </div>
 
-            <h3 className="text-xl sm:text-2xl font-bold font-display text-neutral-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+            <h3 className="text-xl sm:text-2xl font-bold font-display text-[#083A4F] dark:text-white group-hover:text-[#407E8C] dark:group-hover:text-[#6BB0C0] transition-colors">
               B.Tech
             </h3>
             <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1 font-medium">
@@ -212,10 +212,10 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
               setActiveCourseId('gate_2027');
               setActiveTab('mockTests');
             }}
-            className="p-4 sm:p-5 rounded-3xl frosted-glass-card liquid-sheen transition-all cursor-pointer flex items-center justify-between gap-3 group"
+            className="p-4 sm:p-5 rounded-2xl frosted-glass-card liquid-sheen transition-all cursor-pointer flex items-center justify-between gap-3 group border border-[#083A4F]/10 dark:border-white/10 hover:border-[#407E8C]/40"
           >
             <div>
-              <h4 className="font-bold text-sm sm:text-base text-neutral-900 dark:text-white group-hover:text-blue-600 transition-colors">
+              <h4 className="font-bold text-sm sm:text-base text-[#083A4F] dark:text-white group-hover:text-[#407E8C] transition-colors">
                 GATE 2027
               </h4>
               <p className="text-xs text-neutral-500 font-medium">
@@ -223,7 +223,7 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
               </p>
             </div>
 
-            <div className="w-12 h-12 rounded-full overflow-hidden border border-black/[0.08] dark:border-white/[0.1] shadow-sm shrink-0">
+            <div className="w-12 h-12 rounded-xl overflow-hidden border border-black/[0.08] dark:border-white/[0.1] shadow-sm shrink-0">
               <img 
                 src="/images/logos/gate_iit_seal.jpg" 
                 alt="IIT Madras Seal" 
@@ -239,10 +239,10 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
               setActiveCourseId('ssc_cgl');
               setActiveTab('mockTests');
             }}
-            className="p-4 sm:p-5 rounded-3xl frosted-glass-card liquid-sheen transition-all cursor-pointer flex items-center justify-between gap-3 group"
+            className="p-4 sm:p-5 rounded-2xl frosted-glass-card liquid-sheen transition-all cursor-pointer flex items-center justify-between gap-3 group border border-[#083A4F]/10 dark:border-white/10 hover:border-[#407E8C]/40"
           >
             <div>
-              <h4 className="font-bold text-sm sm:text-base text-neutral-900 dark:text-white group-hover:text-blue-600 transition-colors">
+              <h4 className="font-bold text-sm sm:text-base text-[#083A4F] dark:text-white group-hover:text-[#407E8C] transition-colors">
                 SSC CGL
               </h4>
               <p className="text-xs text-neutral-500 font-medium">
@@ -250,7 +250,7 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
               </p>
             </div>
 
-            <div className="w-12 h-12 rounded-full overflow-hidden border border-black/[0.08] dark:border-white/[0.1] shadow-sm shrink-0">
+            <div className="w-12 h-12 rounded-xl overflow-hidden border border-black/[0.08] dark:border-white/[0.1] shadow-sm shrink-0">
               <img 
                 src="/images/logos/ssc_cgl_seal.jpg" 
                 alt="SSC CGL Seal" 
@@ -266,10 +266,10 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
               setActiveCourseId('jee_main');
               setActiveTab('mockTests');
             }}
-            className="p-4 sm:p-5 rounded-3xl frosted-glass-card liquid-sheen transition-all cursor-pointer flex items-center justify-between gap-3 group"
+            className="p-4 sm:p-5 rounded-2xl frosted-glass-card liquid-sheen transition-all cursor-pointer flex items-center justify-between gap-3 group border border-[#083A4F]/10 dark:border-white/10 hover:border-[#407E8C]/40"
           >
             <div>
-              <h4 className="font-bold text-sm sm:text-base text-neutral-900 dark:text-white group-hover:text-blue-600 transition-colors">
+              <h4 className="font-bold text-sm sm:text-base text-[#083A4F] dark:text-white group-hover:text-[#407E8C] transition-colors">
                 JEE Advanced
               </h4>
               <p className="text-xs text-neutral-500 font-medium">
@@ -277,7 +277,7 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
               </p>
             </div>
 
-            <div className="w-12 h-12 rounded-full overflow-hidden border border-black/[0.08] dark:border-white/[0.1] shadow-sm shrink-0">
+            <div className="w-12 h-12 rounded-xl overflow-hidden border border-black/[0.08] dark:border-white/[0.1] shadow-sm shrink-0">
               <img 
                 src="/images/logos/nta_jee_emblem.jpg" 
                 alt="JEE Advanced" 
@@ -293,10 +293,10 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
               setActiveCourseId('cbse_10');
               setActiveTab('mockTests');
             }}
-            className="p-4 sm:p-5 rounded-3xl frosted-glass-card liquid-sheen transition-all cursor-pointer flex items-center justify-between gap-3 group"
+            className="p-4 sm:p-5 rounded-2xl frosted-glass-card liquid-sheen transition-all cursor-pointer flex items-center justify-between gap-3 group border border-[#083A4F]/10 dark:border-white/10 hover:border-[#407E8C]/40"
           >
             <div>
-              <h4 className="font-bold text-sm sm:text-base text-neutral-900 dark:text-white group-hover:text-blue-600 transition-colors">
+              <h4 className="font-bold text-sm sm:text-base text-[#083A4F] dark:text-white group-hover:text-[#407E8C] transition-colors">
                 Class 10 Boards
               </h4>
               <p className="text-xs text-neutral-500 font-medium">
@@ -304,7 +304,7 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
               </p>
             </div>
 
-            <div className="w-12 h-12 rounded-full overflow-hidden border border-black/[0.08] dark:border-white/[0.1] shadow-sm shrink-0">
+            <div className="w-12 h-12 rounded-xl overflow-hidden border border-black/[0.08] dark:border-white/[0.1] shadow-sm shrink-0">
               <img 
                 src="/images/logos/school_badge.jpg" 
                 alt="School Badge" 
@@ -320,10 +320,10 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
               setActiveCourseId('jee_main');
               setActiveTab('mockTests');
             }}
-            className="p-4 sm:p-5 rounded-3xl frosted-glass-card liquid-sheen transition-all cursor-pointer flex items-center justify-between gap-3 group"
+            className="p-4 sm:p-5 rounded-2xl frosted-glass-card liquid-sheen transition-all cursor-pointer flex items-center justify-between gap-3 group border border-[#083A4F]/10 dark:border-white/10 hover:border-[#407E8C]/40"
           >
             <div>
-              <h4 className="font-bold text-sm sm:text-base text-neutral-900 dark:text-white group-hover:text-blue-600 transition-colors">
+              <h4 className="font-bold text-sm sm:text-base text-[#083A4F] dark:text-white group-hover:text-[#407E8C] transition-colors">
                 JEE Main
               </h4>
               <p className="text-xs text-neutral-500 font-medium">
@@ -331,7 +331,7 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
               </p>
             </div>
 
-            <div className="w-12 h-12 rounded-full overflow-hidden border border-black/[0.08] dark:border-white/[0.1] shadow-sm shrink-0">
+            <div className="w-12 h-12 rounded-xl overflow-hidden border border-black/[0.08] dark:border-white/[0.1] shadow-sm shrink-0">
               <img 
                 src="/images/logos/nta_jee_emblem.jpg" 
                 alt="JEE Main Emblem" 
@@ -347,10 +347,10 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
               setActiveCourseId('btech_makaut');
               setActiveTab('collegeHub');
             }}
-            className="p-4 sm:p-5 rounded-3xl frosted-glass-card liquid-sheen transition-all cursor-pointer flex items-center justify-between gap-3 group"
+            className="p-4 sm:p-5 rounded-2xl frosted-glass-card liquid-sheen transition-all cursor-pointer flex items-center justify-between gap-3 group border border-[#083A4F]/10 dark:border-white/10 hover:border-[#407E8C]/40"
           >
             <div>
-              <h4 className="font-bold text-sm sm:text-base text-neutral-900 dark:text-white group-hover:text-blue-600 transition-colors">
+              <h4 className="font-bold text-sm sm:text-base text-[#083A4F] dark:text-white group-hover:text-[#407E8C] transition-colors">
                 BCA / MCA
               </h4>
               <p className="text-xs text-neutral-500 font-medium">
@@ -358,7 +358,7 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
               </p>
             </div>
 
-            <div className="w-12 h-12 rounded-full overflow-hidden border border-black/[0.08] dark:border-white/[0.1] shadow-sm shrink-0">
+            <div className="w-12 h-12 rounded-xl overflow-hidden border border-black/[0.08] dark:border-white/[0.1] shadow-sm shrink-0">
               <img 
                 src="/images/logos/bca_mca_crest.jpg" 
                 alt="BCA MCA Crest" 
@@ -377,11 +377,11 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
             transition={{ duration: 0.25 }}
-            className="rounded-3xl p-6 sm:p-8 frosted-glass-card liquid-sheen space-y-6"
+            className="rounded-2xl p-6 sm:p-8 frosted-glass-card liquid-sheen space-y-6 border border-[#083A4F]/10 dark:border-white/10"
           >
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-5 border-b border-black/[0.05] dark:border-white/[0.06]">
               <div className="flex items-center gap-3.5">
-                <div className="w-12 h-12 rounded-2xl overflow-hidden border border-black/[0.08] dark:border-white/[0.1] shadow-sm shrink-0">
+                <div className="w-12 h-12 rounded-xl overflow-hidden border border-black/[0.08] dark:border-white/[0.1] shadow-sm shrink-0">
                   <img 
                     src={STREAM_LOGOS[activeCourse.id] || '/images/logos/btech_crest.jpg'} 
                     alt={activeCourse.name}
@@ -389,8 +389,8 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
                   />
                 </div>
                 <div>
-                  <div className="text-[11px] font-mono text-neutral-400 font-bold uppercase">{activeCourse.category}</div>
-                  <h3 className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-white font-display">
+                  <div className="text-[11px] font-mono text-[#407E8C] font-bold uppercase">{activeCourse.category}</div>
+                  <h3 className="text-xl sm:text-2xl font-bold text-[#083A4F] dark:text-white font-display">
                     {activeCourse.name}
                   </h3>
                 </div>
@@ -409,19 +409,19 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
 
             {/* Pattern & Marks Structure */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-              <div className="p-4 rounded-2xl frosted-glass space-y-1">
+              <div className="p-4 rounded-xl frosted-glass space-y-1 border border-[#083A4F]/10 dark:border-white/10">
                 <div className="text-[10px] font-mono text-neutral-400 uppercase font-semibold">OFFICIAL PATTERN</div>
-                <div className="text-sm font-bold text-neutral-900 dark:text-white mt-1">{activeCourse.patternName}</div>
-                <div className="text-xs text-neutral-500 mt-1">Full Marks: <strong>{activeCourse.totalMarks} Marks</strong> ({activeCourse.durationMinutes} Mins)</div>
+                <div className="text-sm font-bold text-[#083A4F] dark:text-white mt-1">{activeCourse.patternName}</div>
+                <div className="text-xs text-neutral-500 mt-1">Full Marks: <strong className="text-[#083A4F] dark:text-neutral-300">{activeCourse.totalMarks} Marks</strong> ({activeCourse.durationMinutes} Mins)</div>
               </div>
 
-              <div className="p-4 rounded-2xl frosted-glass md:col-span-2 space-y-1">
+              <div className="p-4 rounded-xl frosted-glass md:col-span-2 space-y-1 border border-[#083A4F]/10 dark:border-white/10">
                 <div className="text-[10px] font-mono text-neutral-400 uppercase font-semibold">SECTION & GROUP STRUCTURE</div>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-2">
                   {activeCourse.structure.map((st, sIdx) => (
-                    <div key={sIdx} className="p-2.5 rounded-xl frosted-glass-pill text-xs">
-                      <div className="font-semibold text-neutral-900 dark:text-white">{st.name}</div>
-                      <div className="text-blue-600 dark:text-blue-400 font-mono font-bold text-[11px]">{st.marks} • {st.count}</div>
+                    <div key={sIdx} className="p-2.5 rounded-lg frosted-glass-pill text-xs border border-[#083A4F]/10">
+                      <div className="font-semibold text-[#083A4F] dark:text-white">{st.name}</div>
+                      <div className="text-[#407E8C] dark:text-[#6BB0C0] font-mono font-bold text-[11px]">{st.marks} • {st.count}</div>
                     </div>
                   ))}
                 </div>
@@ -435,27 +435,27 @@ export const HomePage = ({ setActiveTab, onOpenTopic, onOpenSemester, user }) =>
 
       {/* 7. Student Spotlight & Success Quote Card */}
       <section className="w-full fluid-container">
-        <div className="p-8 sm:p-12 rounded-3xl frosted-glass-card liquid-glass-border text-neutral-900 dark:text-white space-y-6 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600/10 blur-3xl rounded-full pointer-events-none" />
+        <div className="p-8 sm:p-12 rounded-2xl bg-[#083A4F] text-white space-y-6 relative overflow-hidden shadow-xl border border-[#407E8C]/20">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-[#407E8C]/20 blur-3xl rounded-full pointer-events-none" />
           
           <div className="max-w-2xl space-y-4 relative z-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-white text-xs font-mono font-semibold">
-              <Sparkles className="w-3.5 h-3.5 text-[#D4F038]" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-[#FAF9F8]/10 text-white text-xs font-mono font-semibold border border-white/10">
+              <Sparkles className="w-3.5 h-3.5 text-[#A58D66]" />
               <span>National Cohort Benchmark</span>
             </div>
-            <blockquote className="text-lg sm:text-2xl font-normal leading-relaxed text-neutral-200">
+            <blockquote className="text-lg sm:text-2xl font-normal leading-relaxed text-[#E5E1DD]">
               "We finally moved past unorganized YouTube playlists and last-night panic. Having the exact step-marked PYQs and YouTube links matched to my syllabus helped me score 9.42 SGPA in MAKAUT CSE."
             </blockquote>
-            <div className="pt-2 flex items-center justify-between">
+            <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
                 <div className="font-bold text-sm text-white">Aryan Shaw</div>
-                <div className="text-xs text-neutral-400 font-mono">B.Tech Computer Science & Engineering • 4th Semester</div>
+                <div className="text-xs text-[#E5E1DD]/70 font-mono">B.Tech Computer Science & Engineering • 4th Semester</div>
               </div>
               <Button
-                variant="secondary"
+                variant="accent"
                 size="sm"
                 onClick={() => setActiveTab('studyHub')}
-                className="bg-white/10 text-white border-white/20 hover:bg-white/20"
+                className="bg-[#A58D66] text-white hover:bg-[#917b58] border-none shadow-sm"
               >
                 Join Cohort Free
               </Button>

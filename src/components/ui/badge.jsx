@@ -3,23 +3,30 @@ import { cva } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const badgeVariants = cva(
-  "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-mono font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-neutral-950 focus:ring-offset-2 dark:focus:ring-neutral-300 select-none",
+  "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-mono font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-[#407E8C] focus:ring-offset-2 select-none",
   {
     variants: {
       variant: {
         default:
-          "border-transparent bg-[#0E1015] text-white dark:bg-white dark:text-[#0E1015]",
+          "border-transparent bg-[#083A4F] text-white dark:bg-[#0E5573] dark:text-white",
+        teal:
+          "border-transparent bg-[#407E8C] text-white shadow-xs",
+        gold:
+          "border-transparent bg-[#A58D66] text-white shadow-xs",
+        sand:
+          "border-[#083A4F]/10 bg-[#E5E1DD] text-[#083A4F] dark:bg-[#E5E1DD]/20 dark:text-[#E5E1DD]",
         secondary:
-          "border-transparent bg-black/[0.05] text-neutral-900 dark:bg-white/[0.08] dark:text-neutral-100",
+          "border-[#083A4F]/10 bg-[#E5E1DD]/60 text-[#083A4F] dark:bg-white/[0.08] dark:text-[#FAF9F8]",
         destructive:
-          "border-transparent bg-rose-500 text-white dark:bg-rose-900 dark:text-rose-50",
-        outline: "text-neutral-900 dark:text-neutral-100 border-black/[0.1] dark:border-white/[0.15]",
+          "border-transparent bg-rose-600 text-white",
+        outline: 
+          "text-[#083A4F] dark:text-[#E5E1DD] border-[#083A4F]/20 dark:border-[#E5E1DD]/20",
         success:
           "border-emerald-200/60 dark:border-emerald-800/60 bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300",
         warning:
-          "border-amber-200/60 dark:border-amber-800/60 bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300",
+          "border-[#A58D66]/40 bg-[#A58D66]/15 text-[#8D7652] dark:text-[#C4AE88]",
         accent:
-          "border-black/10 bg-[#D4F038] text-neutral-900 font-bold shadow-sm"
+          "border-[#A58D66]/30 bg-[#A58D66] text-white font-bold shadow-xs"
       },
     },
     defaultVariants: {

@@ -102,10 +102,10 @@ export const Sidebar = ({
   };
 
   const sidebarContent = (
-    <div className="flex flex-col h-full bg-white dark:bg-[#080E1E] border-r border-slate-200/80 dark:border-slate-800/80 text-slate-800 dark:text-slate-200 transition-all duration-300">
+    <div className="flex flex-col h-full bg-[#FAF9F7]/95 dark:bg-[#052735]/95 backdrop-blur-xl border-r border-[#083A4F]/10 dark:border-[#407E8C]/15 text-neutral-800 dark:text-neutral-200 transition-all duration-300">
       
       {/* 1. Sidebar Brand Header */}
-      <div className="h-16 px-4 flex items-center justify-between border-b border-slate-100 dark:border-slate-800/80 shrink-0">
+      <div className="h-16 px-4 flex items-center justify-between border-b border-[#083A4F]/10 dark:border-[#407E8C]/15 shrink-0">
         <motion.button 
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
@@ -115,8 +115,8 @@ export const Sidebar = ({
           }}
           className="flex items-center gap-2.5 text-left overflow-hidden cursor-pointer"
         >
-          <div className="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center shadow-md shadow-blue-500/20 shrink-0">
-            <Brain className="w-5 h-5" />
+          <div className="w-9 h-9 rounded-xl bg-[#083A4F] text-white flex items-center justify-center shadow-md shadow-[#083A4F]/20 shrink-0 border border-[#407E8C]/30">
+            <Brain className="w-5 h-5 text-[#407E8C]" />
           </div>
           
           {!isCollapsed && (
@@ -125,10 +125,10 @@ export const Sidebar = ({
               animate={{ opacity: 1, x: 0 }}
               className="flex items-center gap-1.5"
             >
-              <span className="font-display font-extrabold text-lg text-slate-900 dark:text-white tracking-tight">
+              <span className="font-display font-extrabold text-lg text-[#083A4F] dark:text-white tracking-tight">
                 VIDYA
               </span>
-              <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-700 dark:bg-blue-900/60 dark:text-blue-300">
+              <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#A58D66] text-white shadow-xs">
                 AI
               </span>
             </motion.div>
@@ -139,7 +139,7 @@ export const Sidebar = ({
         <button
           onClick={() => setIsCollapsed(!isCollapsed)}
           title={isCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}
-          className="hidden lg:flex w-8 h-8 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 items-center justify-center transition-colors cursor-pointer"
+          className="hidden lg:flex w-8 h-8 rounded-lg text-neutral-400 hover:text-[#083A4F] dark:hover:text-white hover:bg-[#083A4F]/5 dark:hover:bg-white/5 items-center justify-center transition-colors cursor-pointer"
         >
           {isCollapsed ? <PanelLeftOpen className="w-4 h-4" /> : <PanelLeftClose className="w-4 h-4" />}
         </button>
@@ -147,7 +147,7 @@ export const Sidebar = ({
         {/* Mobile Close Button */}
         <button
           onClick={() => setMobileOpen && setMobileOpen(false)}
-          className="lg:hidden w-8 h-8 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-white flex items-center justify-center"
+          className="lg:hidden w-8 h-8 rounded-lg text-neutral-400 hover:text-[#083A4F] dark:hover:text-white flex items-center justify-center"
         >
           <X className="w-5 h-5" />
         </button>
@@ -158,7 +158,7 @@ export const Sidebar = ({
         {navSections.map((section, sIdx) => (
           <div key={sIdx} className="space-y-1">
             {!isCollapsed && (
-              <div className="px-3 pb-1 text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+              <div className="px-3 pb-1 text-[10px] font-mono font-bold uppercase tracking-wider text-[#083A4F]/60 dark:text-neutral-400">
                 {section.title}
               </div>
             )}
@@ -178,8 +178,8 @@ export const Sidebar = ({
                     title={isCollapsed ? item.label : undefined}
                     className={`relative w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-colors duration-150 cursor-pointer ${
                       isActive
-                        ? 'text-blue-600 dark:text-blue-400 font-bold'
-                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100/80 dark:hover:bg-slate-800/50'
+                        ? 'text-[#083A4F] dark:text-white font-bold'
+                        : 'text-neutral-600 dark:text-neutral-400 hover:text-[#083A4F] dark:hover:text-white hover:bg-[#083A4F]/5 dark:hover:bg-white/5'
                     } ${isCollapsed ? 'justify-center px-2' : ''}`}
                   >
                     {/* Vertical Active Pill Highlight */}
@@ -187,20 +187,20 @@ export const Sidebar = ({
                       <motion.div
                         layoutId="activeSidebarPill"
                         transition={{ type: "spring", stiffness: 400, damping: 32 }}
-                        className="absolute inset-0 bg-blue-50 dark:bg-blue-950/70 border-r-2 border-blue-600 dark:border-blue-400 rounded-xl -z-10"
+                        className="absolute inset-0 bg-[#407E8C]/15 dark:bg-[#407E8C]/25 border-r-2 border-[#407E8C] rounded-xl -z-10"
                       />
                     )}
 
-                    <Icon className={`w-4 h-4 shrink-0 transition-transform ${isActive ? 'text-blue-600 dark:text-blue-400 scale-110' : ''}`} />
+                    <Icon className={`w-4 h-4 shrink-0 transition-transform ${isActive ? 'text-[#407E8C] dark:text-[#6BB0C0] scale-110' : ''}`} />
 
                     {!isCollapsed && (
                       <div className="flex items-center justify-between flex-grow text-left">
                         <span className="truncate">{item.label}</span>
                         {item.badge && (
                           <span className={`px-1.5 py-0.2 rounded text-[9px] font-mono font-bold ${
-                            item.badge === 'Hot' ? 'bg-rose-100 text-rose-700 dark:bg-rose-950 dark:text-rose-300' :
-                            item.badge === 'Live' ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300' :
-                            'bg-blue-100 text-blue-700 dark:bg-blue-900/60 dark:text-blue-300'
+                            item.badge === 'Hot' ? 'bg-[#A58D66]/20 text-[#A58D66] dark:text-[#C5AF88]' :
+                            item.badge === 'Live' ? 'bg-[#407E8C]/20 text-[#407E8C] dark:text-[#6BB0C0]' :
+                            'bg-[#083A4F]/10 text-[#083A4F] dark:bg-white/10 dark:text-white'
                           }`}>
                             {item.badge}
                           </span>
@@ -216,19 +216,19 @@ export const Sidebar = ({
       </div>
 
       {/* 3. Bottom User Profile & Settings Deck */}
-      <div className="p-3 border-t border-slate-100 dark:border-slate-800/80 space-y-2 shrink-0 bg-slate-50/50 dark:bg-[#060B16]">
+      <div className="p-3 border-t border-[#083A4F]/10 dark:border-[#407E8C]/15 space-y-2 shrink-0 bg-[#FAF9F7]/80 dark:bg-[#052735]/80">
         
         {/* Dark / Light Mode Switch */}
         <button
           onClick={() => setIsDark(!isDark)}
-          className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-200/60 dark:hover:bg-slate-800 transition-all cursor-pointer ${
+          className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold text-neutral-600 dark:text-neutral-400 hover:bg-[#083A4F]/5 dark:hover:bg-white/5 transition-all cursor-pointer ${
             isCollapsed ? 'justify-center px-2' : ''
           }`}
         >
           {isDark ? (
-            <Sun className="w-4 h-4 text-amber-400 shrink-0" />
+            <Sun className="w-4 h-4 text-[#A58D66] shrink-0" />
           ) : (
-            <Moon className="w-4 h-4 text-slate-600 shrink-0" />
+            <Moon className="w-4 h-4 text-[#083A4F] shrink-0" />
           )}
           {!isCollapsed && <span>{isDark ? 'Light Theme' : 'Dark Theme'}</span>}
         </button>
@@ -237,20 +237,20 @@ export const Sidebar = ({
         {user ? (
           <DropdownMenu.Root>
             <DropdownMenu.Trigger asChild>
-              <button className={`w-full flex items-center gap-2.5 p-2 rounded-xl hover:bg-slate-200/60 dark:hover:bg-slate-800 transition-all text-left cursor-pointer ${
+              <button className={`w-full flex items-center gap-2.5 p-2 rounded-xl hover:bg-[#083A4F]/5 dark:hover:bg-white/5 transition-all text-left cursor-pointer ${
                 isCollapsed ? 'justify-center p-1.5' : ''
               }`}>
                 <img
                   src={user.avatar}
                   alt={user.name}
-                  className="w-8 h-8 rounded-full object-cover border border-blue-300 dark:border-blue-700 shrink-0"
+                  className="w-8 h-8 rounded-full object-cover border border-[#407E8C]/40 shrink-0"
                 />
                 {!isCollapsed && (
                   <div className="flex-grow truncate text-left">
-                    <div className="text-xs font-bold text-slate-900 dark:text-white truncate">
+                    <div className="text-xs font-bold text-[#083A4F] dark:text-white truncate">
                       {user.name}
                     </div>
-                    <div className="text-[10px] text-slate-500 dark:text-slate-400 truncate">
+                    <div className="text-[10px] text-neutral-500 dark:text-neutral-400 truncate">
                       {user.examTarget || 'B.Tech & GATE'}
                     </div>
                   </div>
@@ -262,16 +262,16 @@ export const Sidebar = ({
               <DropdownMenu.Content
                 side="right"
                 align="end"
-                className="z-50 min-w-[200px] p-1.5 rounded-2xl bg-white dark:bg-[#0D1326] border border-slate-200 dark:border-slate-800 shadow-xl text-xs space-y-1"
+                className="z-50 min-w-[200px] p-1.5 rounded-xl bg-white dark:bg-[#062432] border border-[#083A4F]/15 dark:border-[#407E8C]/20 shadow-xl text-xs space-y-1"
               >
-                <div className="px-3 py-2 border-b border-slate-100 dark:border-slate-800">
-                  <div className="font-bold text-slate-900 dark:text-white">{user.name}</div>
-                  <div className="text-[10px] text-slate-500 font-mono truncate">{user.email}</div>
+                <div className="px-3 py-2 border-b border-black/[0.06] dark:border-white/[0.08]">
+                  <div className="font-bold text-[#083A4F] dark:text-white">{user.name}</div>
+                  <div className="text-[10px] text-neutral-500 font-mono truncate">{user.email}</div>
                 </div>
 
                 <DropdownMenu.Item
                   onClick={() => setActiveTab('dashboard')}
-                  className="px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-2 cursor-pointer font-medium text-slate-700 dark:text-slate-300"
+                  className="px-3 py-2 rounded-lg hover:bg-black/[0.04] dark:hover:bg-white/[0.06] flex items-center gap-2 cursor-pointer font-medium text-neutral-700 dark:text-neutral-300"
                 >
                   <LayoutDashboard className="w-3.5 h-3.5" />
                   <span>Student Dashboard</span>
@@ -279,7 +279,7 @@ export const Sidebar = ({
 
                 <DropdownMenu.Item
                   onClick={handleLogout}
-                  className="px-3 py-2 rounded-xl hover:bg-rose-50 dark:hover:bg-rose-950/60 text-rose-600 dark:text-rose-400 flex items-center gap-2 cursor-pointer font-medium"
+                  className="px-3 py-2 rounded-lg hover:bg-rose-50 dark:hover:bg-rose-950/60 text-rose-600 dark:text-rose-400 flex items-center gap-2 cursor-pointer font-medium"
                 >
                   <LogOut className="w-3.5 h-3.5" />
                   <span>Sign Out</span>
@@ -290,7 +290,7 @@ export const Sidebar = ({
         ) : (
           <button
             onClick={() => setAuthModalOpen(true)}
-            className={`w-full py-2.5 px-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-sm flex items-center justify-center gap-2 transition-all cursor-pointer ${
+            className={`w-full py-2.5 px-3 rounded-xl bg-[#407E8C] hover:bg-[#346875] text-white font-bold text-xs shadow-sm flex items-center justify-center gap-2 transition-all cursor-pointer ${
               isCollapsed ? 'p-2' : ''
             }`}
           >

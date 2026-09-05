@@ -102,30 +102,30 @@ export const FeatureGridSection = ({ setActiveTab }) => {
               whileHover={{ y: -4, scale: 1.01 }}
               transition={{ duration: 0.22, ease: 'easeOut' }}
               onClick={() => setActiveTab(feat.id)}
-              className="p-6 rounded-3xl frosted-glass-card liquid-sheen cursor-pointer group flex flex-col justify-between space-y-4 relative overflow-hidden transition-all duration-300"
+              className="p-6 rounded-2xl frosted-glass-card liquid-sheen cursor-pointer group flex flex-col justify-between space-y-4 relative overflow-hidden transition-all duration-300"
             >
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold frosted-glass-pill text-neutral-700 dark:text-neutral-300">
+                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold frosted-glass-pill text-[#083A4F] dark:text-[#E5E1DD] border border-[#083A4F]/10 dark:border-[#E5E1DD]/15">
                     {feat.badge}
                   </span>
-                  <div className="w-8 h-8 rounded-xl frosted-glass flex items-center justify-center text-neutral-600 dark:text-neutral-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 group-hover:scale-110 transition-all">
+                  <div className="w-8 h-8 rounded-xl frosted-glass flex items-center justify-center text-[#083A4F]/70 dark:text-[#CBDCE3]/70 group-hover:text-[#407E8C] dark:group-hover:text-[#5499A8] group-hover:scale-110 transition-all border border-[#083A4F]/10 dark:border-[#E5E1DD]/15">
                     <Icon className="w-4 h-4" />
                   </div>
                 </div>
 
-                <h3 className="font-bold text-base text-neutral-900 dark:text-white font-display group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                <h3 className="font-bold text-base text-[#083A4F] dark:text-[#FAF9F8] font-display group-hover:text-[#407E8C] dark:group-hover:text-[#5499A8] transition-colors">
                   {feat.title}
                 </h3>
 
-                <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                <p className="text-xs text-[#083A4F]/70 dark:text-[#CBDCE3]/70 leading-relaxed font-sans">
                   {feat.description}
                 </p>
               </div>
 
-              <div className="text-xs font-semibold text-neutral-900 dark:text-white flex items-center gap-1 group-hover:translate-x-1.5 transition-transform pt-2 border-t border-black/[0.04] dark:border-white/[0.06]">
+              <div className="text-xs font-semibold text-[#083A4F] dark:text-[#E5E1DD] flex items-center gap-1 group-hover:translate-x-1.5 transition-transform pt-2 border-t border-[#083A4F]/10 dark:border-white/[0.06] group-hover:text-[#407E8C]">
                 <span>{feat.action}</span>
-                <ChevronRight className="w-3.5 h-3.5 text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-white" />
+                <ChevronRight className="w-3.5 h-3.5 text-[#407E8C] transition-colors" />
               </div>
             </motion.div>
           );

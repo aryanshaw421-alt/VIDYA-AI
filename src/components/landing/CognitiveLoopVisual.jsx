@@ -105,27 +105,27 @@ export const CognitiveLoopVisual = ({ setActiveTab }) => {
               key={step.id}
               type="button"
               onClick={() => setActiveStep(idx)}
-              className={`p-3.5 rounded-2xl text-left transition-all cursor-pointer border relative overflow-hidden ${
+              className={`p-3.5 rounded-xl text-left transition-all cursor-pointer border relative overflow-hidden ${
                 isActive
-                  ? 'bg-white dark:bg-[#12151D] border-neutral-900 dark:border-white shadow-md'
+                  ? 'bg-white dark:bg-[#083A4F]/40 border-[#083A4F] dark:border-[#407E8C] shadow-sm'
                   : 'bg-black/[0.02] dark:bg-white/[0.03] border-black/[0.05] dark:border-white/[0.06] hover:bg-white/60 dark:hover:bg-white/5'
               }`}
             >
               {isAccent && (
-                <div className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-[#D4F038] animate-pulse" />
+                <div className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-[#A58D66] animate-pulse" />
               )}
               <div className="flex items-center justify-between mb-2">
                 <span className={`text-[10px] font-mono font-bold ${
-                  isActive ? 'text-neutral-900 dark:text-white' : 'text-neutral-400'
+                  isActive ? 'text-[#083A4F] dark:text-white' : 'text-neutral-400'
                 }`}>
                   {step.badge.split('•')[0]}
                 </span>
                 <Icon className={`w-4 h-4 ${
-                  isActive ? 'text-blue-600 dark:text-blue-400' : 'text-neutral-400'
+                  isActive ? 'text-[#407E8C] dark:text-[#6BB0C0]' : 'text-neutral-400'
                 }`} />
               </div>
               <div className={`font-bold text-sm ${
-                isActive ? 'text-neutral-900 dark:text-white' : 'text-neutral-700 dark:text-neutral-300'
+                isActive ? 'text-[#083A4F] dark:text-white' : 'text-neutral-700 dark:text-neutral-300'
               }`}>
                 {step.title}
               </div>
@@ -145,17 +145,17 @@ export const CognitiveLoopVisual = ({ setActiveTab }) => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -8 }}
           transition={{ duration: 0.2 }}
-          className="rounded-3xl p-6 sm:p-8 bg-white dark:bg-[#12151D] border border-black/[0.08] dark:border-white/[0.08] shadow-sm relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
+          className="rounded-2xl p-6 sm:p-8 frosted-glass-card liquid-sheen border border-[#083A4F]/10 dark:border-white/[0.08] shadow-sm relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
         >
           <div className="space-y-3 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/[0.04] dark:bg-white/[0.06] text-neutral-800 dark:text-neutral-200 text-xs font-mono font-semibold">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#D4F038]" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-[#083A4F]/5 dark:bg-white/[0.06] text-neutral-800 dark:text-neutral-200 text-xs font-mono font-semibold">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#A58D66]" />
               <span>Phase {current.id + 1} of 6 • {current.subtitle}</span>
             </div>
-            <h3 className="text-xl sm:text-2xl font-bold font-display text-neutral-900 dark:text-white">
+            <h3 className="text-xl sm:text-2xl font-bold font-display text-[#083A4F] dark:text-white">
               {current.title}: {current.description}
             </h3>
-            <div className="inline-flex items-center gap-2 text-xs font-mono text-emerald-600 dark:text-emerald-400 font-semibold bg-emerald-50 dark:bg-emerald-950/50 px-3 py-1 rounded-full border border-emerald-200/50 dark:border-emerald-800/50">
+            <div className="inline-flex items-center gap-2 text-xs font-mono text-[#407E8C] dark:text-[#6BB0C0] font-semibold bg-[#407E8C]/10 dark:bg-[#407E8C]/20 px-3 py-1 rounded-lg border border-[#407E8C]/20">
               <Sparkles className="w-3.5 h-3.5" />
               <span>{current.stat}</span>
             </div>
@@ -166,7 +166,7 @@ export const CognitiveLoopVisual = ({ setActiveTab }) => {
               <button
                 type="button"
                 onClick={() => setActiveStep(prev => prev + 1)}
-                className="px-5 py-2.5 rounded-full bg-black/[0.04] hover:bg-black/[0.08] dark:bg-white/[0.08] dark:hover:bg-white/[0.12] text-neutral-900 dark:text-white font-medium text-xs border border-black/[0.08] dark:border-white/[0.1] transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                className="px-5 py-2.5 rounded-xl bg-black/[0.04] hover:bg-black/[0.08] dark:bg-white/[0.08] dark:hover:bg-white/[0.12] text-neutral-900 dark:text-white font-medium text-xs border border-black/[0.08] dark:border-white/[0.1] transition-all flex items-center justify-center gap-1.5 cursor-pointer"
               >
                 <span>Next Phase</span>
                 <ChevronRight className="w-3.5 h-3.5" />
@@ -176,7 +176,7 @@ export const CognitiveLoopVisual = ({ setActiveTab }) => {
             <button
               type="button"
               onClick={() => setActiveTab('digitalTwin')}
-              className="px-6 py-2.5 rounded-full bg-[#0E1015] dark:bg-white text-white dark:text-[#0E1015] font-semibold text-xs transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm hover:opacity-90"
+              className="px-6 py-2.5 rounded-xl bg-[#407E8C] hover:bg-[#346875] text-white font-semibold text-xs transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm"
             >
               <span>Explore Memory Twin</span>
               <ArrowRight className="w-3.5 h-3.5" />

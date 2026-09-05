@@ -158,14 +158,14 @@ export const App = () => {
 
   return (
     <TooltipProvider delayDuration={150}>
-      <div className="min-h-screen bg-[#F0F7FF] dark:bg-[#060D1A] text-neutral-900 dark:text-white flex flex-col font-sans transition-colors duration-300 selection:bg-[#0EA5E9] selection:text-white cyber-grid-overlay relative overflow-x-hidden">
+      <div className="min-h-screen bg-[#FAF9F7] dark:bg-[#052735] text-[#083A4F] dark:text-[#FAF9F8] flex flex-col font-sans transition-colors duration-300 selection:bg-[#407E8C] selection:text-white relative overflow-x-hidden">
         
-        {/* Sky Blue Global Ambient Fluid Glows for Genuine Frosted Glass Refraction */}
+        {/* Brand Ambient Fluid Glows (Navy, Teal, Gold & Sand) for Frosted Glass Refraction */}
         <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
-          <div className="liquid-ambient-orb liquid-orb-sky w-[680px] h-[680px] -top-28 -left-20 opacity-75 dark:opacity-60" />
-          <div className="liquid-ambient-orb liquid-orb-azure w-[620px] h-[620px] top-[28%] -right-32 opacity-70 dark:opacity-50" />
-          <div className="liquid-ambient-orb liquid-orb-cyan w-[580px] h-[580px] top-[58%] -left-28 opacity-65 dark:opacity-45" />
-          <div className="liquid-ambient-orb liquid-orb-ice w-[520px] h-[520px] -bottom-24 right-[12%] opacity-60 dark:opacity-40" />
+          <div className="liquid-ambient-orb liquid-orb-navy w-[680px] h-[680px] -top-28 -left-20 opacity-45 dark:opacity-60" />
+          <div className="liquid-ambient-orb liquid-orb-teal w-[620px] h-[620px] top-[28%] -right-32 opacity-50 dark:opacity-45" />
+          <div className="liquid-ambient-orb liquid-orb-sand w-[580px] h-[580px] top-[58%] -left-28 opacity-60 dark:opacity-30" />
+          <div className="liquid-ambient-orb liquid-orb-gold w-[520px] h-[520px] -bottom-24 right-[12%] opacity-40 dark:opacity-35" />
         </div>
       
         {/* Toast Notifications */}

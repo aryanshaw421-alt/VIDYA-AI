@@ -94,14 +94,14 @@ export const AiAssistant = ({ setActiveTab }) => {
       {/* Persistent Floating Bottom-Right Trigger Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 z-40 px-4 py-3 rounded-full bg-[#0E1015] dark:bg-white text-white dark:text-[#0E1015] shadow-xl hover:shadow-2xl hover:scale-105 transition-all flex items-center gap-2.5 font-medium text-xs cursor-pointer border border-black/10 dark:border-white/20 select-none"
+        className="fixed bottom-6 right-6 z-40 px-4 py-3 rounded-full bg-[#083A4F] text-white shadow-xl hover:shadow-2xl hover:scale-105 transition-all flex items-center gap-2.5 font-medium text-xs cursor-pointer border border-[#407E8C]/30 select-none"
         aria-label="Open VIDYA AI Assistant"
       >
         <span className="relative flex h-2 w-2">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D4F038] opacity-75" />
-          <span className="relative inline-flex rounded-full h-2 w-2 bg-[#D4F038]" />
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#A58D66] opacity-75" />
+          <span className="relative inline-flex rounded-full h-2 w-2 bg-[#A58D66]" />
         </span>
-        <Sparkles className="w-4 h-4 text-[#D4F038] dark:text-blue-600" />
+        <Sparkles className="w-4 h-4 text-[#A58D66]" />
         <span className="font-semibold">Ask VIDYA AI</span>
       </button>
 
@@ -109,12 +109,12 @@ export const AiAssistant = ({ setActiveTab }) => {
       <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm animate-fade-in" />
-          <Dialog.Content className="fixed bottom-6 right-6 sm:bottom-10 sm:right-10 z-50 w-[95vw] sm:w-[440px] max-h-[85vh] rounded-3xl bg-white dark:bg-[#12151D] border border-black/[0.08] dark:border-white/[0.08] shadow-2xl flex flex-col justify-between overflow-hidden animate-slide-in">
+          <Dialog.Content className="fixed bottom-6 right-6 sm:bottom-10 sm:right-10 z-50 w-[95vw] sm:w-[440px] max-h-[85vh] rounded-2xl bg-[#FAF9F7] dark:bg-[#052735] border border-[#083A4F]/15 dark:border-[#407E8C]/20 shadow-2xl flex flex-col justify-between overflow-hidden animate-slide-in">
             
             {/* Header */}
             <div className="p-4 sm:p-5 border-b border-black/[0.06] dark:border-white/[0.06] flex items-center justify-between bg-black/[0.02] dark:bg-white/[0.02]">
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-2xl bg-blue-600 text-white flex items-center justify-center shrink-0 shadow-sm">
+                <div className="w-9 h-9 rounded-xl bg-[#083A4F] text-[#407E8C] flex items-center justify-center shrink-0 shadow-sm border border-[#407E8C]/30">
                   <Brain className="w-4 h-4" />
                 </div>
                 <div>

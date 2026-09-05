@@ -147,9 +147,9 @@ export const Dashboard = ({ setActiveTab, user }) => {
   return (
     <div className="relative w-full fluid-container py-6 sm:py-10 animate-fade-in space-y-8">
       {/* Ambient Neural Backlight Orbs */}
-      <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[850px] h-[380px] bg-blue-600/10 dark:bg-blue-600/20 blur-[130px] rounded-full pointer-events-none -z-10" />
-      <div className="absolute top-96 right-10 w-[450px] h-[450px] bg-cyan-500/5 dark:bg-cyan-500/10 blur-[110px] rounded-full pointer-events-none -z-10" />
-      <div className="absolute top-[650px] left-10 w-[400px] h-[400px] bg-[#D4F038]/5 dark:bg-[#D4F038]/8 blur-[100px] rounded-full pointer-events-none -z-10" />
+      <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[850px] h-[380px] bg-[#083A4F]/10 dark:bg-[#083A4F]/20 blur-[130px] rounded-full pointer-events-none -z-10" />
+      <div className="absolute top-96 right-10 w-[450px] h-[450px] bg-[#407E8C]/10 dark:bg-[#407E8C]/15 blur-[110px] rounded-full pointer-events-none -z-10" />
+      <div className="absolute top-[650px] left-10 w-[400px] h-[400px] bg-[#A58D66]/8 dark:bg-[#A58D66]/12 blur-[100px] rounded-full pointer-events-none -z-10" />
       
       {/* 1. Header: Greeting, User Name, Twin Status & Exam Target */}
       <DashboardHeader
@@ -166,9 +166,9 @@ export const Dashboard = ({ setActiveTab, user }) => {
           growth={learningMetrics?.prerequisiteReadiness?.growth ?? '+4.2% this week'}
           isPositive={learningMetrics?.prerequisiteReadiness?.isPositive ?? true}
           progress={learningMetrics?.prerequisiteReadiness?.value ?? 87}
-          progressColor="bg-blue-600 dark:bg-blue-500"
+          progressColor="bg-[#407E8C]"
           subtext={learningMetrics?.prerequisiteReadiness?.subtext ?? 'High focus window (42m remaining)'}
-          edgeColor="blue"
+          edgeColor="teal"
           icon={Brain}
           onClick={() => setActiveTab('conceptGraph')}
         />
@@ -180,7 +180,7 @@ export const Dashboard = ({ setActiveTab, user }) => {
           isPositive={learningMetrics?.predictedRank?.isPositive ?? true}
           badgeText={learningMetrics?.predictedRank?.target ? `Target: ${learningMetrics.predictedRank.target}` : 'Target: Top 500'}
           subtext={learningMetrics?.predictedRank?.subtext ?? 'Target: Top 500 in GATE 2027'}
-          edgeColor="cyan"
+          edgeColor="teal"
           icon={CheckCircle2}
           onClick={() => setActiveTab('mockTests')}
         />
@@ -191,9 +191,9 @@ export const Dashboard = ({ setActiveTab, user }) => {
           growth={`${learningMetrics?.memoryRetention?.halfLifeDays ?? 18}-day half-life`}
           isPositive={learningMetrics?.memoryRetention?.isPositive ?? true}
           progress={learningMetrics?.memoryRetention?.value ?? 92.4}
-          progressColor="bg-emerald-500"
+          progressColor="bg-[#A58D66]"
           subtext={learningMetrics?.memoryRetention?.subtext ?? '18-day half-life (0 backlogs at velocity)'}
-          edgeColor="lime"
+          edgeColor="gold"
           icon={Zap}
           onClick={() => setActiveTab('digitalTwin')}
         />
@@ -204,9 +204,9 @@ export const Dashboard = ({ setActiveTab, user }) => {
           growth={learningMetrics?.studyVelocity?.growth ?? '+18% acceleration'}
           isPositive={learningMetrics?.studyVelocity?.isPositive ?? true}
           progress={75}
-          progressColor="bg-[#D4F038]"
+          progressColor="bg-[#083A4F] dark:bg-[#407E8C]"
           subtext={learningMetrics?.studyVelocity?.subtext ?? 'Ahead of typical cohort preparation speed'}
-          edgeColor="blue"
+          edgeColor="navy"
           icon={Flame}
           onClick={() => setActiveTab('dashboard')}
         />
@@ -256,28 +256,28 @@ export const Dashboard = ({ setActiveTab, user }) => {
           {/* Study Material & PYQ Vault */}
           <SpotlightCard
             glowEdge={true}
-            edgeColor="blue"
+            edgeColor="teal"
             className="p-6 sm:p-7 space-y-4"
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 flex items-center justify-center font-bold">
+                <div className="w-10 h-10 rounded-xl bg-[#407E8C]/10 text-[#407E8C] dark:text-[#6BB0C0] border border-[#407E8C]/20 flex items-center justify-center font-bold">
                   <BookOpen className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-sm text-neutral-900 dark:text-white font-display">Study Material Vault</h3>
+                  <h3 className="font-bold text-sm text-[#083A4F] dark:text-white font-display">Study Material Vault</h3>
                   <p className="text-xs text-neutral-500 dark:text-neutral-400">Connected Semester Notes & PYQs</p>
                 </div>
               </div>
-              <span className="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[10px] font-mono font-semibold border border-emerald-500/25">
+              <span className="px-2.5 py-1 rounded-full bg-[#407E8C]/10 text-[#407E8C] dark:text-[#6BB0C0] text-[10px] font-mono font-semibold border border-[#407E8C]/25">
                 100% Synced
               </span>
             </div>
 
-            <div className="p-3.5 rounded-2xl bg-[#F8F9FA] dark:bg-[#06080F]/90 border border-black/[0.05] dark:border-white/[0.06] text-xs space-y-1 font-mono">
+            <div className="p-3.5 rounded-xl bg-[#FAF9F7] dark:bg-[#06080F]/90 border border-[#083A4F]/10 dark:border-white/[0.06] text-xs space-y-1 font-mono">
               <div className="text-[11px] text-neutral-700 dark:text-neutral-300 flex items-center justify-between">
                 <span>📚 14 Course Modules & 5-Year PYQs</span>
-                <span className="text-blue-600 dark:text-blue-400 font-bold">Active</span>
+                <span className="text-[#407E8C] dark:text-[#6BB0C0] font-bold">Active</span>
               </div>
               <div className="text-[10px] text-neutral-400 truncate">
                 Target: {activeUser?.examTarget || 'B.Tech CSE Semester 3-6'}
@@ -313,11 +313,11 @@ export const Dashboard = ({ setActiveTab, user }) => {
           {/* Quick AI Feature Launchers */}
           <SpotlightCard
             glowEdge={true}
-            edgeColor="lime"
+            edgeColor="gold"
             className="p-6 sm:p-7 space-y-4"
           >
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-bold font-display text-neutral-900 dark:text-white">
+              <h3 className="text-sm font-bold font-display text-[#083A4F] dark:text-white">
                 Cognitive Intelligence Suite
               </h3>
               <span className="text-[10px] font-mono text-neutral-400 uppercase font-semibold">6 Neural Tools</span>
@@ -337,12 +337,12 @@ export const Dashboard = ({ setActiveTab, user }) => {
                   <button
                     key={tool.id}
                     onClick={() => setActiveTab(tool.id)}
-                    className="p-3.5 rounded-2xl bg-[#F8F9FA] dark:bg-[#06080F]/90 border border-black/[0.05] dark:border-white/[0.06] text-left hover:border-blue-500/40 dark:hover:border-blue-500/40 hover:shadow-xs transition-all group cursor-pointer"
+                    className="p-3.5 rounded-xl bg-[#FAF9F7] dark:bg-[#06080F]/90 border border-[#083A4F]/10 dark:border-white/[0.06] text-left hover:border-[#407E8C]/50 hover:shadow-xs transition-all group cursor-pointer"
                   >
-                    <div className="w-7 h-7 rounded-xl bg-black/[0.04] dark:bg-white/[0.06] text-neutral-700 dark:text-neutral-300 flex items-center justify-center mb-2 group-hover:scale-105 group-hover:text-blue-500 transition-all border border-black/[0.04] dark:border-white/[0.06]">
+                    <div className="w-7 h-7 rounded-lg bg-black/[0.04] dark:bg-white/[0.06] text-[#083A4F] dark:text-neutral-300 flex items-center justify-center mb-2 group-hover:scale-105 group-hover:text-[#407E8C] transition-all border border-black/[0.04] dark:border-white/[0.06]">
                       <ToolIcon className="w-3.5 h-3.5" />
                     </div>
-                    <div className="font-bold text-xs text-neutral-900 dark:text-white group-hover:text-blue-500 transition-colors">{tool.title}</div>
+                    <div className="font-bold text-xs text-[#083A4F] dark:text-white group-hover:text-[#407E8C] transition-colors">{tool.title}</div>
                     <div className="text-[10px] text-neutral-400 mt-0.5 truncate">{tool.desc}</div>
                   </button>
                 );

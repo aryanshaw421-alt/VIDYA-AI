@@ -14,10 +14,13 @@ export const ProgressIndicator = ({
   const percentage = Math.min(100, Math.max(0, (value / max) * 100));
 
   const variantFills = {
-    primary: 'bg-blue-600 dark:bg-blue-500',
+    primary: 'bg-[#407E8C]',
+    navy: 'bg-[#083A4F]',
     success: 'bg-emerald-600 dark:bg-emerald-500',
-    warning: 'bg-amber-500 dark:bg-amber-400',
-    accent: 'bg-[#D4F038]'
+    warning: 'bg-[#A58D66]',
+    accent: 'bg-[#A58D66]',
+    gold: 'bg-[#A58D66]',
+    teal: 'bg-[#407E8C]'
   };
 
   return (
